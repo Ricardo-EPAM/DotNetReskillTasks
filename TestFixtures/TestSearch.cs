@@ -71,6 +71,8 @@ public class TestSearch : BaseTest
 
         // We only read the articles loaded (10) in order to get them all we would need to scroll many times.
         var links = globalSearchPage.GetAllLinksFromSearchResults();
+        // GetAllLinksFromSearchResults() method uses LINQ, for assertion is better to use Assert.Multiple instead of:
+        // Assert.That(links.All(x => x.Contains(searchCriteria)), globalSearchPage.invalidGlobalSearchResult);
         Assert.Multiple(() =>
         {
             foreach (var link in links)
