@@ -122,14 +122,14 @@ public class TestEPAM : BaseTest
         // Done through the Base test TearDown 
     }
 
-    [TestCase("EPAM_Corporate_Overview_Q4FY-2024.pdf")]
-    public void TestCarrouselArticles(string filePath)
+    [Test]
+    public void TestCarrouselArticles()
     {
-
         //1.Create a Chrome instance.
         //2.Navigate to https://www.epam.com/.
         // Done through the Base test SetUp 
         InsightsPage insightsPage = new(driver: driver);
+        insightsPage.ClickAcceptCookies();
         var files = new FilesHelper(GlobalVariables.DownloadsPath);
 
         //3.Select “Insights” from the top menu.
@@ -140,19 +140,18 @@ public class TestEPAM : BaseTest
         insightsPage.SwipeCarrousel("Right");
 
         //5.Note the name of the article.
-        var carouselTitle = insightsPage.GetCarouselTitle(); // div.media-content 
+        var carouselTitle = insightsPage.GetCarouselTitle(); 
 
         //6.Click on the “Read More” button.
         insightsPage.ClickReadMoreFromActiveArticleInCarousel();
 
         //7.Validate that the name of the article matches with the noted above.
         var acticleTitle = insightsPage.GetArticlelTitle();
-        Assert.That(carouselTitle, Is.EqualTo(acticleTitle), insightsPage.articleNotMatchinTitle);
+        Assert.That(acticleTitle, Is.EqualTo(carouselTitle), insightsPage.articleNotMatchinTitle);
 
         //8.Close the browser.
         // Done through the Base test TearDown 
     }
-
 }
 
 

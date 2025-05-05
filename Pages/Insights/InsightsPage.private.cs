@@ -1,5 +1,4 @@
 ﻿using ATA_Dotnet_Selenium_task.Constants;
-using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.WaitHelpers;
 
@@ -17,35 +16,49 @@ internal partial class InsightsPage
         }
         if (left_or_right.ToLower() == "right")
         {
-
+            new WebDriverWait(_driver, GlobalVariables.ExplicitWaitDefault).
+            Until(ExpectedConditions.ElementIsVisible(_swipeRight));
+            CarouselSwipeRight.Click();
         }
         else // left
         {
-
+            new WebDriverWait(_driver, GlobalVariables.ExplicitWaitDefault).
+            Until(ExpectedConditions.ElementIsVisible(_swipeLeft));
+            CarouselSwipeLeft.Click();
         }
     }
 
     //5.	Note the name of the article.
     internal string GetCarouselTitle()
     {
-        new WebDriverWait(_driver, GlobalVariables.ExplicitWaitLong).
-            Until(ExpectedConditions.PresenceOfAllElementsLocatedBy(_downloadButtonLink));
-        EPAMGlanceDownloadButton.Click();
+        new WebDriverWait(_driver, GlobalVariables.ExplicitWaitDefault).
+            Until(ExpectedConditions.ElementIsVisible(_carouselActiveElement));
+        return CarouselTitle.Text.Trim();
     }
 
     //6.	Click on the “Read More” button. ClickReadMoreFromActiveArticleInCarousel
     internal void ClickReadMoreFromActiveArticleInCarousel()
     {
-        new WebDriverWait(_driver, GlobalVariables.ExplicitWaitLong).
-            Until(ExpectedConditions.PresenceOfAllElementsLocatedBy(_downloadButtonLink));
-        EPAMGlanceDownloadButton.Click();
+        new WebDriverWait(_driver, GlobalVariables.ExplicitWaitDefault).
+            Until(ExpectedConditions.ElementToBeClickable(CarouselReadMoreLink));
+        CarouselReadMoreLink.Click();
     }
 
     //7.	Validate that the name of the article matches with the noted above.  GetArticlelTitle
     internal string GetArticlelTitle()
     {
-        new WebDriverWait(_driver, GlobalVariables.ExplicitWaitLong).
-            Until(ExpectedConditions.PresenceOfAllElementsLocatedBy(_downloadButtonLink));
-        EPAMGlanceDownloadButton.Click();
+        try // EPAM Continum, etc.
+        {
+            new WebDriverWait(_driver, GlobalVariables.ExplicitWaitDefault).
+               Until(ExpectedConditions.ElementIsVisible(_artivcleTitle));
+            return ArticleTitle.Text;
+        }
+        catch (Exception) // AI Report, etc.
+        {
+            new WebDriverWait(_driver, GlobalVariables.ExplicitWaitDefault).
+          Until(ExpectedConditions.ElementIsVisible(_artivcleTitleV2));
+            return ArticleTitleV2.Text.Trim();
+        }
+
     }
 }
