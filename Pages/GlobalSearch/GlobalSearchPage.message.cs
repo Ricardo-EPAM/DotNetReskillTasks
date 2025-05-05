@@ -1,5 +1,3 @@
-﻿using NUnit.Framework;
-
 namespace DotnetTaskSeleniumNunit.Pages.GlobalSearch;
 
 internal partial class GlobalSearchPage

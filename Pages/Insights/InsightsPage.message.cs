@@ -1,5 +1,5 @@
 ﻿
-namespace ATA_Dotnet_Selenium_task.Pages.Insights;
+namespace DotnetTaskSeleniumNunit.Pages.Insights;
 
 internal partial class InsightsPage
 {

@@ -1,7 +1,7 @@
-﻿using ATA_Dotnet_Selenium_task.Pages.GlobalSearch;
+﻿using DotnetTaskSeleniumNunit.Pages.GlobalSearch;
 using OpenQA.Selenium;
 
-namespace ATA_Dotnet_Selenium_task.Pages.About;
+namespace DotnetTaskSeleniumNunit.Pages.About;
 
 internal partial class AboutPage
 {

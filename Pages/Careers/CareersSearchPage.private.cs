@@ -1,5 +1,5 @@
-﻿using DotnetTaskSeleniumNunit.Constants;
-using DotnetTaskSeleniumNunit.Models.Careers;
+﻿using DotnetTaskSeleniumNunit.Models.Careers;
+using DotnetTaskSeleniumNunit.Pages.JobDetails;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.WaitHelpers;
@@ -112,13 +112,14 @@ internal partial class CareerSearchPage
         return GetJobSections().Last();
     }
 
-    private void ClickApplyAndViewFromSection(IWebElement section)
+    private JobDetailsPage ClickApplyAndViewFromSection(IWebElement section)
     {
         try
         {
             new WebDriverWait(_driver, _vars.ExplicitWaitDefault).
                 Until(ExpectedConditions.VisibilityOfAllElementsLocatedBy(_applyButtonFromVacancy));
             section.FindElement(_applyButtonFromVacancy).Click();
+            return new JobDetailsPage(_driver);
         }
         catch (Exception ex)
         {

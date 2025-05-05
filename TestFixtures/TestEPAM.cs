@@ -1,20 +1,22 @@
-using ATA_Dotnet_Selenium_task.Pages.About;
-using ATA_Dotnet_Selenium_task.Pages.Insights;
-using DotnetTaskSeleniumNunit.Helpers;
-using DotnetTaskSeleniumNunit.Models.Careers;
+using DotnetTaskSeleniumNunit.Pages.Insights;
+using DotnetTaskSeleniumNunit.Pages.About;
 using DotnetTaskSeleniumNunit.Pages.Careers;
+using DotnetTaskSeleniumNunit.Pages.Article;
 using DotnetTaskSeleniumNunit.Pages.GlobalSearch;
-using DotnetTaskSeleniumNunit.Pages.Navigation;
+using DotnetTaskSeleniumNunit.Pages.JobDetails;
+using DotnetTaskSeleniumNunit.Constants;
+using DotnetTaskSeleniumNunit.Helpers;
+
 using NUnit.Framework.Internal;
 using OpenQA.Selenium;
-
+using DotnetTaskSeleniumNunit.Models.Careers;
+using DotnetTaskSeleniumNunit.Pages.Navigation;
 namespace DotnetTaskSeleniumNunit.TestFixtures;
 
 
 [TestFixture]
 public class TestEPAM : BaseTest
 {
-
     [TestCase("Perl", "all_locations", CareerModality.Remote)]
     [TestCase("Python", "all_Mexico", CareerModality.Relocation)]
     [TestCase(".NET", "all_Mexico", CareerModality.Office)]
@@ -32,9 +34,9 @@ public class TestEPAM : BaseTest
 
         IWebElement jobSection = careersSearchPage.GetLastJobSection();
 
-        careersSearchPage.ApplyAndView(fromSection: jobSection);
+        JobDetailsPage jobDetails = careersSearchPage.ApplyAndView(fromSection: jobSection);
 
-        string jobDescription = careersSearchPage.GetJobDescription();
+        string jobDescription = jobDetails.GetJobDescription();
         Assert.That(jobDescription, Does.Contain(searchText));
     }
 
@@ -66,6 +68,7 @@ public class TestEPAM : BaseTest
             }
         });
     }
+
     [TestCase("EPAM_Corporate_Overview_Q4FY-2024.pdf")]
     public void TestDownloadFile(string filePath)
     {
@@ -77,7 +80,7 @@ public class TestEPAM : BaseTest
 
         // Preconditions, file should not exist at this point.
         Assert.That(files.DoesFileExist(filePath, tries: 1), Is.False, aboutPage.testPreconditionsFailed);
-        aboutPage.ClickAcceptCookies();
+        aboutPage.AcceptCookies();
 
         //3.Select “About” from the top menu.
         aboutPage.NavigateToTabByText("About");
@@ -98,10 +101,10 @@ public class TestEPAM : BaseTest
         // Done through the Base test TearDown 
     }
 
-    [TestCase(4)]
-    [TestCase(3)]
-    [TestCase(2)]
     [TestCase(1)]
+    [TestCase(2)]
+    [TestCase(3)]
+    [TestCase(4)]
     public void TestCarrouselArticles(int carouselIndex)
     {
         //1.Create a Chrome instance.
@@ -109,7 +112,7 @@ public class TestEPAM : BaseTest
         // Done through the Base test SetUp 
         InsightsPage insightsPage = new(driver: driver);
         var files = new FilesHelper(vars.DownloadsPath);
-        insightsPage.ClickAcceptCookies();
+        insightsPage.AcceptCookies();
 
         //3.Select “Insights” from the top menu.
         insightsPage.NavigateToTabByText("Insights");
@@ -121,10 +124,10 @@ public class TestEPAM : BaseTest
         var carouselTitle = insightsPage.GetCarouselTitle(); 
 
         //6.Click on the “Read More” button.
-        insightsPage.ClickReadMoreFromActiveArticleInCarousel();
+        ArticlePage articlePage = insightsPage.ClickReadMoreFromActiveArticleInCarousel();
 
         //7.Validate that the name of the article matches with the noted above.
-        var acticleTitle = insightsPage.GetArticlelTitle();
+        var acticleTitle = articlePage.GetArticlelTitle();
         Assert.That(acticleTitle, Is.EqualTo(carouselTitle), insightsPage.articleNotMatchinTitle);
 
         //8.Close the browser.

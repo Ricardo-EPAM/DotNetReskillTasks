@@ -1,6 +1,5 @@
-﻿using NUnit.Framework;
 
-namespace DotnetTaskSeleniumNunit.Pages.Careers;
+﻿namespace DotnetTaskSeleniumNunit.Pages.Careers;
 
 internal partial class CareerSearchPage
 {
