@@ -49,11 +49,18 @@ public class BaseTest
             PageLoadStrategy = vars.PageLoadStrategy,
             PageLoadTimeout = vars.PageLoadTimeout,
         };
-        driver = new ChromeDriver(options);
 
         ArgumentNullException.ThrowIfNull(config);
         string? url = config["ApplicationSettings:BaseURL"];
         ArgumentNullException.ThrowIfNull(url);
+        bool isHeadless = vars.IsHeadless;
+        if (isHeadless)
+        {
+            options.AddArgument("--headless");
+            options.AddArgument("--window-size=1920,1080");
+        }
+
+        driver = new ChromeDriver(options);
         driver.Navigate().GoToUrl(url);
         driver.Manage().Window.Maximize();
         driver.Manage().Timeouts().ImplicitWait = vars.ImplicitWaitTimeout;

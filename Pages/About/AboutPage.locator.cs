@@ -1,0 +1,14 @@
+﻿using ATA_Dotnet_Selenium_task.Pages.GlobalSearch;
+using OpenQA.Selenium;
+
+namespace ATA_Dotnet_Selenium_task.Pages.About;
+
+internal partial class AboutPage
+{
+    private readonly By _epamGlanceSection = By.XPath("//section[contains(normalize-space(.),'EPAM at a Glance')]");
+    private readonly By _downloadButtonLink = By.XPath("//a[@download]");
+
+    private IWebElement EPAMGlanceSection => _driver.FindElement(_epamGlanceSection);
+
+    private IWebElement EPAMGlanceDownloadButton => _driver.FindElement(_downloadButtonLink);
+}
