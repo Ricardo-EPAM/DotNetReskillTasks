@@ -70,7 +70,7 @@ public class TestSearch : BaseTest
         // 5.Validate that all links in a list contain the word “BLOCKCHAIN”/”Cloud”/”Automation” in the text. LINQ should be used.
 
         // We only read the articles loaded (10) in order to get them all we would need to scroll many times.
-        var links = globalSearchPage.GetAllLinksFromSearchResults();
+        var links = globalSearchPage.GetAllArticlesTextFromSearchResults();
         // GetAllLinksFromSearchResults() method uses LINQ, for assertion is better to use Assert.Multiple instead of:
         // Assert.That(links.All(x => x.Contains(searchCriteria)), globalSearchPage.invalidGlobalSearchResult);
         Assert.Multiple(() =>

@@ -9,6 +9,7 @@ internal partial class GlobalSearchPage
     private readonly By _findButton = By.XPath("//input[ @name = 'q']/../following-sibling::button");
     private readonly By _resultsArticlesDivs = By.TagName("article");
     private readonly By _links = By.TagName("a");
+    private readonly By _descriptions = By.TagName("p");
 
     private IWebElement MagnifierIcon => _driver.FindElement(_magnifierIcon);
     private IWebElement SearchField => _driver.FindElement(_searchField);

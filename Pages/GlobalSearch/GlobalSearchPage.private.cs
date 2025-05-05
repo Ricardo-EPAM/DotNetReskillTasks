@@ -30,16 +30,22 @@ internal partial class GlobalSearchPage
         Findbutton.Click();
     }
     // 5.	Validate that all links in a list contain the word “BLOCKCHAIN”/”Cloud”/”Automation” in the text.LINQ should be used.
-    internal IEnumerable<string?> GetAllLinksFromSearchResults()
+
+    /// <summary>
+    /// In order to validate article contains expected keyword we search in the Article; link and description.
+    /// </summary>
+    /// <returns>A list of strings with link+description text</returns>
+    internal IEnumerable<string?> GetAllArticlesTextFromSearchResults()
     {
         new WebDriverWait(_driver, GlobalVariables.ExplicitWaitDefault).
             Until(ExpectedConditions.PresenceOfAllElementsLocatedBy(_resultsArticlesDivs));
-        var linksWebElements = new List<IWebElement>();
+        var articleTexts = new List<string>();
         foreach (var article in ResultsArticles)
         {
-            linksWebElements.Add(article.FindElement(_links));
+            var linkText = article.FindElement(_links).GetAttribute("href");
+            var descriptionText = article.FindElement(_descriptions).Text;
+            articleTexts.Add(linkText + descriptionText);
         }
-        IEnumerable<string?> links = linksWebElements.Select(a => a.GetAttribute("href"));
-        return links;
+        return articleTexts;
     }
 }
