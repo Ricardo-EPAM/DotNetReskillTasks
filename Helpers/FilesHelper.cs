@@ -6,7 +6,7 @@ namespace DotnetTaskSeleniumNunit.Helpers
     {
         private readonly string _filesPath;
 
-        public FilesHelper(string downloadsPath)
+        public FilesHelper()
         {
             _filesPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "Downloads");
         }

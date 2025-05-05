@@ -97,7 +97,7 @@ public class TestEPAM : BaseTest
         //2.Navigate to https://www.epam.com/.
         // Done through the Base test SetUp 
         AboutPage aboutPage = new(driver: driver);
-        var files = new FilesHelper(GlobalVariables.DownloadsPath);
+        var files = new FilesHelper();
 
         // Preconditions, file should not exist at this point.
         Assert.That(files.DoesFileExist(filePath, tries: 1), Is.False, aboutPage.testPreconditionsFailed);
@@ -133,7 +133,6 @@ public class TestEPAM : BaseTest
         // Done through the Base test SetUp 
         InsightsPage insightsPage = new(driver: driver);
         insightsPage.ClickAcceptCookies();
-        var files = new FilesHelper(GlobalVariables.DownloadsPath);
 
         //3.Select “Insights” from the top menu.
         insightsPage.NavigateToTabByText("Insights");

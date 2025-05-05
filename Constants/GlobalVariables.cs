@@ -10,7 +10,5 @@ static class GlobalVariables
     public static TimeSpan PageLoadTimeout = TimeSpan.FromSeconds(4);
     public static PageLoadStrategy PageLoadStrategy = PageLoadStrategy.Default;
     public static string BaseURL = "https://www.epam.com";
-    public static bool IsHeadless = false;
-    public static string DownloadsPath = "C:\\Users\\{username}\\Downloads";
-
+    public static bool IsHeadless = true;
 }

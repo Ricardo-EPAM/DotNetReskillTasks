@@ -75,6 +75,7 @@ internal partial class CareerSearchPage
         var selection = ModalityBoxes.First(x => x.GetAttribute("name")?.Contains(modalityText) == true);
         selection.FindElement(_followingLabel).Click();
     }
+
     //6.	Click on the button “Find”
     internal void ClickFindButton()
     {
@@ -82,6 +83,7 @@ internal partial class CareerSearchPage
             Until(ExpectedConditions.ElementToBeClickable(_findButton));
         FindVacancyButton.Click();
     }
+
     //7.	Find the latest element in the list of results
     internal IWebElement GetLastJobSection()
     {

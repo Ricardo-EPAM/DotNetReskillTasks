@@ -9,7 +9,8 @@ internal partial class NavigationBar
 {
     public IWebElement SelectElementByText(IEnumerable<IWebElement> elements, string text)
     {
-        ((ITakesScreenshot)_driver).GetScreenshot().SaveAsFile($"screenshot{new Random().NextInt64(1000)}.png");
+        // Screenshot used to debug headless mode.
+        //((ITakesScreenshot)_driver).GetScreenshot().SaveAsFile($"screenshot{new Random().NextInt64(1000)}.png");
         return elements.First(x => x.Text == text);
     }
 
