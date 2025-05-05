@@ -1,10 +1,6 @@
-<<<<<<< HEAD
 ﻿using DotnetTaskSeleniumNunit.Constants;
 using log4net;
 using OpenQA.Selenium;
-=======
-﻿using OpenQA.Selenium;
->>>>>>> 336b864 (fixing bad namespaces and bad pages distribution)
 
 namespace DotnetTaskSeleniumNunit.Pages.Navigation;
 

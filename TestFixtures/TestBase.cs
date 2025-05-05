@@ -3,13 +3,14 @@ using DotnetTaskSeleniumNunit.Constants;
 using log4net;
 using log4net.Config;
 using Microsoft.Extensions.Configuration;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 
 namespace DotnetTaskSeleniumNunit;
 
 
 [TestFixture]
-public class BaseTest
+public class BaseTest : IDisposable
 {
     private protected ChromeDriver? driver;
     private protected ILog logger;
@@ -54,10 +55,18 @@ public class BaseTest
         string? url = config["ApplicationSettings:BaseURL"];
         ArgumentNullException.ThrowIfNull(url);
         bool isHeadless = vars.IsHeadless;
+
         if (isHeadless)
         {
-            options.AddArgument("--headless");
-            options.AddArgument("--window-size=1920,1080");
+            options.AddArgument("--headless=new");
+            options.AddArgument("--disable-gpu");
+            options.AddArgument("--disable-blink-features=AutomationControlled"); // Hide automation traces
+            options.AddArgument("--disable-dev-shm-usage"); // Prevent shared memory issues
+            options.AddArgument("--no-sandbox"); // Bypass OS restriction for performance
+            options.AddArgument("--disable-infobars"); // Disable Chrome's "automation" bar
+            options.AddArgument("window-size=1366,768");
+            options.AddExcludedArgument("enable-automation");
+            options.AddArgument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.7103.49 Safari/537.36");
         }
 
         driver = new ChromeDriver(options);
@@ -65,6 +74,10 @@ public class BaseTest
         driver.Manage().Window.Maximize();
         driver.Manage().Timeouts().ImplicitWait = vars.ImplicitWaitTimeout;
 
+        if (isHeadless)
+        {
+            ((IJavaScriptExecutor)driver).ExecuteScript("Object.defineProperty(navigator, 'webdriver', { get: () => false })");
+        }
         ArgumentNullException.ThrowIfNull(driver);
         logger.Info("Setup completed");
         logger.Info($"Initializing test: {TestContext.CurrentContext.Test.Name}");
@@ -75,7 +88,7 @@ public class BaseTest
     [TearDown]
     public void TearDown()
     {
-        driver?.Dispose();
+        Dispose();
         logger.Info($"Test finalized: {TestContext.CurrentContext.Test.Name}");
     }
 
@@ -83,6 +96,14 @@ public class BaseTest
     public void BaseTearDown()
     {
         logger.Info($"Feature execution finished: {TestContext.CurrentContext.Test.ClassName}");
+    }
+
+    public void Dispose()
+    {
+        if (driver != null)
+        {
+            driver.Dispose();
+        }
     }
 }
 
