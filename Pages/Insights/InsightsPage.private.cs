@@ -7,7 +7,7 @@ namespace ATA_Dotnet_Selenium_task.Pages.Insights;
 internal partial class InsightsPage
 {
 
-    internal void SwipeCarrousel(string left_or_right)
+    internal void SwipeCarousel(string left_or_right)
     {
         var validOptions = new List<string>() { "left", "right" };
         if (!validOptions.Contains(left_or_right.ToLower()))
@@ -25,6 +25,15 @@ internal partial class InsightsPage
             new WebDriverWait(_driver, GlobalVariables.ExplicitWaitDefault).
             Until(ExpectedConditions.ElementIsVisible(_swipeLeft));
             CarouselSwipeLeft.Click();
+        }
+    }
+    internal void SwipeCarousel(string left_or_right, int clicks)
+    {
+        for (var i = 0; i != clicks; i++)
+        {
+            SwipeCarousel(left_or_right);
+            // Wait for the carousel animation.
+            Thread.Sleep(1000);
         }
     }
 
@@ -59,6 +68,5 @@ internal partial class InsightsPage
           Until(ExpectedConditions.ElementIsVisible(_artivcleTitleV2));
             return ArticleTitleV2.Text.Trim();
         }
-
     }
 }

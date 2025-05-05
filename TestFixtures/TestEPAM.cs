@@ -122,8 +122,11 @@ public class TestEPAM : BaseTest
         // Done through the Base test TearDown 
     }
 
-    [Test]
-    public void TestCarrouselArticles()
+    [TestCase(4)]
+    [TestCase(3)]
+    [TestCase(2)]
+    [TestCase(1)]
+    public void TestCarrouselArticles(int carouselIndex)
     {
         //1.Create a Chrome instance.
         //2.Navigate to https://www.epam.com/.
@@ -136,8 +139,7 @@ public class TestEPAM : BaseTest
         insightsPage.NavigateToTabByText("Insights");
 
         //4.Swipe a carousel twice.
-        insightsPage.SwipeCarrousel("Right");
-        insightsPage.SwipeCarrousel("Right");
+        insightsPage.SwipeCarousel("Right", carouselIndex);
 
         //5.Note the name of the article.
         var carouselTitle = insightsPage.GetCarouselTitle(); 
