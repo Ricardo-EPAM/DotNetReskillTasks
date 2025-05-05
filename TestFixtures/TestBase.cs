@@ -1,7 +1,7 @@
-﻿using ATA_Dotnet_Selenium_task.Constants;
+﻿using DotnetTaskSeleniumNunit.Constants;
 using OpenQA.Selenium.Chrome;
 
-namespace ATA_Dotnet_Selenium_task;
+namespace DotnetTaskSeleniumNunit;
 
 
 [TestFixture]

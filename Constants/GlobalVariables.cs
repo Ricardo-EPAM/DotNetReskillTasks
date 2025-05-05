@@ -1,6 +1,6 @@
 ﻿using OpenQA.Selenium;
 
-namespace ATA_Dotnet_Selenium_task.Constants;
+namespace DotnetTaskSeleniumNunit.Constants;
 static class GlobalVariables
 {
     public static TimeSpan ExplicitWaitShort = TimeSpan.FromSeconds(3);

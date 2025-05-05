@@ -1,4 +1,4 @@
-﻿namespace ATA_Dotnet_Selenium_task.Pages.About;
+﻿namespace DotnetTaskSeleniumNunit.Pages.About;
 
 internal partial class AboutPage
 {

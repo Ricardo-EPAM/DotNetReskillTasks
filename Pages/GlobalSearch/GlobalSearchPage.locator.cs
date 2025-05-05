@@ -1,6 +1,6 @@
 ﻿using OpenQA.Selenium;
 
-namespace ATA_Dotnet_Selenium_task.Pages.GlobalSearch;
+namespace DotnetTaskSeleniumNunit.Pages.GlobalSearch;
 
 internal partial class GlobalSearchPage
 {

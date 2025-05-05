@@ -1,12 +1,12 @@
-﻿using ATA_Dotnet_Selenium_task.Constants;
+﻿using DotnetTaskSeleniumNunit.Constants;
+using DotnetTaskSeleniumNunit.Pages.Article;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.WaitHelpers;
 
-namespace ATA_Dotnet_Selenium_task.Pages.Insights;
+namespace DotnetTaskSeleniumNunit.Pages.Insights;
 
 internal partial class InsightsPage
 {
-
     internal void SwipeCarousel(string left_or_right)
     {
         var validOptions = new List<string>() { "left", "right" };
@@ -29,6 +29,7 @@ internal partial class InsightsPage
     }
     internal void SwipeCarousel(string left_or_right, int clicks)
     {
+        // For test DataDriven.
         for (var i = 0; i != clicks; i++)
         {
             SwipeCarousel(left_or_right);
@@ -46,27 +47,11 @@ internal partial class InsightsPage
     }
 
     //6.	Click on the “Read More” button. ClickReadMoreFromActiveArticleInCarousel
-    internal void ClickReadMoreFromActiveArticleInCarousel()
+    internal ArticlePage ClickReadMoreFromActiveArticleInCarousel()
     {
         new WebDriverWait(_driver, GlobalVariables.ExplicitWaitDefault).
             Until(ExpectedConditions.ElementToBeClickable(CarouselReadMoreLink));
         CarouselReadMoreLink.Click();
-    }
-
-    //7.	Validate that the name of the article matches with the noted above.  GetArticlelTitle
-    internal string GetArticlelTitle()
-    {
-        try // EPAM Continum, etc.
-        {
-            new WebDriverWait(_driver, GlobalVariables.ExplicitWaitDefault).
-               Until(ExpectedConditions.ElementIsVisible(_artivcleTitle));
-            return ArticleTitle.Text;
-        }
-        catch (Exception) // AI Report, etc.
-        {
-            new WebDriverWait(_driver, GlobalVariables.ExplicitWaitDefault).
-          Until(ExpectedConditions.ElementIsVisible(_artivcleTitleV2));
-            return ArticleTitleV2.Text.Trim();
-        }
+        return new ArticlePage(_driver);
     }
 }

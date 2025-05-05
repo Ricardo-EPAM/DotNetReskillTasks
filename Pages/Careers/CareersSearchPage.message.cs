@@ -1,4 +1,4 @@
-﻿namespace ATA_Dotnet_Selenium_task.Pages.Careers;
+﻿namespace DotnetTaskSeleniumNunit.Pages.Careers;
 
 internal partial class CareerSearchPage
 {

@@ -1,9 +1,9 @@
-﻿using ATA_Dotnet_Selenium_task.Constants;
+﻿using DotnetTaskSeleniumNunit.Constants;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.WaitHelpers;
 
-namespace ATA_Dotnet_Selenium_task.Pages.GlobalSearch;
+namespace DotnetTaskSeleniumNunit.Pages.GlobalSearch;
 
 internal partial class GlobalSearchPage
 {

@@ -1,9 +1,10 @@
-﻿using ATA_Dotnet_Selenium_task.Constants;
+﻿using DotnetTaskSeleniumNunit.Constants;
+using DotnetTaskSeleniumNunit.Pages.JobDetails;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.WaitHelpers;
 
-namespace ATA_Dotnet_Selenium_task.Pages.Careers;
+namespace DotnetTaskSeleniumNunit.Pages.Careers;
 
 internal partial class CareerSearchPage
 {
@@ -99,18 +100,13 @@ internal partial class CareerSearchPage
 
     //8.	Click on the button “View and apply”
 
-    internal void ClickApplyAndViewFromSection(IWebElement section)
+    internal JobDetailsPage ClickApplyAndViewFromSection(IWebElement section)
     {
         new WebDriverWait(_driver, GlobalVariables.ExplicitWaitDefault).
             Until(ExpectedConditions.VisibilityOfAllElementsLocatedBy(_applyButtonFromVacancy));
         section.FindElement(_applyButtonFromVacancy).Click();
+        return new JobDetailsPage(_driver);
     }
 
-    //9.	Validate that the programming language mentioned in the step above is on a page
-    internal string GetJobDescription()
-    {
-        var jobElements = new WebDriverWait(_driver, GlobalVariables.ExplicitWaitDefault).
-            Until(ExpectedConditions.ElementIsVisible(_vacancyDescription));
-        return jobElements.Text;
-    }
+   
 }
