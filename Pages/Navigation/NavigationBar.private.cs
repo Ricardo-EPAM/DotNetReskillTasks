@@ -1,4 +1,4 @@
-﻿using OpenQA.Selenium;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.WaitHelpers;
 
@@ -17,9 +17,9 @@ internal partial class NavigationBar
     {
         try
         {
-           var foundLink = new WebDriverWait(_driver, _vars.ExplicitWaitDefault).
-           Until(ExpectedConditions.ElementToBeClickable(SelectElementByText(TopPageLinks, linkText)));
-           foundLink.Click();
+            var foundLink = new WebDriverWait(_driver, _vars.ExplicitWaitDefault).
+            Until(ExpectedConditions.ElementToBeClickable(SelectElementByText(TopPageLinks, linkText)));
+            foundLink.Click();
         }
         catch (Exception ex)
         {
@@ -33,7 +33,7 @@ internal partial class NavigationBar
         try
         {
             var cookiesButton = new WebDriverWait(_driver, _vars.ExplicitWaitDefault).
-          Until(ExpectedConditions.ElementToBeClickable(AcceptCookiesButton));
+                Until(ExpectedConditions.ElementToBeClickable(AcceptCookiesButton));
             cookiesButton.Click();
         }
         catch (Exception ex)
