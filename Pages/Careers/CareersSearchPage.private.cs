@@ -1,4 +1,5 @@
 ﻿using DotnetTaskSeleniumNunit.Constants;
+using DotnetTaskSeleniumNunit.Models.Careers;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.WaitHelpers;
@@ -59,8 +60,9 @@ internal partial class CareerSearchPage
         }
     }
 
-    private void SelectModalityCheckboxByText(string modalityText)
+    private void SelectModalityCheckboxByText(CareerModality modality)
     {
+        var modalityText = modality.ToString().ToLower();
         try
         {
             new WebDriverWait(_driver, _vars.ExplicitWaitLong).

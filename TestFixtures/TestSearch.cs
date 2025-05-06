@@ -1,4 +1,5 @@
-﻿using DotnetTaskSeleniumNunit.Pages.Careers;
+﻿using DotnetTaskSeleniumNunit.Models.Careers;
+using DotnetTaskSeleniumNunit.Pages.Careers;
 using DotnetTaskSeleniumNunit.Pages.GlobalSearch;
 using DotnetTaskSeleniumNunit.Pages.Navigation;
 using NUnit.Framework.Internal;
@@ -11,21 +12,11 @@ namespace DotnetTaskSeleniumNunit.TestFixtures;
 public class TestSearch : BaseTest
 {
 
-    [Test]
-    public void testa()
-    {
-        logger.Debug("ya lo rompi?");
-        logger.Error("error");
-        logger.Info("info");
-        Assert.That(true);
-    }
-
-
-    [TestCase("Perl", "all_locations", "Remote")]
-    [TestCase("Python", "all_Mexico", "Relocation")]
-    [TestCase(".NET", "all_Mexico", "Office")]
-    [TestCase("Java", "Buenos Aires", "Office")]
-    public void TestCareersSearch(string searchCriteria, string location, string modality)
+    [TestCase("Perl", "all_locations", CareerModality.Remote)]
+    [TestCase("Python", "all_Mexico", CareerModality.Relocation)]
+    [TestCase(".NET", "all_Mexico", CareerModality.Office)]
+    [TestCase("Java", "Buenos Aires", CareerModality.Office)]
+    public void TestCareersSearch(string searchText, string locationValue, CareerModality locationModality)
     {
         CareerSearchPage careersSearchPage = new(driver: driver, logger, vars);
         NavigationBar navigation = new(driver, logger, vars);
@@ -33,20 +24,15 @@ public class TestSearch : BaseTest
 
         navigation.NavigateToCareersPage();
 
-        careersSearchPage.SearchFor(searchCriteria);
-
-        careersSearchPage.SelectLocation(location);
-
-        careersSearchPage.SelectModality(modality.ToLower());
-
-        careersSearchPage.Search();
+        var careerSearchForm = new CareerSearch(searchText, locationValue, locationModality);
+        careersSearchPage.MakeACareerSearch(careerSearchForm);
 
         IWebElement jobSection = careersSearchPage.GetLastJobSection();
 
         careersSearchPage.ApplyAndView(fromSection: jobSection);
 
         string jobDescription = careersSearchPage.GetJobDescription();
-        Assert.That(jobDescription, Does.Contain(searchCriteria));
+        Assert.That(jobDescription, Does.Contain(searchText));
     }
 
     [TestCase("BLOCKCHAIN")]
@@ -69,7 +55,7 @@ public class TestSearch : BaseTest
         {
             foreach (var link in links)
             {
-                if(link != null)
+                if (link != null)
                 {
                     Assert.That(link.ToLower(), Does.Contain(searchCriteria.ToLower()),
                         "Not all search results links mention the search criteria");

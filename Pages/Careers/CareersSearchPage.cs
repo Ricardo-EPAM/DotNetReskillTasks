@@ -1,4 +1,5 @@
 ﻿using DotnetTaskSeleniumNunit.Constants;
+using DotnetTaskSeleniumNunit.Models.Careers;
 using log4net;
 using OpenQA.Selenium;
 
@@ -21,6 +22,14 @@ internal partial class CareerSearchPage
         _vars = variables;
     }
 
+    public void MakeACareerSearch(CareerSearch searchData)
+    {
+        EnterSearchCriteriaAndIgnoreSuggestion(searchData.Criteria);
+        SelectLocationDropdownByValue(searchData.Location);
+        SelectModalityCheckboxByText(searchData.Modality);
+        ClickFindButton();
+    }
+
     public void SearchFor(string searchText)
     {
         EnterSearchCriteriaAndIgnoreSuggestion(searchText);
@@ -32,9 +41,9 @@ internal partial class CareerSearchPage
         SelectLocationDropdownByValue(searchText);
     }
 
-    public void SelectModality(string modalityText)
+    public void SelectModality(CareerModality modality)
     {
-        SelectModalityCheckboxByText(modalityText);
+        SelectModalityCheckboxByText(modality);
     }
 
     public void Search()
