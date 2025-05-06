@@ -1,6 +1,7 @@
 ﻿using System.Reflection;
 using DotnetTaskSeleniumNunit.Constants;
 using log4net;
+using log4net.Config;
 using Microsoft.Extensions.Configuration;
 using OpenQA.Selenium.Chrome;
 
@@ -25,7 +26,8 @@ public class BaseTest
         ArgumentNullException.ThrowIfNull(currentMethod.DeclaringType);
 
         logger = LogManager.GetLogger(currentMethod.DeclaringType);
-        logger.Info($"Feature execution started: {TestContext.CurrentContext.Test.ClassName} ...");
+        var logRepository = LogManager.GetRepository(entryAssembly);
+        XmlConfigurator.Configure(logRepository, new FileInfo("log4net.config"));
 
         logger.Info($"Loading settings file");
         config = new ConfigurationBuilder()
@@ -33,6 +35,7 @@ public class BaseTest
             .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
             .Build();
 
+        logger.Info($"Feature execution started: {TestContext.CurrentContext.Test.ClassName}");
     }
 
     [SetUp]
