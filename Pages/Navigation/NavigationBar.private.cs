@@ -37,7 +37,6 @@ internal partial class NavigationBar
         catch (Exception ex)
         {
             _logger.Info(_infoCookiesSkipped, ex);
-            throw;
         }
     }
 }

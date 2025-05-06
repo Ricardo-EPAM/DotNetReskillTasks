@@ -39,8 +39,7 @@ internal partial class CareerSearchPage
         }
         catch (Exception ex)
         {
-            _logger.Error(_infoIgnoreSearchSuggestions, ex);
-            throw;
+            _logger.Info(_infoIgnoreSearchSuggestions, ex);
         }
     }
 

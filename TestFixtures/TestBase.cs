@@ -2,7 +2,6 @@
 using DotnetTaskSeleniumNunit.Constants;
 using log4net;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using OpenQA.Selenium.Chrome;
 
 namespace DotnetTaskSeleniumNunit;
@@ -31,7 +30,7 @@ public class BaseTest
         logger.Info($"Loading settings file");
         config = new ConfigurationBuilder()
             .SetBasePath(AppContext.BaseDirectory)
-            .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+            .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
             .Build();
 
     }

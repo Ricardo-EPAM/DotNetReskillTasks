@@ -11,7 +11,7 @@ internal partial class GlobalSearchPage
     {
         try
         {
-            new WebDriverWait(_driver, GlobalVariables.ExplicitWaitDefault).
+            new WebDriverWait(_driver, _vars.ExplicitWaitDefault).
             Until(ExpectedConditions.ElementToBeClickable(_magnifierIcon));
             MagnifierIcon.Click();
         }
@@ -26,7 +26,7 @@ internal partial class GlobalSearchPage
     {
         try
         {
-            new WebDriverWait(_driver, GlobalVariables.ExplicitWaitDefault).
+            new WebDriverWait(_driver, _vars.ExplicitWaitDefault).
             Until(ExpectedConditions.ElementToBeClickable(_searchField));
             SearchField.SendKeys(searchText);
         }
@@ -40,7 +40,7 @@ internal partial class GlobalSearchPage
     {
         try
         {
-            new WebDriverWait(_driver, GlobalVariables.ExplicitWaitDefault).
+            new WebDriverWait(_driver, _vars.ExplicitWaitDefault).
             Until(ExpectedConditions.ElementToBeClickable(_findButton));
             Findbutton.Click();
         }
@@ -61,7 +61,7 @@ internal partial class GlobalSearchPage
 
         try
         {
-            new WebDriverWait(_driver, GlobalVariables.ExplicitWaitDefault).
+            new WebDriverWait(_driver, _vars.ExplicitWaitDefault).
             Until(ExpectedConditions.PresenceOfAllElementsLocatedBy(_resultsArticlesDivs));
             foreach (var article in ResultsArticles)
             {

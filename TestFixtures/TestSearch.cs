@@ -14,7 +14,7 @@ public class TestSearch : BaseTest
     [Test]
     public void testa()
     {
-        logger.Debug("debug nue mes");
+        logger.Debug("ya lo rompi?");
         logger.Error("error");
         logger.Info("info");
         Assert.That(true);
