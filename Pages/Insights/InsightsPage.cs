@@ -1,8 +1,22 @@
-﻿using DotnetTaskSeleniumNunit.Pages.Navigation;
+﻿using DotnetTaskSeleniumNunit.Constants;
+using log4net;
 using OpenQA.Selenium;
 
 namespace DotnetTaskSeleniumNunit.Pages.Insights;
 
-internal partial class InsightsPage(IWebDriver? driver) : NavigationBar(driver)
+internal partial class InsightsPage
 {
+    protected readonly IWebDriver _driver;
+    protected readonly ILog _logger;
+    protected readonly GlobalVariables _vars;
+
+    public InsightsPage(IWebDriver? driver, ILog? logger, GlobalVariables variables)
+    {
+        ArgumentNullException.ThrowIfNull(driver);
+        ArgumentNullException.ThrowIfNull(logger);
+        ArgumentNullException.ThrowIfNull(variables);
+        _driver = driver;
+        _logger = logger;
+        _vars = variables;
+    }
 }

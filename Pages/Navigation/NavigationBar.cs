@@ -1,4 +1,4 @@
-﻿using DotnetTaskSeleniumNunit.Constants;
+using DotnetTaskSeleniumNunit.Constants;
 using log4net;
 using OpenQA.Selenium;
 
@@ -24,10 +24,17 @@ internal partial class NavigationBar
     {
         ClickTopLlinkByText("Careers");
     }
+    public void NavigateToInsightsPage()
+    {
+        ClickTopLlinkByText("Insights");
+    }
+    public void NavigateToAboutPage()
+    {
+        ClickTopLlinkByText("About");
+    }
 
     public void AcceptCookies()
     {
         ClickAcceptCookies();
     }
-
 }

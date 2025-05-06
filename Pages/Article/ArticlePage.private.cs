@@ -10,13 +10,13 @@ internal partial class ArticlePage
     {
         try // EPAM Continum, etc.
         {
-            new WebDriverWait(_driver, GlobalVariables.ExplicitWaitDefault).
+            new WebDriverWait(_driver, _vars.ExplicitWaitDefault).
                Until(ExpectedConditions.ElementIsVisible(_artivcleTitle));
             return ArticleTitle.Text;
         }
         catch (Exception) // AI Report, etc.
         {
-            new WebDriverWait(_driver, GlobalVariables.ExplicitWaitDefault).
+            new WebDriverWait(_driver, _vars.ExplicitWaitDefault).
           Until(ExpectedConditions.ElementIsVisible(_artivcleTitleV2));
             return ArticleTitleV2.Text.Trim();
         }

@@ -16,13 +16,13 @@ internal partial class InsightsPage
         }
         if (left_or_right.ToLower() == "right")
         {
-            new WebDriverWait(_driver, GlobalVariables.ExplicitWaitDefault).
+            new WebDriverWait(_driver, _vars.ExplicitWaitDefault).
             Until(ExpectedConditions.ElementIsVisible(_swipeRight));
             CarouselSwipeRight.Click();
         }
         else // left
         {
-            new WebDriverWait(_driver, GlobalVariables.ExplicitWaitDefault).
+            new WebDriverWait(_driver, _vars.ExplicitWaitDefault).
             Until(ExpectedConditions.ElementIsVisible(_swipeLeft));
             CarouselSwipeLeft.Click();
         }
@@ -41,7 +41,7 @@ internal partial class InsightsPage
     //5.	Note the name of the article.
     internal string GetCarouselTitle()
     {
-        new WebDriverWait(_driver, GlobalVariables.ExplicitWaitDefault).
+        new WebDriverWait(_driver, _vars.ExplicitWaitDefault).
             Until(ExpectedConditions.ElementIsVisible(_carouselActiveElement));
         return CarouselTitle.Text.Trim();
     }
@@ -49,9 +49,9 @@ internal partial class InsightsPage
     //6.	Click on the “Read More” button. ClickReadMoreFromActiveArticleInCarousel
     internal ArticlePage ClickReadMoreFromActiveArticleInCarousel()
     {
-        new WebDriverWait(_driver, GlobalVariables.ExplicitWaitDefault).
+        new WebDriverWait(_driver, _vars.ExplicitWaitDefault).
             Until(ExpectedConditions.ElementToBeClickable(CarouselReadMoreLink));
         CarouselReadMoreLink.Click();
-        return new ArticlePage(_driver);
+        return new ArticlePage(_driver, _logger, _vars);
     }
 }

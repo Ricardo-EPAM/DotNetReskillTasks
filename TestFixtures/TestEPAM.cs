@@ -71,37 +71,22 @@ public class TestEPAM : BaseTest
     [TestCase("EPAM_Corporate_Overview_Q4FY-2024.pdf")]
     public void TestDownloadFile(string filePath)
     {
-        //1.Create a Chrome instance.
-        //2.Navigate to https://www.epam.com/.
-        // Done through the Base test SetUp 
-        AboutPage aboutPage = new(driver: driver);
-        var files = new FilesHelper(vars.DownloadsPath);
+        NavigationBar navigation = new(driver, logger, vars);
+        AboutPage aboutPage = new(driver, logger, vars);
 
-        // Preconditions, file should not exist at this point.
+        var files = new FilesHelper();
+
         Assert.That(files.DoesFileExist(filePath, tries: 1), Is.False, aboutPage.testPreconditionsFailed);
-        aboutPage.AcceptCookies();
+        navigation.AcceptCookies();
 
-        //3.Select “About” from the top menu.
-        aboutPage.NavigateToTabByText("About");
+        navigation.NavigateToAboutPage();
 
-        //4.Scroll down to the “EPAM at a Glance” section.
         aboutPage.ScrollToEPAMGlanceSection();
 
-        //5.Click on the “Download” button.
         aboutPage.DownloadEPAMGlance();
 
-        //6.Wait till the file is downloaded.
-        // Wait is performed by DoesFileExist() method from next step.
-
-        //7.Validate that file “EPAM_Systems_Company_Overview.pdf” downloaded(use the name of the file as a parameter)
         Assert.That(files.DoesFileExist(filePath), Is.True, aboutPage.downloadFailed);
-
-        //8.Close the browser.
-        // Done through the Base test TearDown 
-
-        // Extra step: Delete file for next run:
         files.DeleteFile(filePath);
-
     }
 
     [TestCase(1)]
@@ -110,31 +95,22 @@ public class TestEPAM : BaseTest
     [TestCase(4)]
     public void TestCarrouselArticles(int carouselIndex)
     {
-        //1.Create a Chrome instance.
-        //2.Navigate to https://www.epam.com/.
-        // Done through the Base test SetUp 
-        InsightsPage insightsPage = new(driver: driver);
-        var files = new FilesHelper(vars.DownloadsPath);
-        insightsPage.AcceptCookies();
+        NavigationBar navigation = new(driver, logger, vars);
+        InsightsPage insightsPage = new(driver, logger, vars);
 
-        //3.Select “Insights” from the top menu.
-        insightsPage.NavigateToTabByText("Insights");
+        var files = new FilesHelper();
+        navigation.AcceptCookies();
 
-        //4.Swipe a carousel twice.
+        navigation.NavigateToInsightsPage();
+
         insightsPage.SwipeCarousel("Right", carouselIndex);
 
-        //5.Note the name of the article.
         var carouselTitle = insightsPage.GetCarouselTitle(); 
 
-        //6.Click on the “Read More” button.
         ArticlePage articlePage = insightsPage.ClickReadMoreFromActiveArticleInCarousel();
 
-        //7.Validate that the name of the article matches with the noted above.
         var acticleTitle = articlePage.GetArticlelTitle();
         Assert.That(acticleTitle, Is.EqualTo(carouselTitle), insightsPage.articleNotMatchinTitle);
-
-        //8.Close the browser.
-        // Done through the Base test TearDown 
     }
 }
 

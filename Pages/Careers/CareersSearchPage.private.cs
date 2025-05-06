@@ -119,7 +119,7 @@ internal partial class CareerSearchPage
             new WebDriverWait(_driver, _vars.ExplicitWaitDefault).
                 Until(ExpectedConditions.VisibilityOfAllElementsLocatedBy(_applyButtonFromVacancy));
             section.FindElement(_applyButtonFromVacancy).Click();
-            return new JobDetailsPage(_driver);
+            return new JobDetailsPage(_driver, _logger, _vars);
         }
         catch (Exception ex)
         {

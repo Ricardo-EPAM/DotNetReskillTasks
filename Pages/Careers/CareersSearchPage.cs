@@ -3,6 +3,7 @@ using DotnetTaskSeleniumNunit.Models.Careers;
 using log4net;
 ﻿using DotnetTaskSeleniumNunit.Pages.Navigation;
 using OpenQA.Selenium;
+using DotnetTaskSeleniumNunit.Pages.JobDetails;
 
 namespace DotnetTaskSeleniumNunit.Pages.Careers;
 
@@ -57,9 +58,9 @@ internal partial class CareerSearchPage
         return GetLastJobSectionElement();
     }
 
-    public void ApplyAndView(IWebElement fromSection)
+    public JobDetailsPage ApplyAndView(IWebElement fromSection)
     {
-        ClickApplyAndViewFromSection(fromSection);
+        return ClickApplyAndViewFromSection(fromSection);
     }
 
     public string GetJobDescription()
