@@ -4,7 +4,6 @@ using DotnetTaskSeleniumNunit.Pages.Careers;
 using DotnetTaskSeleniumNunit.Pages.Article;
 using DotnetTaskSeleniumNunit.Pages.GlobalSearch;
 using DotnetTaskSeleniumNunit.Pages.JobDetails;
-using DotnetTaskSeleniumNunit.Constants;
 using DotnetTaskSeleniumNunit.Helpers;
 
 using NUnit.Framework.Internal;
@@ -99,6 +98,10 @@ public class TestEPAM : BaseTest
 
         //8.Close the browser.
         // Done through the Base test TearDown 
+
+        // Extra step: Delete file for next run:
+        files.DeleteFile(filePath);
+
     }
 
     [TestCase(1)]

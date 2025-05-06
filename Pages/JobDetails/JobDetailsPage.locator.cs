@@ -1,5 +1,4 @@
-﻿using DotnetTaskSeleniumNunit.Pages.Navigation;
-using OpenQA.Selenium;
+﻿using OpenQA.Selenium;
 
 namespace DotnetTaskSeleniumNunit.Pages.JobDetails;
 
