@@ -28,5 +28,10 @@ namespace DotnetTaskSeleniumNunit.Helpers
             }
             return false;
         }
+
+        public void DeleteFile(string fileName)
+        {
+            File.Delete(Path.Combine(_filesPath, fileName));
+        }
     }
 }
