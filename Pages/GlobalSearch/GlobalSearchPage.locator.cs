@@ -1,6 +1,6 @@
 ﻿using OpenQA.Selenium;
 
-namespace ATA_Dotnet_Selenium_task.Pages.GlobalSearch;
+namespace DotnetTaskSeleniumNunit.Pages.GlobalSearch;
 
 internal partial class GlobalSearchPage
 {
@@ -14,5 +14,5 @@ internal partial class GlobalSearchPage
     private IWebElement MagnifierIcon => _driver.FindElement(_magnifierIcon);
     private IWebElement SearchField => _driver.FindElement(_searchField);
     private IWebElement Findbutton => _driver.FindElement(_findButton);
-    private IEnumerable<IWebElement> ResultsArticles => _driver.FindElements(_resultsArticlesDivs);
+    private IList<IWebElement> ResultsArticles => _driver.FindElements(_resultsArticlesDivs);
 }

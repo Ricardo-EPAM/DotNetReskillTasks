@@ -1,22 +1,33 @@
-﻿using OpenQA.Selenium;
-using OpenQA.Selenium.Support.UI;
-using SeleniumExtras.WaitHelpers;
+﻿using DotnetTaskSeleniumNunit.Constants;
+using log4net;
+using OpenQA.Selenium;
 
-namespace ATA_Dotnet_Selenium_task.Pages.Navigation;
+namespace DotnetTaskSeleniumNunit.Pages.Navigation;
 
 internal partial class NavigationBar
 {
     protected readonly IWebDriver _driver;
+    protected readonly ILog _logger;
+    protected readonly GlobalVariables _vars;
 
-    public NavigationBar(IWebDriver? driver)
+    public NavigationBar(IWebDriver? driver, ILog? logger, GlobalVariables variables)
     {
         ArgumentNullException.ThrowIfNull(driver);
+        ArgumentNullException.ThrowIfNull(logger);
+        ArgumentNullException.ThrowIfNull(variables);
         _driver = driver;
+        _logger = logger;
+        _vars = variables;
     }
 
-    public void NavigateToTabByText(string tabName)
+    public void NavigateToCareersPage()
     {
-        ClickTopLlinkByText(tabName);
+        ClickTopLlinkByText("Careers");
+    }
+
+    public void AcceptCookies()
+    {
+        ClickAcceptCookies();
     }
 
 }

@@ -1,50 +1,79 @@
-﻿using ATA_Dotnet_Selenium_task.Constants;
+﻿using DotnetTaskSeleniumNunit.Constants;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.WaitHelpers;
 
-namespace ATA_Dotnet_Selenium_task.Pages.GlobalSearch;
+namespace DotnetTaskSeleniumNunit.Pages.GlobalSearch;
 
 internal partial class GlobalSearchPage
 {
-
-    // 2.	Find a magnifier icon and click on it
-    internal void ClickMagnifierIcon()
+    private void ClickMagnifierIcon()
     {
-        new WebDriverWait(_driver, GlobalVariables.ExplicitWaitDefault).
+        try
+        {
+            new WebDriverWait(_driver, GlobalVariables.ExplicitWaitDefault).
             Until(ExpectedConditions.ElementToBeClickable(_magnifierIcon));
-        MagnifierIcon.Click();
+            MagnifierIcon.Click();
+        }
+        catch (Exception ex)
+        {
+            _logger.Error(_errorClickMagnifierIcon, ex);
+            throw;
+        }
+
     }
-    // 3.	Find a search string and put there “BLOCKCHAIN”/”Cloud”/”Automation” (use as a parameter for a test)
-    internal void EnterSearchCriteria(string searchText)
+    private void EnterSearchCriteria(string searchText)
     {
-        new WebDriverWait(_driver, GlobalVariables.ExplicitWaitDefault).
+        try
+        {
+            new WebDriverWait(_driver, GlobalVariables.ExplicitWaitDefault).
             Until(ExpectedConditions.ElementToBeClickable(_searchField));
-        SearchField.SendKeys(searchText);
+            SearchField.SendKeys(searchText);
+        }
+        catch (Exception ex)
+        {
+            _logger.Error(_errorEnterSearchCriteria, ex);
+            throw;
+        }
     }
-    // 4.	Click “Find” button
-    internal void ClickFindButton()
+    private void ClickFindButton()
     {
-        new WebDriverWait(_driver, GlobalVariables.ExplicitWaitDefault).
+        try
+        {
+            new WebDriverWait(_driver, GlobalVariables.ExplicitWaitDefault).
             Until(ExpectedConditions.ElementToBeClickable(_findButton));
-        Findbutton.Click();
+            Findbutton.Click();
+        }
+        catch (Exception ex)
+        {
+            _logger.Error(_errorClickFindButton, ex);
+            throw;
+        }
     }
-    // 5.	Validate that all links in a list contain the word “BLOCKCHAIN”/”Cloud”/”Automation” in the text.LINQ should be used.
 
     /// <summary>
     /// In order to validate article contains expected keyword we search in the Article; link and description.
     /// </summary>
     /// <returns>A list of strings with link+description text</returns>
-    internal IEnumerable<string?> GetAllArticlesTextFromSearchResults()
+    private IEnumerable<string?> GetAllArticlesTextFromSearchResults()
     {
-        new WebDriverWait(_driver, GlobalVariables.ExplicitWaitDefault).
-            Until(ExpectedConditions.PresenceOfAllElementsLocatedBy(_resultsArticlesDivs));
         var articleTexts = new List<string>();
-        foreach (var article in ResultsArticles)
+
+        try
         {
-            var linkText = article.FindElement(_links).GetAttribute("href");
-            var descriptionText = article.FindElement(_descriptions).Text;
-            articleTexts.Add(linkText + descriptionText);
+            new WebDriverWait(_driver, GlobalVariables.ExplicitWaitDefault).
+            Until(ExpectedConditions.PresenceOfAllElementsLocatedBy(_resultsArticlesDivs));
+            foreach (var article in ResultsArticles)
+            {
+                var linkText = article.FindElement(_links).GetAttribute("href");
+                var descriptionText = article.FindElement(_descriptions).Text;
+                articleTexts.Add(linkText + descriptionText);
+            }
+        }
+        catch (Exception ex)
+        {
+            _logger.Error(_errorGetAllArticlesTextFromSearchResults, ex);
+            throw;
         }
         return articleTexts;
     }

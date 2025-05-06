@@ -1,14 +1,12 @@
 ﻿using OpenQA.Selenium;
 
-namespace ATA_Dotnet_Selenium_task.Constants;
-static class GlobalVariables
+namespace DotnetTaskSeleniumNunit.Constants;
+public class GlobalVariables
 {
-    public static TimeSpan ExplicitWaitShort = TimeSpan.FromSeconds(3);
-    public static TimeSpan ExplicitWaitDefault = TimeSpan.FromSeconds(7);
-    public static TimeSpan ExplicitWaitLong = TimeSpan.FromSeconds(14);
-    public static TimeSpan ImplicitWaitTimeout = TimeSpan.FromSeconds(2);
-    public static TimeSpan PageLoadTimeout = TimeSpan.FromSeconds(4);
-    public static PageLoadStrategy PageLoadStrategy = PageLoadStrategy.Default;
-    public static string BaseURL = "https://www.epam.com";
-    
+    public TimeSpan ExplicitWaitShort = TimeSpan.FromSeconds(3);
+    public TimeSpan ExplicitWaitDefault = TimeSpan.FromSeconds(7);
+    public TimeSpan ExplicitWaitLong = TimeSpan.FromSeconds(14);
+    public TimeSpan ImplicitWaitTimeout = TimeSpan.FromSeconds(2);
+    public TimeSpan PageLoadTimeout = TimeSpan.FromSeconds(4);
+    public PageLoadStrategy PageLoadStrategy = PageLoadStrategy.Default;
 }

@@ -1,6 +1,6 @@
 ﻿using OpenQA.Selenium;
 
-namespace ATA_Dotnet_Selenium_task.Pages.Careers;
+namespace DotnetTaskSeleniumNunit.Pages.Careers;
 
 internal partial class CareerSearchPage
 {
@@ -27,13 +27,13 @@ internal partial class CareerSearchPage
 
     private IWebElement LocationSelect => _driver.FindElement(_locationSelect);
 
-    private IEnumerable<IWebElement> LocationOptions => LocationClickable.FindElements(_locationOption);
+    private IList<IWebElement> LocationOptions => LocationClickable.FindElements(_locationOption);
 
-    private IEnumerable<IWebElement> ModalityBoxes => _driver.FindElements(_modalityCheckboxes);
+    private IList<IWebElement> ModalityBoxes => _driver.FindElements(_modalityCheckboxes);
 
     private IWebElement FindVacancyButton => _driver.FindElement(_findButton);
 
-    private IEnumerable<IWebElement> VacanciesContainers => _driver.FindElements(_vacanciesContainers);
+    private IList<IWebElement> VacanciesContainers => _driver.FindElements(_vacanciesContainers);
 
     private IWebElement LatestVacancyDiv => _driver.FindElement(_latestVacancyContainer);
 

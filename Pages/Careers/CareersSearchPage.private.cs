@@ -1,116 +1,144 @@
-﻿using ATA_Dotnet_Selenium_task.Constants;
+﻿using DotnetTaskSeleniumNunit.Constants;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.WaitHelpers;
 
-namespace ATA_Dotnet_Selenium_task.Pages.Careers;
+namespace DotnetTaskSeleniumNunit.Pages.Careers;
 
 internal partial class CareerSearchPage
 {
-    //3.	Write the name of any programming language in the field “Keywords” (should be taken from test parameter)
-    internal void EnterKeywordSearchCriteria(string searchText)
+    private void EnterSearchCriteriaAndIgnoreSuggestion(string searchText)
     {
-        new WebDriverWait(_driver, GlobalVariables.ExplicitWaitDefault).
-            Until(ExpectedConditions.ElementToBeClickable(_keywordInput));
-        KeywordInput.Clear();
-        KeywordInput.SendKeys(searchText);
-
-        // Ignore search suggestions.
+        EnterSearchCriteria(searchText);
+        IgnoreSearchSuggestions();
+    }
+    private void EnterSearchCriteria(string searchText)
+    {
         try
         {
-            new WebDriverWait(_driver, GlobalVariables.ExplicitWaitShort).
+            new WebDriverWait(_driver, _vars.ExplicitWaitDefault).
+                Until(ExpectedConditions.ElementToBeClickable(_keywordInput));
+            KeywordInput.Clear();
+            KeywordInput.SendKeys(searchText);
+        }
+        catch (Exception ex)
+        {
+            _logger.Error(_errorEnteringSearchCriteria, ex);
+            throw;
+        }
+
+    }
+
+    private void IgnoreSearchSuggestions()
+    {
+        try
+        {
+            new WebDriverWait(_driver, _vars.ExplicitWaitShort).
                    Until(ExpectedConditions.ElementIsVisible(_keywordSuggestions));
             KeywordInput.SendKeys(Keys.Tab);
         }
-        catch
+        catch (Exception ex)
         {
-            // Continue with test execution.
+            _logger.Error(_infoIgnoreSearchSuggestions, ex);
+            throw;
         }
     }
 
-    //4.	Select “All Locations” in the “Location” field(should be taken from the test parameter)
-    internal void SelectLocationByText(string searchText)
+    private void SelectLocationDropdownByValue(string searchText)
     {
-
-        new WebDriverWait(_driver, GlobalVariables.ExplicitWaitDefault).
-            Until(ExpectedConditions.ElementToBeClickable(_locationClickable));
-        LocationClickable.Click();
         try
         {
-            // Select by visible options (without searching).
-            var selection = LocationOptions.First(x => x.GetAttribute("title") == searchText);
-            selection.Click();
+            new WebDriverWait(_driver, _vars.ExplicitWaitDefault).
+                Until(x => x.FindElement(_locationSelect).Enabled);
+            IJavaScriptExecutor js = (IJavaScriptExecutor)_driver;
+            js.ExecuteScript($"arguments[0].value = '{searchText}'", LocationSelect);
         }
-        catch (Exception)
+        catch (Exception ex)
         {
-            // Select by searching
-            LocationInput.SendKeys(searchText);
-            var selection = LocationOptions.First();
-            selection.Click();
+            _logger.Error(_errorSelectLocationDropdownByValue, ex);
+            throw;
         }
     }
-    internal void SelectLocationByTextV2(string searchText)
+
+    private void SelectModalityCheckboxByText(string modalityText)
     {
-        // I tried but its not working.
-        new WebDriverWait(_driver, GlobalVariables.ExplicitWaitDefault).
-            Until(x => x.FindElement(_locationSelect).Enabled);
         try
         {
-            var selectInput = new SelectElement(LocationSelect);
-            selectInput.SelectByValue(searchText);
+            new WebDriverWait(_driver, _vars.ExplicitWaitLong).
+                Until(ExpectedConditions.PresenceOfAllElementsLocatedBy(_modalityCheckboxes));
+            var selection = ModalityBoxes.First(x => x.GetAttribute("name")?.Contains(modalityText) == true);
+            selection.FindElement(_followingLabel).Click();
         }
-        catch
+        catch (Exception ex)
         {
-            var selectInput = new SelectElement(LocationSelect);
-            selectInput.SelectByText(searchText);
+            _logger.Error(_errorSelectModalityCheckboxByText, ex);
+            throw;
         }
     }
 
-    //5.	Select the option “Remote”
-    internal void SelectModality(string modalityText)
+    private void ClickFindButton()
     {
-        new WebDriverWait(_driver, GlobalVariables.ExplicitWaitLong).
-            Until(ExpectedConditions.PresenceOfAllElementsLocatedBy(_modalityCheckboxes));
-        var selection = ModalityBoxes.First(x => x.GetAttribute("name")?.Contains(modalityText) == true);
-        selection.FindElement(_followingLabel).Click();
-    }
-    //6.	Click on the button “Find”
-    internal void ClickFindButton()
-    {
-        new WebDriverWait(_driver, GlobalVariables.ExplicitWaitDefault).
-            Until(ExpectedConditions.ElementToBeClickable(_findButton));
-        FindVacancyButton.Click();
-    }
-    //7.	Find the latest element in the list of results
-    internal IWebElement GetLastJobSection()
-    {
-        // Using LINQ.
-        var results = new WebDriverWait(_driver, GlobalVariables.ExplicitWaitDefault).
-            Until(ExpectedConditions.PresenceOfAllElementsLocatedBy(_vacanciesContainers));
-        return results.Last();
-    }
-    internal IWebElement GetLastJobSectionV2()
-    {
-        // Using last-child css axe.
-        new WebDriverWait(_driver, GlobalVariables.ExplicitWaitDefault).
-            Until(ExpectedConditions.PresenceOfAllElementsLocatedBy(_vacanciesContainers));
-        return LatestVacancyDiv;
+        try
+        {
+            new WebDriverWait(_driver, _vars.ExplicitWaitDefault).
+                Until(ExpectedConditions.ElementToBeClickable(_findButton));
+            FindVacancyButton.Click();
+        }
+        catch (Exception ex)
+        {
+            _logger.Error(_erroClickFindButton, ex);
+            throw;
+        }
     }
 
-    //8.	Click on the button “View and apply”
-
-    internal void ClickApplyAndViewFromSection(IWebElement section)
+    private IList<IWebElement> GetJobSections()
     {
-        new WebDriverWait(_driver, GlobalVariables.ExplicitWaitDefault).
-            Until(ExpectedConditions.VisibilityOfAllElementsLocatedBy(_applyButtonFromVacancy));
-        section.FindElement(_applyButtonFromVacancy).Click();
+        try
+        {
+            var results = new WebDriverWait(_driver, _vars.ExplicitWaitDefault).
+               Until(ExpectedConditions.PresenceOfAllElementsLocatedBy(_vacanciesContainers));
+            return results;
+        }
+        catch (Exception ex)
+        {
+            _logger.Error(_errorGetJobSections, ex);
+            throw;
+        }
     }
 
-    //9.	Validate that the programming language mentioned in the step above is on a page
-    internal string GetJobDescription()
+    private IWebElement GetLastJobSectionElement()
     {
-        var jobElements = new WebDriverWait(_driver, GlobalVariables.ExplicitWaitDefault).
-            Until(ExpectedConditions.ElementIsVisible(_vacancyDescription));
-        return jobElements.Text;
+        return GetJobSections().Last();
+    }
+
+    private void ClickApplyAndViewFromSection(IWebElement section)
+    {
+        try
+        {
+            new WebDriverWait(_driver, _vars.ExplicitWaitDefault).
+                Until(ExpectedConditions.VisibilityOfAllElementsLocatedBy(_applyButtonFromVacancy));
+            section.FindElement(_applyButtonFromVacancy).Click();
+        }
+        catch (Exception ex)
+        {
+            _logger.Error(_errorClickApplyAndViewFromSection, ex);
+            throw;
+        }
+    }
+
+    private string GetVacancyContainerText()
+    {
+        IWebElement jobElements;
+        try
+        {
+            jobElements = new WebDriverWait(_driver, _vars.ExplicitWaitDefault).
+                Until(ExpectedConditions.ElementIsVisible(_vacancyDescription));
+            return  jobElements.Text;
+        }
+        catch (Exception ex)
+        {
+            _logger.Error(_errorGetVacancyContainerElement, ex);
+            throw;
+        }
     }
 }
