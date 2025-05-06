@@ -1,6 +1,7 @@
 ﻿using DotnetTaskSeleniumNunit.Constants;
 using DotnetTaskSeleniumNunit.Models.Careers;
 using log4net;
+﻿using DotnetTaskSeleniumNunit.Pages.Navigation;
 using OpenQA.Selenium;
 
 namespace DotnetTaskSeleniumNunit.Pages.Careers;

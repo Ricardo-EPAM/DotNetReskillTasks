@@ -1,7 +1,4 @@
-﻿using System.Collections.ObjectModel;
-using OpenQA.Selenium;
-
-namespace DotnetTaskSeleniumNunit.Pages.Navigation;
+﻿namespace DotnetTaskSeleniumNunit.Pages.Navigation;
 
 internal partial class NavigationBar
 {

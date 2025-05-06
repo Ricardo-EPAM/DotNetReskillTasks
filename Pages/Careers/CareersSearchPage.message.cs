@@ -1,4 +1,3 @@
-
 ﻿namespace DotnetTaskSeleniumNunit.Pages.Careers;
 
 internal partial class CareerSearchPage
