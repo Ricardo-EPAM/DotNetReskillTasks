@@ -4,19 +4,12 @@ using OpenQA.Selenium;
 
 namespace DotnetTaskSeleniumNunit.Pages.JobDetails;
 
-internal partial class JobDetailsPage
+internal partial class JobDetailsPage(IWebDriver? driver,
+                   ILog? logger,
+                   GlobalVariables variables) : BasePage(driver, logger, variables)
 {
-    protected readonly IWebDriver _driver;
-    protected readonly ILog _logger;
-    protected readonly GlobalVariables _vars;
-
-    public JobDetailsPage(IWebDriver? driver, ILog? logger, GlobalVariables variables)
+    public string GetJobDescription()
     {
-        ArgumentNullException.ThrowIfNull(driver);
-        ArgumentNullException.ThrowIfNull(logger);
-        ArgumentNullException.ThrowIfNull(variables);
-        _driver = driver;
-        _logger = logger;
-        _vars = variables;
+        return GetJobDescriptionText();
     }
 }

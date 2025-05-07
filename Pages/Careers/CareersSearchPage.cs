@@ -7,23 +7,11 @@ using DotnetTaskSeleniumNunit.Pages.JobDetails;
 
 namespace DotnetTaskSeleniumNunit.Pages.Careers;
 
-internal partial class CareerSearchPage
+
+internal partial class CareerSearchPage(IWebDriver? driver,
+                   ILog? logger,
+                   GlobalVariables variables) : BasePage(driver, logger, variables)
 {
-    
-    protected readonly IWebDriver _driver;
-    protected readonly ILog _logger;
-    protected readonly GlobalVariables _vars;
-
-    public CareerSearchPage(IWebDriver? driver, ILog? logger, GlobalVariables variables)
-    {
-        ArgumentNullException.ThrowIfNull(driver);
-        ArgumentNullException.ThrowIfNull(logger);
-        ArgumentNullException.ThrowIfNull(variables);
-        _driver = driver;
-        _logger = logger;
-        _vars = variables;
-    }
-
     public void MakeACareerSearch(CareerSearch searchData)
     {
         EnterSearchCriteriaAndIgnoreSuggestion(searchData.Criteria);

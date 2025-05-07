@@ -35,7 +35,7 @@ public class TestEPAM : BaseTest
         IWebElement jobSection = careersSearchPage.GetLastJobSection();
         JobDetailsPage jobDetails = careersSearchPage.ApplyAndView(fromSection: jobSection);
 
-        string jobDescription = jobDetails.GetJobDescription();
+        string jobDescription = jobDetails.GetJobDescriptionText();
         Assert.That(jobDescription, Does.Contain(searchText));
     }
 

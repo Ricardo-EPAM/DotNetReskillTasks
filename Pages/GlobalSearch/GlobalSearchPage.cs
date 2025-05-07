@@ -4,21 +4,10 @@ using OpenQA.Selenium;
 
 namespace DotnetTaskSeleniumNunit.Pages.GlobalSearch;
 
-internal partial class GlobalSearchPage
+internal partial class GlobalSearchPage(IWebDriver? driver,
+                   ILog? logger,
+                   GlobalVariables variables) : BasePage(driver, logger, variables)
 {
-    protected readonly IWebDriver _driver;
-    protected readonly ILog _logger;
-    protected readonly GlobalVariables _vars;
-
-    public GlobalSearchPage(IWebDriver? driver, ILog? logger, GlobalVariables variables)
-    {
-        ArgumentNullException.ThrowIfNull(driver);
-        ArgumentNullException.ThrowIfNull(logger);
-        ArgumentNullException.ThrowIfNull(variables);
-        _driver = driver;
-        _logger = logger;
-        _vars = variables;
-    }
 
     public void ClickMagnifier()
     {

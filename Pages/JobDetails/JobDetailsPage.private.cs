@@ -6,11 +6,18 @@ namespace DotnetTaskSeleniumNunit.Pages.JobDetails;
 
 internal partial class JobDetailsPage
 {
-    //9.	Validate that the programming language mentioned in the step above is on a page
-    internal string GetJobDescription()
+    private string GetJobDescriptionText()
     {
-        new WebDriverWait(_driver, _vars.ExplicitWaitDefault).
+		try
+		{
+            new WebDriverWait(_driver, _vars.ExplicitWaitDefault).
             Until(ExpectedConditions.ElementIsVisible(_vacancyDescription));
-        return VacancyDescription.Text;
+            return VacancyDescription.Text;
+        }
+		catch (Exception ex)
+		{
+            _logger.Error(_errorGetJobDescription, ex);
+			throw;
+		}
     }
 }

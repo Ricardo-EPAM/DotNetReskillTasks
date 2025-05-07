@@ -8,22 +8,10 @@ using SeleniumExtras.WaitHelpers;
 
 namespace DotnetTaskSeleniumNunit.Pages.About;
 
-internal partial class AboutPage
-
+internal partial class AboutPage(IWebDriver? driver,
+                   ILog? logger,
+                   GlobalVariables variables) : BasePage(driver, logger, variables)
 {
-    protected readonly IWebDriver _driver;
-    protected readonly ILog _logger;
-    protected readonly GlobalVariables _vars;
-
-    public AboutPage(IWebDriver? driver, ILog? logger, GlobalVariables variables)
-    {
-        ArgumentNullException.ThrowIfNull(driver);
-        ArgumentNullException.ThrowIfNull(logger);
-        ArgumentNullException.ThrowIfNull(variables);
-        _driver = driver;
-        _logger = logger;
-        _vars = variables;
-    }
 
     public void ScrollToEPAMAtAGlanceSection()
     {
