@@ -40,14 +40,9 @@ internal partial class CareerSearchPage(IWebDriver? driver,
         ClickFindButton();
     }
 
-    public IWebElement GetLastJobSection()
+    public JobDetailsPage ApplyAndViewFromLastSection()
     {
-        return GetLastJobSectionElement();
-    }
-
-    public JobDetailsPage ApplyAndView(IWebElement fromSection)
-    {
-        return ClickApplyAndViewFromSection(fromSection);
+        return ClickApplyAndViewFromSection(GetLastJobSectionElement());
     }
 
     public string GetJobDescription()

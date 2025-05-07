@@ -10,6 +10,6 @@ public class GlobalVariables
     public TimeSpan ImplicitWaitTimeout = TimeSpan.FromSeconds(2);
     public TimeSpan PageLoadTimeout = TimeSpan.FromSeconds(4);
     public PageLoadStrategy PageLoadStrategy = PageLoadStrategy.Default;
-    public bool IsHeadless = false;
+    public bool IsHeadless = true;
     public SpecialFolders DownloadsLocation = SpecialFolders.Downloads;
 }

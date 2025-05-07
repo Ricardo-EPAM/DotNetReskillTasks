@@ -32,8 +32,7 @@ public class TestEPAM : BaseTest
         var careerSearchForm = new CareerSearch(searchText, locationValue, locationModality);
         careersSearchPage.MakeACareerSearch(careerSearchForm);
 
-        IWebElement jobSection = careersSearchPage.GetLastJobSection();
-        JobDetailsPage jobDetails = careersSearchPage.ApplyAndView(fromSection: jobSection);
+        JobDetailsPage jobDetails = careersSearchPage.ApplyAndViewFromLastSection();
 
         string jobDescription = jobDetails.GetJobDescription();
         Assert.That(jobDescription, Does.Contain(searchText));
