@@ -5,7 +5,7 @@ using OpenQA.Selenium;
 
 namespace DotnetTaskSeleniumNunit.Pages;
 
-internal class BasePage
+abstract class BasePage
 {
     protected readonly IWebDriver _driver;
     protected readonly ILog _logger;
