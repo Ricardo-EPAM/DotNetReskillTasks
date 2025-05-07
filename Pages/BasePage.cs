@@ -6,7 +6,7 @@ namespace DotnetTaskSeleniumNunit.Pages;
 
 internal class BasePage
 {
-    private protected readonly IWebDriver _driver;
+    protected readonly IWebDriver _driver;
     protected readonly ILog _logger;
     protected readonly GlobalVariables _vars;
 
