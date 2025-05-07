@@ -67,7 +67,7 @@ internal partial class CareerSearchPage
         {
             new WebDriverWait(_driver, _vars.ExplicitWaitLong).
                 Until(ExpectedConditions.PresenceOfAllElementsLocatedBy(_modalityCheckboxes));
-            var selection = ModalityBoxes.First(x => x.GetAttribute("name").Contains(modalityText));
+            var selection = ModalityBoxes.First(x => x.GetAttribute("name")?.Contains(modalityText) == true);
             selection.FindElement(_followingLabel).Click();
         }
         catch (Exception ex)
