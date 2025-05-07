@@ -42,7 +42,7 @@ public class BaseTest : IDisposable
             .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
             .Build();
         ArgumentNullException.ThrowIfNull(_config);
-        _baseURL = _config["ApplicationSettings:BaseURL"];
+        _baseURL = _config["App:BaseURL"];
         ArgumentNullException.ThrowIfNull(_baseURL);
 
         _logger.Info($"Feature execution started: {TestContext.CurrentContext.Test.ClassName}");
@@ -60,18 +60,18 @@ public class BaseTest : IDisposable
             PageLoadTimeout = _vars.PageLoadTimeout,
         };
 
-        bool isHeadless = _vars.IsHeadless;
+        bool isHeadless = bool.Parse(_config["Runner:Headless"] ?? false.ToString());
 
         if (isHeadless)
         {
+            options.AddExcludedArgument("enable-automation");
             options.AddArgument("--headless=new");
             options.AddArgument("--disable-gpu");
-            options.AddArgument("--disable-blink-features=AutomationControlled"); // Hide automation traces
-            options.AddArgument("--disable-dev-shm-usage"); // Prevent shared memory issues
-            options.AddArgument("--no-sandbox"); // Bypass OS restriction for performance
-            options.AddArgument("--disable-infobars"); // Disable Chrome's "automation" bar
+            options.AddArgument("--disable-blink-features=AutomationControlled");
+            options.AddArgument("--disable-dev-shm-usage");
+            options.AddArgument("--no-sandbox");
+            options.AddArgument("--disable-infobars");
             options.AddArgument("window-size=1366,768");
-            options.AddExcludedArgument("enable-automation");
             options.AddArgument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.7103.49 Safari/537.36");
         }
 
