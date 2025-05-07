@@ -10,6 +10,7 @@ using NUnit.Framework.Internal;
 using OpenQA.Selenium;
 using DotnetTaskSeleniumNunit.Models.Careers;
 using DotnetTaskSeleniumNunit.Pages.Navigation;
+using DotnetTaskSeleniumNunit.Enums;
 namespace DotnetTaskSeleniumNunit.TestFixtures;
 
 
@@ -24,15 +25,14 @@ public class TestEPAM : BaseTest
     {
         CareerSearchPage careersSearchPage = new(driver: driver, logger, vars);
         NavigationBar navigation = new(driver, logger, vars);
-        navigation.AcceptCookies();
 
+        navigation.AcceptCookies();
         navigation.NavigateToCareersPage();
 
         var careerSearchForm = new CareerSearch(searchText, locationValue, locationModality);
         careersSearchPage.MakeACareerSearch(careerSearchForm);
 
         IWebElement jobSection = careersSearchPage.GetLastJobSection();
-
         JobDetailsPage jobDetails = careersSearchPage.ApplyAndView(fromSection: jobSection);
 
         string jobDescription = jobDetails.GetJobDescription();
@@ -46,12 +46,10 @@ public class TestEPAM : BaseTest
     {
         GlobalSearchPage globalSearchPage = new(driver, logger, vars);
         NavigationBar navigation = new(driver, logger, vars);
+
         navigation.AcceptCookies();
-
         globalSearchPage.ClickMagnifier();
-
         globalSearchPage.EnterSearchText(searchCriteria);
-
         globalSearchPage.Search();
 
         var links = globalSearchPage.GetSearchResults();
@@ -73,19 +71,16 @@ public class TestEPAM : BaseTest
     {
         NavigationBar navigation = new(driver, logger, vars);
         AboutPage aboutPage = new(driver, logger, vars);
+        var files = new FilesHelper(SpecialFolders.Downloads);
 
-        var files = new FilesHelper();
+        Assert.That(files.DoesFileExist(filePath, tries: 1), Is.False, "File should not exist before download it");
 
-        Assert.That(files.DoesFileExist(filePath, tries: 1), Is.False, aboutPage.testPreconditionsFailed);
         navigation.AcceptCookies();
-
         navigation.NavigateToAboutPage();
+        aboutPage.ScrollToEPAMAtAGlanceSection();
+        aboutPage.DownloadEPAMAtAGlanceDocument();
 
-        aboutPage.ScrollToEPAMGlanceSection();
-
-        aboutPage.DownloadEPAMGlance();
-
-        Assert.That(files.DoesFileExist(filePath), Is.True, aboutPage.downloadFailed);
+        Assert.That(files.DoesFileExist(filePath), Is.True, "File was not downloaded");
         files.DeleteFile(filePath);
     }
 
@@ -98,19 +93,16 @@ public class TestEPAM : BaseTest
         NavigationBar navigation = new(driver, logger, vars);
         InsightsPage insightsPage = new(driver, logger, vars);
 
-        var files = new FilesHelper();
+        var files = new FilesHelper(vars.DownloadsLocation);
         navigation.AcceptCookies();
-
         navigation.NavigateToInsightsPage();
-
         insightsPage.SwipeCarousel("Right", carouselIndex);
 
         var carouselTitle = insightsPage.GetCarouselTitle(); 
+        ArticlePage articlePage = insightsPage.ClickReadMoreFromCarousel();
 
-        ArticlePage articlePage = insightsPage.ClickReadMoreFromActiveArticleInCarousel();
-
-        var acticleTitle = articlePage.GetArticlelTitle();
-        Assert.That(acticleTitle, Is.EqualTo(carouselTitle), insightsPage.articleNotMatchinTitle);
+        var acticleTitle = articlePage.GetTitle();
+        Assert.That(acticleTitle, Is.EqualTo(carouselTitle), "Article title doesn't match the expected value");
     }
 }
 

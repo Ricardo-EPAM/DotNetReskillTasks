@@ -1,5 +1,4 @@
-﻿using DotnetTaskSeleniumNunit.Pages.GlobalSearch;
-using OpenQA.Selenium;
+﻿using OpenQA.Selenium;
 
 namespace DotnetTaskSeleniumNunit.Pages.About;
 

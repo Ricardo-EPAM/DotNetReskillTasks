@@ -1,5 +1,4 @@
 ﻿using DotnetTaskSeleniumNunit.Constants;
-using DotnetTaskSeleniumNunit.Pages.Navigation;
 using log4net;
 using OpenQA.Selenium;
 
@@ -19,5 +18,10 @@ internal partial class ArticlePage
         _driver = driver;
         _logger = logger;
         _vars = variables;
+    }
+
+    public string GetTitle()
+    {
+        return GetTitleFromArticle();
     }
 }

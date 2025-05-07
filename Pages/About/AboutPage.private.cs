@@ -1,5 +1,4 @@
-﻿using DotnetTaskSeleniumNunit.Constants;
-using OpenQA.Selenium.Interactions;
+﻿using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.WaitHelpers;
 
@@ -7,16 +6,33 @@ namespace DotnetTaskSeleniumNunit.Pages.About;
 
 internal partial class AboutPage
 {
-    internal void ScrollToEPAMGlanceSection()
+    private void ScrollToEPAMGlanceSection()
     {
-        new WebDriverWait(_driver, _vars.ExplicitWaitLong).
-            Until(ExpectedConditions.PresenceOfAllElementsLocatedBy(_epamGlanceSection));
-        new Actions(_driver).ScrollToElement(EPAMGlanceSection).Perform();
+        try
+        {
+            new WebDriverWait(_driver, _vars.ExplicitWaitLong).
+                        Until(ExpectedConditions.PresenceOfAllElementsLocatedBy(_epamGlanceSection));
+            new Actions(_driver).ScrollToElement(EPAMGlanceSection).Perform();
+        }
+        catch (Exception ex)
+        {
+            _logger.Error(_errorScrollToEPAMGlanceSection, ex);
+            throw;
+        }
+
     }
-    internal void DownloadEPAMGlance()
+    private void DownloadEPAMGlance()
     {
-        new WebDriverWait(_driver, _vars.ExplicitWaitLong).
+        try
+        {
+            new WebDriverWait(_driver, _vars.ExplicitWaitLong).
             Until(ExpectedConditions.PresenceOfAllElementsLocatedBy(_downloadButtonLink));
-        EPAMGlanceDownloadButton.Click();
+            EPAMGlanceDownloadButton.Click();
+        }
+        catch (Exception ex)
+        {
+            _logger.Error(_downloadFailed, ex);
+            throw;
+        }
     }
 }

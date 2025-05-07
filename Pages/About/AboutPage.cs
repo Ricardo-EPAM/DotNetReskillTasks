@@ -2,6 +2,9 @@
 using DotnetTaskSeleniumNunit.Pages.Navigation;
 using log4net;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Interactions;
+using OpenQA.Selenium.Support.UI;
+using SeleniumExtras.WaitHelpers;
 
 namespace DotnetTaskSeleniumNunit.Pages.About;
 
@@ -20,5 +23,14 @@ internal partial class AboutPage
         _driver = driver;
         _logger = logger;
         _vars = variables;
+    }
+
+    public void ScrollToEPAMAtAGlanceSection()
+    {
+        ScrollToEPAMGlanceSection();
+    }
+    public void DownloadEPAMAtAGlanceDocument()
+    {
+        DownloadEPAMGlance();
     }
 }

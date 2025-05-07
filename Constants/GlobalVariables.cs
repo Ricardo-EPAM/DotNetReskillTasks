@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using DotnetTaskSeleniumNunit.Enums;
+using OpenQA.Selenium;
 
 namespace DotnetTaskSeleniumNunit.Constants;
 public class GlobalVariables
@@ -10,4 +11,5 @@ public class GlobalVariables
     public TimeSpan PageLoadTimeout = TimeSpan.FromSeconds(4);
     public PageLoadStrategy PageLoadStrategy = PageLoadStrategy.Default;
     public bool IsHeadless = false;
+    public SpecialFolders DownloadsLocation = SpecialFolders.Downloads;
 }

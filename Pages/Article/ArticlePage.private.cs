@@ -1,4 +1,5 @@
 ﻿using DotnetTaskSeleniumNunit.Constants;
+using OpenQA.Selenium.DevTools.V134.Page;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.WaitHelpers;
 
@@ -6,19 +7,18 @@ namespace DotnetTaskSeleniumNunit.Pages.Article;
 
 internal partial class ArticlePage
 {
-    internal string GetArticlelTitle()
+    private string GetTitleFromArticle()
     {
-        try // EPAM Continum, etc.
+        try
         {
             new WebDriverWait(_driver, _vars.ExplicitWaitDefault).
                Until(ExpectedConditions.ElementIsVisible(_artivcleTitle));
             return ArticleTitle.Text;
         }
-        catch (Exception) // AI Report, etc.
+        catch (Exception ex)
         {
-            new WebDriverWait(_driver, _vars.ExplicitWaitDefault).
-          Until(ExpectedConditions.ElementIsVisible(_artivcleTitleV2));
-            return ArticleTitleV2.Text.Trim();
+            _logger.Error(_errorGetTitleFromArticle, ex);
+            throw;
         }
     }
 }

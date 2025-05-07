@@ -1,4 +1,5 @@
 ﻿using System;
+using DotnetTaskSeleniumNunit.Enums;
 
 namespace DotnetTaskSeleniumNunit.Helpers
 {
@@ -6,9 +7,9 @@ namespace DotnetTaskSeleniumNunit.Helpers
     {
         private readonly string _filesPath;
 
-        public FilesHelper()
+        public FilesHelper(SpecialFolders workingDirectory)
         {
-            _filesPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "Downloads");
+            _filesPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), workingDirectory.ToString());
         }
 
         /// <summary>

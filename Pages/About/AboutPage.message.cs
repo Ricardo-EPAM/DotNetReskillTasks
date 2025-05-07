@@ -2,6 +2,6 @@
 
 internal partial class AboutPage
 {
-    internal readonly string downloadFailed = "There was an error downloading the file";
-    internal readonly string testPreconditionsFailed = "File should not exist when test starts";
+    private readonly string _downloadFailed = "There was an error downloading the file";
+    private readonly string _errorScrollToEPAMGlanceSection = "There was an issue while scolling to the section 'EPAM At a Glance'";
 }
