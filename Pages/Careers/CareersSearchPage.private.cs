@@ -67,7 +67,7 @@ internal partial class CareerSearchPage
         {
             new WebDriverWait(_driver, _vars.ExplicitWaitLong).
                 Until(ExpectedConditions.PresenceOfAllElementsLocatedBy(_modalityCheckboxes));
-            var selection = ModalityBoxes.First(x => x.GetAttribute("name")?.Contains(modalityText) == true);
+            var selection = ModalityBoxes.First(x => x.GetAttribute("name").Contains(modalityText));
             selection.FindElement(_followingLabel).Click();
         }
         catch (Exception ex)
@@ -96,9 +96,9 @@ internal partial class CareerSearchPage
     {
         try
         {
-            var results = new WebDriverWait(_driver, _vars.ExplicitWaitDefault).
+            new WebDriverWait(_driver, _vars.ExplicitWaitDefault).
                Until(ExpectedConditions.PresenceOfAllElementsLocatedBy(_vacanciesContainers));
-            return results;
+            return VacanciesContainers;
         }
         catch (Exception ex)
         {
@@ -112,14 +112,13 @@ internal partial class CareerSearchPage
         return GetJobSections().Last();
     }
 
-    private JobDetailsPage ClickApplyAndViewFromSection(IWebElement section)
+    private void ClickApplyAndViewFromSection(IWebElement section)
     {
         try
         {
             new WebDriverWait(_driver, _vars.ExplicitWaitDefault).
                 Until(ExpectedConditions.VisibilityOfAllElementsLocatedBy(_applyButtonFromVacancy));
             section.FindElement(_applyButtonFromVacancy).Click();
-            return new JobDetailsPage(_driver, _logger, _vars);
         }
         catch (Exception ex)
         {

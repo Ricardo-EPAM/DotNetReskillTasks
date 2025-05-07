@@ -5,7 +5,7 @@ namespace DotnetTaskSeleniumNunit.Helpers
 {
     class FilesHelper
     {
-        private readonly string _filesPath;
+        private static string? _filesPath;
 
         public FilesHelper(SpecialFolders workingDirectory)
         {
@@ -21,6 +21,7 @@ namespace DotnetTaskSeleniumNunit.Helpers
         /// <returns>True if the file exist, false if not (with timeout)</returns>
         public bool DoesFileExist(string fileName, TimeSpan? waitTime = null, uint tries = 3)
         {
+            ArgumentNullException.ThrowIfNull(_filesPath);
             for (int i = 0; i <= tries; i++)
             {
                 if (File.Exists(Path.Combine(_filesPath, fileName)))
@@ -32,6 +33,7 @@ namespace DotnetTaskSeleniumNunit.Helpers
 
         public void DeleteFile(string fileName)
         {
+            ArgumentNullException.ThrowIfNull(_filesPath);
             File.Delete(Path.Combine(_filesPath, fileName));
         }
     }

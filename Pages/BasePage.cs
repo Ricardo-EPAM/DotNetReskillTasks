@@ -10,13 +10,13 @@ internal class BasePage
     protected readonly ILog _logger;
     protected readonly GlobalVariables _vars;
 
-    public BasePage(IWebDriver? driver, ILog? logger, GlobalVariables variables)
+    public BasePage(POMDependencies pomDependencies)
     {
-        ArgumentNullException.ThrowIfNull(driver);
-        ArgumentNullException.ThrowIfNull(logger);
-        ArgumentNullException.ThrowIfNull(variables);
-        _driver = driver;
-        _logger = logger;
-        _vars = variables;
+        ArgumentNullException.ThrowIfNull(pomDependencies.Driver);
+        ArgumentNullException.ThrowIfNull(pomDependencies.Logger);
+        ArgumentNullException.ThrowIfNull(pomDependencies.Variables);
+        _driver = pomDependencies.Driver;
+        _logger = pomDependencies.Logger;
+        _vars = pomDependencies.Variables;
     }
 }

@@ -4,9 +4,7 @@ using OpenQA.Selenium;
 
 namespace DotnetTaskSeleniumNunit.Pages.GlobalSearch;
 
-internal partial class GlobalSearchPage(IWebDriver? driver,
-                   ILog? logger,
-                   GlobalVariables variables) : BasePage(driver, logger, variables)
+internal partial class GlobalSearchPage(POMDependencies pomDependencies) : BasePage(pomDependencies)
 {
 
     public void ClickMagnifier()

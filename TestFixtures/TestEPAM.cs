@@ -7,7 +7,6 @@ using DotnetTaskSeleniumNunit.Pages.JobDetails;
 using DotnetTaskSeleniumNunit.Helpers;
 
 using NUnit.Framework.Internal;
-using OpenQA.Selenium;
 using DotnetTaskSeleniumNunit.Models.Careers;
 using DotnetTaskSeleniumNunit.Pages.Navigation;
 using DotnetTaskSeleniumNunit.Enums;
@@ -23,17 +22,17 @@ public class TestEPAM : BaseTest
     [TestCase("Java", "Buenos Aires", CareerModality.Office)]
     public void TestCareersSearch(string searchText, string locationValue, CareerModality locationModality)
     {
-        CareerSearchPage careersSearchPage = new(driver: driver, logger, vars);
-        NavigationBar navigation = new(driver, logger, vars);
+        CareerSearchPage careersSearchPage = new(_pomDependencies);
+        NavigationBar navigation = new(_pomDependencies);
 
         navigation.AcceptCookies();
         navigation.NavigateToCareersPage();
 
         var careerSearchForm = new CareerSearch(searchText, locationValue, locationModality);
         careersSearchPage.MakeACareerSearch(careerSearchForm);
+        careersSearchPage.ApplyAndViewFromLastSection();
 
-        JobDetailsPage jobDetails = careersSearchPage.ApplyAndViewFromLastSection();
-
+        JobDetailsPage jobDetails = new(_pomDependencies); 
         string jobDescription = jobDetails.GetJobDescription();
         Assert.That(jobDescription, Does.Contain(searchText));
     }
@@ -43,8 +42,8 @@ public class TestEPAM : BaseTest
     [TestCase("Automation")]
     public void TestGlobalSearchKeywords(string searchCriteria)
     {
-        GlobalSearchPage globalSearchPage = new(driver, logger, vars);
-        NavigationBar navigation = new(driver, logger, vars);
+        GlobalSearchPage globalSearchPage = new(_pomDependencies);
+        NavigationBar navigation = new(_pomDependencies);
 
         navigation.AcceptCookies();
         globalSearchPage.ClickMagnifier();
@@ -68,8 +67,8 @@ public class TestEPAM : BaseTest
     [TestCase("EPAM_Corporate_Overview_Q4FY-2024.pdf")]
     public void TestDownloadFile(string filePath)
     {
-        NavigationBar navigation = new(driver, logger, vars);
-        AboutPage aboutPage = new(driver, logger, vars);
+        NavigationBar navigation = new(_pomDependencies);
+        AboutPage aboutPage = new(_pomDependencies);
         var files = new FilesHelper(SpecialFolders.Downloads);
 
         Assert.That(files.DoesFileExist(filePath, tries: 1), Is.False, "File should not exist before download it");
@@ -89,17 +88,18 @@ public class TestEPAM : BaseTest
     [TestCase(4)]
     public void TestCarrouselArticles(int carouselIndex)
     {
-        NavigationBar navigation = new(driver, logger, vars);
-        InsightsPage insightsPage = new(driver, logger, vars);
+        NavigationBar navigation = new(_pomDependencies);
+        InsightsPage insightsPage = new(_pomDependencies);
 
-        var files = new FilesHelper(vars.DownloadsLocation);
+        var files = new FilesHelper(_pomDependencies.Variables.DownloadsLocation);
         navigation.AcceptCookies();
         navigation.NavigateToInsightsPage();
         insightsPage.SwipeCarousel("Right", carouselIndex);
 
         var carouselTitle = insightsPage.GetCarouselTitle(); 
-        ArticlePage articlePage = insightsPage.ClickReadMoreFromCarousel();
+        insightsPage.ClickReadMoreFromCarousel();
 
+        ArticlePage articlePage = new(_pomDependencies); 
         var acticleTitle = articlePage.GetTitle();
         Assert.That(acticleTitle, Is.EqualTo(carouselTitle), "Article title doesn't match the expected value");
     }

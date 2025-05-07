@@ -7,9 +7,7 @@ using DotnetTaskSeleniumNunit.Pages.JobDetails;
 namespace DotnetTaskSeleniumNunit.Pages.Careers;
 
 
-internal partial class CareerSearchPage(IWebDriver? driver,
-                   ILog? logger,
-                   GlobalVariables variables) : BasePage(driver, logger, variables)
+internal partial class CareerSearchPage(POMDependencies pomDependencies) : BasePage(pomDependencies)
 {
     public void MakeACareerSearch(CareerSearch searchData)
     {
@@ -19,30 +17,9 @@ internal partial class CareerSearchPage(IWebDriver? driver,
         ClickFindButton();
     }
 
-    public void SearchFor(string searchText)
+    public void ApplyAndViewFromLastSection()
     {
-        EnterSearchCriteriaAndIgnoreSuggestion(searchText);
-    }
-
-
-    public void SelectLocation(string searchText)
-    {
-        SelectLocationDropdownByValue(searchText);
-    }
-
-    public void SelectModality(CareerModality modality)
-    {
-        SelectModalityCheckboxByText(modality);
-    }
-
-    public void Search()
-    {
-        ClickFindButton();
-    }
-
-    public JobDetailsPage ApplyAndViewFromLastSection()
-    {
-        return ClickApplyAndViewFromSection(GetLastJobSectionElement());
+        ClickApplyAndViewFromSection(GetLastJobSectionElement());
     }
 
     public string GetJobDescription()

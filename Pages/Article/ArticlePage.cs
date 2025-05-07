@@ -4,9 +4,7 @@ using OpenQA.Selenium;
 
 namespace DotnetTaskSeleniumNunit.Pages.Article;
 
-internal partial class ArticlePage(IWebDriver? driver,
-                   ILog? logger,
-                   GlobalVariables variables) : BasePage(driver, logger, variables)
+internal partial class ArticlePage(POMDependencies pomDependencies) : BasePage(pomDependencies)
 {
     public string GetTitle()
     {

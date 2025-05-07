@@ -4,9 +4,7 @@ using OpenQA.Selenium;
 
 namespace DotnetTaskSeleniumNunit.Pages.Navigation;
 
-internal partial class NavigationBar(IWebDriver? driver,
-                   ILog? logger,
-                   GlobalVariables variables) : BasePage(driver, logger, variables)
+internal partial class NavigationBar(POMDependencies pomDependencies) : BasePage(pomDependencies)
 {
     public void NavigateToCareersPage()
     {

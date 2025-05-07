@@ -1,5 +1,4 @@
-﻿using DotnetTaskSeleniumNunit.Pages.Article;
-using OpenQA.Selenium.Support.UI;
+﻿using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.WaitHelpers;
 
 namespace DotnetTaskSeleniumNunit.Pages.Insights;
@@ -77,14 +76,13 @@ internal partial class InsightsPage
         }
     }
 
-    private ArticlePage ClickReadMoreFromActiveArticleInCarousel()
+    private void ClickReadMoreFromActiveArticleInCarousel()
     {
         try
         {
             new WebDriverWait(_driver, _vars.ExplicitWaitDefault).
            Until(ExpectedConditions.ElementToBeClickable(CarouselReadMoreLink));
             CarouselReadMoreLink.Click();
-            return new ArticlePage(_driver, _logger, _vars);
         }
         catch (Exception ex)
         {
