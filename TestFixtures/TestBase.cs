@@ -1,5 +1,6 @@
 ﻿using System.Reflection;
 using DotnetTaskSeleniumNunit.Constants;
+using DotnetTaskSeleniumNunit.Helpers;
 using log4net;
 using log4net.Config;
 using Microsoft.Extensions.Configuration;

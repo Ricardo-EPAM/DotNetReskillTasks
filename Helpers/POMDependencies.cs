@@ -2,7 +2,7 @@
 using log4net;
 using OpenQA.Selenium;
 
-namespace DotnetTaskSeleniumNunit;
+namespace DotnetTaskSeleniumNunit.Helpers;
 
 public class POMDependencies
 {

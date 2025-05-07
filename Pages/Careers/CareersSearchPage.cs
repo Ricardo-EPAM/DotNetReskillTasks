@@ -3,6 +3,7 @@ using DotnetTaskSeleniumNunit.Models.Careers;
 using log4net;
 using OpenQA.Selenium;
 using DotnetTaskSeleniumNunit.Pages.JobDetails;
+using DotnetTaskSeleniumNunit.Helpers;
 
 namespace DotnetTaskSeleniumNunit.Pages.Careers;
 

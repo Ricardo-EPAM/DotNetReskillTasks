@@ -1,15 +1,15 @@
-using DotnetTaskSeleniumNunit.Pages.Insights;
-using DotnetTaskSeleniumNunit.Pages.About;
-using DotnetTaskSeleniumNunit.Pages.Careers;
-using DotnetTaskSeleniumNunit.Pages.Article;
 using DotnetTaskSeleniumNunit.Pages.GlobalSearch;
 using DotnetTaskSeleniumNunit.Pages.JobDetails;
-using DotnetTaskSeleniumNunit.Helpers;
-
-using NUnit.Framework.Internal;
-using DotnetTaskSeleniumNunit.Models.Careers;
 using DotnetTaskSeleniumNunit.Pages.Navigation;
+using DotnetTaskSeleniumNunit.Models.Careers;
+using DotnetTaskSeleniumNunit.Pages.Insights;
+using DotnetTaskSeleniumNunit.Pages.Article;
+using DotnetTaskSeleniumNunit.Pages.Careers;
+using DotnetTaskSeleniumNunit.Pages.About;
+using DotnetTaskSeleniumNunit.Helpers;
 using DotnetTaskSeleniumNunit.Enums;
+using NUnit.Framework.Internal;
+
 namespace DotnetTaskSeleniumNunit.TestFixtures;
 
 

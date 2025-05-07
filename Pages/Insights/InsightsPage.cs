@@ -1,4 +1,6 @@
-﻿namespace DotnetTaskSeleniumNunit.Pages.Insights;
+﻿using DotnetTaskSeleniumNunit.Helpers;
+
+namespace DotnetTaskSeleniumNunit.Pages.Insights;
 
 internal partial class InsightsPage(POMDependencies pomDependencies) : BasePage(pomDependencies)
 {
