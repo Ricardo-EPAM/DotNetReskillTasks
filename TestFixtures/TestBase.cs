@@ -3,6 +3,7 @@ using DotnetTaskSeleniumNunit.Enums;
 using DotnetTaskSeleniumNunit.Helpers;
 using log4net;
 using Microsoft.Extensions.Configuration;
+using NUnit.Framework.Interfaces;
 using OpenQA.Selenium;
 
 namespace DotnetTaskSeleniumNunit;
@@ -32,7 +33,6 @@ public class BaseTest : IDisposable
         _logger = loggerConfig.GetLogger();
 
         _baseURL = _config["App:BaseURL"] ?? "";
-        ArgumentNullException.ThrowIfNull(_baseURL);
         _logger.Info($"Feature execution started: {TestContext.CurrentContext.Test.ClassName}");
 
         _vars = new GlobalVariables();
@@ -51,11 +51,6 @@ public class BaseTest : IDisposable
         _driver.Manage().Window.Maximize();
         _driver.Manage().Timeouts().ImplicitWait = _vars.ImplicitWaitTimeout;
 
-        //if (isHeadless)
-        //{
-        //    ((IJavaScriptExecutor)_driver).ExecuteScript("Object.defineProperty(navigator, 'webdriver', { get: () => false })");
-        //}
-        ArgumentNullException.ThrowIfNull(_driver);
         _logger.Info("Setup completed");
         _logger.Info($"Initializing test: {TestContext.CurrentContext.Test.Name}");
 
@@ -65,11 +60,9 @@ public class BaseTest : IDisposable
     [TearDown]
     public void TearDown()
     {
-        ArgumentNullException.ThrowIfNull(_driver);
-
-        var screenshotFileName = ScreenshotHelper.TakesScreenshotIfFailed(_driver, _config.GetSection("Output"), TestContext.CurrentContext);
-        if (!string.IsNullOrEmpty(screenshotFileName))
+        if (TestContext.CurrentContext.Result.Outcome.Status != TestStatus.Failed)
         {
+            var screenshotFileName = ScreenshotHelper.TakesScreenshotIfFailed(_driver, _config.GetSection("Output"));
             _logger.Error($"Failed test screenshot was saved in: {screenshotFileName}");
         }
 

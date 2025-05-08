@@ -24,7 +24,7 @@ public class LoggerConfiguration
         ArgumentNullException.ThrowIfNull(currentMethod);
         ArgumentNullException.ThrowIfNull(currentMethod.DeclaringType);
 
-        _logger = LogManager.GetLogger(typeof(BaseTest));
+        _logger = LogManager.GetLogger("GlobalLogger");
         _logRepository = LogManager.GetRepository(entryAssembly);
         XmlConfigurator.Configure(_logRepository, new FileInfo(path));
 
