@@ -100,7 +100,7 @@ public class TestEPAM : BaseTest
 
         ArticlePage articlePage = new(_pomDependencies); 
         var acticleTitle = articlePage.GetTitle();
-        Assert.That(acticleTitle, Is.Not.EqualTo(carouselTitle), "Article title doesn't match the expected value");
+        Assert.That(acticleTitle, Is.EqualTo(carouselTitle), "Article title doesn't match the expected value");
     }
 }
 

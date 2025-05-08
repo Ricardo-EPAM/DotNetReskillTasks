@@ -8,6 +8,7 @@ internal partial class InsightsPage
 {
     private void SwipeCarouselWithDirection(string left_or_right)
     {
+        _logger.Debug($"Swapping Carousel to the {left_or_right}");
         var validOptions = new List<string>() { "left", "right" };
         if (!validOptions.Contains(left_or_right.ToLower()))
         {
@@ -64,6 +65,7 @@ internal partial class InsightsPage
 
     private string GetCarouselElementTitle()
     {
+        _logger.Debug($"Getting Carousel title");
         try
         {
             new WebDriverWait(_driver, GetWait(Waits.Default)).
@@ -79,6 +81,7 @@ internal partial class InsightsPage
 
     private void ClickReadMoreFromActiveArticleInCarousel()
     {
+        _logger.Debug($"Clicking Carousel button: 'Read More'");
         try
         {
             new WebDriverWait(_driver, GetWait(Waits.Default)).

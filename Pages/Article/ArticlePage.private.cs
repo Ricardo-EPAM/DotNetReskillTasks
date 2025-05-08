@@ -8,6 +8,7 @@ internal partial class ArticlePage
 {
     private string GetTitleFromArticle()
     {
+        _logger.Debug("Getting Article main header");
         try
         {
             new WebDriverWait(_driver, GetWait(Waits.Default)).

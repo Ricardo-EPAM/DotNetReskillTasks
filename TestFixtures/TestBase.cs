@@ -30,34 +30,35 @@ public class BaseTest : IDisposable
 
         LoggerConfiguration loggerConfig = new(_config.GetSection("Runner"));
         _logger = loggerConfig.GetLogger();
-             _logger.Info($"Feature execution started: {TestContext.CurrentContext.Test.ClassName}");
-                _vars = new GlobalVariables();
+        _logger.Info($"Initializing feature: {TestContext.CurrentContext.Test.ClassName}");
+        _vars = new GlobalVariables();
     }
 
     [SetUp]
     public void SetUp()
     {
-        _logger.Info($"Setup test: {TestContext.CurrentContext.Test.Name}");
+        _logger.Info($"Setting up test: {TestContext.CurrentContext.Test.Name}");
 
         bool isHeadless = bool.Parse(_config["Runner:Headless"] ?? false.ToString());
-
         _driver = DriverFactory.CreateInstance(Browsers.Chrome, isHeadless);
+
         _driver.Navigate().GoToUrl(_config["App:BaseURL"] ?? "");
         _driver.Manage().Window.Maximize();
         _driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds((long)Waits.Timeout);
 
-        _logger.Info("Setup completed");
-        _logger.Info($"Initializing test: {TestContext.CurrentContext.Test.Name}");
-
         _pomDependencies = new POMDependencies(_driver, _vars, _logger);
+        _logger.Info($"Initializing test: {TestContext.CurrentContext.Test.Name}");
     }
 
     [TearDown]
     public void TearDown()
     {
-        if (TestContext.CurrentContext.Result.Outcome.Status != TestStatus.Failed)
+        if (TestContext.CurrentContext.Result.Outcome.Status == TestStatus.Failed)
         {
-            var screenshotFileName = ScreenshotHelper.TakesScreenshotIfFailed(_driver, _config.GetSection("Output"));
+            var screenshotFileName = ScreenshotHelper.TakesScreenshotIfFailed(
+                _driver,
+                _config.GetSection("Output"),
+                TestContext.CurrentContext.Test.Name);
             _logger.Error($"Failed test screenshot was saved in: {screenshotFileName}");
         }
 
@@ -68,13 +69,18 @@ public class BaseTest : IDisposable
     [OneTimeTearDown]
     public void BaseTearDown()
     {
+        Dispose();
         _logger.Info($"Feature execution finished: {TestContext.CurrentContext.Test.ClassName}");
     }
 
     public void Dispose()
     {
         if (_driver != null)
+        {
+            _driver.Quit();
             _driver.Dispose();
+        }
+
     }
 }
 
