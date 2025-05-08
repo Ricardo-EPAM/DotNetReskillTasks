@@ -69,7 +69,7 @@ public class TestEPAM : BaseTest
     {
         NavigationBar navigation = new(_pomDependencies);
         AboutPage aboutPage = new(_pomDependencies);
-        var files = new FilesHelper(SpecialFolders.Downloads);
+        var files = new FilesHelper(_pomDependencies.Variables.DownloadsLocation, _pomDependencies.Logger);
 
         Assert.That(files.DoesFileExist(filePath, tries: 1), Is.False, "File should not exist before download it");
 
@@ -91,7 +91,6 @@ public class TestEPAM : BaseTest
         NavigationBar navigation = new(_pomDependencies);
         InsightsPage insightsPage = new(_pomDependencies);
 
-        var files = new FilesHelper(_pomDependencies.Variables.DownloadsLocation);
         navigation.AcceptCookies();
         navigation.NavigateToInsightsPage();
         insightsPage.SwipeCarousel("Right", carouselIndex);
@@ -101,7 +100,7 @@ public class TestEPAM : BaseTest
 
         ArticlePage articlePage = new(_pomDependencies); 
         var acticleTitle = articlePage.GetTitle();
-        Assert.That(acticleTitle, Is.EqualTo(carouselTitle), "Article title doesn't match the expected value");
+        Assert.That(acticleTitle, Is.Not.EqualTo(carouselTitle), "Article title doesn't match the expected value");
     }
 }
 

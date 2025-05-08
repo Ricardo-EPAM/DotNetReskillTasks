@@ -1,40 +1,57 @@
-﻿using System;
-using DotnetTaskSeleniumNunit.Enums;
+﻿using DotnetTaskSeleniumNunit.Enums;
+using log4net;
 
-namespace DotnetTaskSeleniumNunit.Helpers
+namespace DotnetTaskSeleniumNunit.Helpers;
+
+class FilesHelper
 {
-    class FilesHelper
+    private static string? _filesPath;
+    private static ILog? _logger;
+
+    public FilesHelper(SpecialFolders workingDirectory, ILog logger)
     {
-        private static string? _filesPath;
+        _logger = logger;
+        _filesPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), workingDirectory.ToString());
+        _logger.Info($"FilesHelper initialized using path: {_filesPath}");
+    }
 
-        public FilesHelper(SpecialFolders workingDirectory)
+    /// <summary>
+    /// Used to assert if a file was downloaded.
+    /// </summary>
+    /// <param name="fileName">Name of the file with extension</param>
+    /// <param name="waitTime">Wait between tries, if null: default is 3 seconds</param>
+    /// <param name="tries">Number of attempts</param>
+    /// <returns>True if the file exist, false if not (with timeout)</returns>
+    public bool DoesFileExist(string fileName, TimeSpan? waitTime = null, uint tries = 3)
+    {
+        ArgumentNullException.ThrowIfNull(_filesPath);
+        ArgumentNullException.ThrowIfNull(_logger);
+        for (int i = 0; i <= tries; i++)
         {
-            _filesPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), workingDirectory.ToString());
-        }
+            _logger.Info($"Searching for file {fileName} ...");
 
-        /// <summary>
-        /// Used to assert if a file was downloaded.
-        /// </summary>
-        /// <param name="fileName">Name of the file with extension</param>
-        /// <param name="waitTime">Wait between tries, if null: default is 3 seconds</param>
-        /// <param name="tries">Number of attempts</param>
-        /// <returns>True if the file exist, false if not (with timeout)</returns>
-        public bool DoesFileExist(string fileName, TimeSpan? waitTime = null, uint tries = 3)
-        {
-            ArgumentNullException.ThrowIfNull(_filesPath);
-            for (int i = 0; i <= tries; i++)
+            if (File.Exists(Path.Combine(_filesPath, fileName)))
             {
-                if (File.Exists(Path.Combine(_filesPath, fileName)))
-                    return true;
-                Thread.Sleep(waitTime ?? TimeSpan.FromSeconds(3));
+                _logger.Info($"File Found {fileName}");
+                return true;
             }
-            return false;
+            Thread.Sleep(waitTime ?? TimeSpan.FromSeconds(3));
         }
+        _logger.Info($"File not found {fileName}");
+        return false;
+    }
 
-        public void DeleteFile(string fileName)
+    public void DeleteFile(string fileName)
+    {
+        ArgumentNullException.ThrowIfNull(_filesPath);
+        ArgumentNullException.ThrowIfNull(_logger);
+        try
         {
-            ArgumentNullException.ThrowIfNull(_filesPath);
             File.Delete(Path.Combine(_filesPath, fileName));
+        }
+        catch (Exception ex)
+        {
+            _logger.Info($"File not found {fileName}", ex);
         }
     }
 }

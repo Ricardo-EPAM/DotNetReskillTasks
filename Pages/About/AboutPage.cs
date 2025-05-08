@@ -1,7 +1,4 @@
-﻿using DotnetTaskSeleniumNunit.Constants;
-using DotnetTaskSeleniumNunit.Helpers;
-using log4net;
-using OpenQA.Selenium;
+﻿using DotnetTaskSeleniumNunit.Helpers;
 
 namespace DotnetTaskSeleniumNunit.Pages.About;
 
