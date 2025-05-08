@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium.Support.UI;
+﻿using DotnetTaskSeleniumNunit.Enums;
+using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.WaitHelpers;
 
 namespace DotnetTaskSeleniumNunit.Pages.Insights;
@@ -26,7 +27,7 @@ internal partial class InsightsPage
     {
         try
         {
-            new WebDriverWait(_driver, _vars.ExplicitWaitDefault).
+            new WebDriverWait(_driver, GetWait(Waits.Default)).
             Until(ExpectedConditions.ElementIsVisible(_swipeLeft));
             CarouselSwipeLeft.Click();
         }
@@ -41,7 +42,7 @@ internal partial class InsightsPage
     {
         try
         {
-            new WebDriverWait(_driver, _vars.ExplicitWaitDefault).
+            new WebDriverWait(_driver, GetWait(Waits.Default)).
                 Until(ExpectedConditions.ElementIsVisible(_swipeRight));
             CarouselSwipeRight.Click();
         }
@@ -65,7 +66,7 @@ internal partial class InsightsPage
     {
         try
         {
-            new WebDriverWait(_driver, _vars.ExplicitWaitDefault).
+            new WebDriverWait(_driver, GetWait(Waits.Default)).
                 Until(ExpectedConditions.ElementIsVisible(_carouselActiveElement));
             return CarouselTitle.Text.Trim();
         }
@@ -80,7 +81,7 @@ internal partial class InsightsPage
     {
         try
         {
-            new WebDriverWait(_driver, _vars.ExplicitWaitDefault).
+            new WebDriverWait(_driver, GetWait(Waits.Default)).
            Until(ExpectedConditions.ElementToBeClickable(CarouselReadMoreLink));
             CarouselReadMoreLink.Click();
         }

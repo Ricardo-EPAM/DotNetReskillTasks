@@ -6,8 +6,9 @@ namespace DotnetTaskSeleniumNunit.Helpers;
 
 static class ScreenshotHelper
 {
-    public static string? TakesScreenshotIfFailed(IWebDriver driver, IConfiguration configs)
+    public static string? TakesScreenshotIfFailed(IWebDriver? driver, IConfiguration configs)
     {
+        ArgumentNullException.ThrowIfNull(driver);
         Screenshot ss = ((ITakesScreenshot)driver).GetScreenshot();
         var folderName = DateTime.Now.ToString(configs["ScreenshotDirectory"]);
         var fileName = DateTime.Now.ToString(configs["ScreenshotPrefix"]);

@@ -1,5 +1,4 @@
-﻿using DotnetTaskSeleniumNunit.Constants;
-using OpenQA.Selenium.DevTools.V134.Page;
+﻿using DotnetTaskSeleniumNunit.Enums;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.WaitHelpers;
 
@@ -11,7 +10,7 @@ internal partial class ArticlePage
     {
         try
         {
-            new WebDriverWait(_driver, _vars.ExplicitWaitDefault).
+            new WebDriverWait(_driver, GetWait(Waits.Default)).
                Until(ExpectedConditions.ElementIsVisible(_artivcleTitle));
             return ArticleTitle.Text;
         }

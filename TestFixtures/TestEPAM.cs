@@ -69,7 +69,7 @@ public class TestEPAM : BaseTest
     {
         NavigationBar navigation = new(_pomDependencies);
         AboutPage aboutPage = new(_pomDependencies);
-        var files = new FilesHelper(_pomDependencies.Variables.DownloadsLocation, _pomDependencies.Logger);
+        var files = new FilesHelper(SpecialFolders.Downloads, _pomDependencies.Logger);
 
         Assert.That(files.DoesFileExist(filePath, tries: 1), Is.False, "File should not exist before download it");
 

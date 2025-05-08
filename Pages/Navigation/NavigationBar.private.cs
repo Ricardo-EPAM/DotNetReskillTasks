@@ -1,3 +1,4 @@
+using DotnetTaskSeleniumNunit.Enums;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.WaitHelpers;
@@ -15,7 +16,7 @@ internal partial class NavigationBar
     {
         try
         {
-            var foundLink = new WebDriverWait(_driver, _vars.ExplicitWaitDefault).
+            var foundLink = new WebDriverWait(_driver, GetWait(Waits.Default)).
             Until(ExpectedConditions.ElementToBeClickable(SelectElementByText(TopPageLinks, linkText)));
             foundLink.Click();
         }
@@ -30,7 +31,7 @@ internal partial class NavigationBar
     {
         try
         {
-            var cookiesButton = new WebDriverWait(_driver, _vars.ExplicitWaitDefault).
+            var cookiesButton = new WebDriverWait(_driver, GetWait(Waits.Default)).
                 Until(ExpectedConditions.ElementToBeClickable(AcceptCookiesButton));
             cookiesButton.Click();
         }

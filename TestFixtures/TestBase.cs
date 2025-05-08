@@ -18,7 +18,6 @@ public class BaseTest : IDisposable
     private ILog _logger;
     private IConfiguration _config;
     private GlobalVariables _vars;
-    private string _baseURL;
     private protected POMDependencies _pomDependencies;
 
     [OneTimeSetUp]
@@ -31,12 +30,8 @@ public class BaseTest : IDisposable
 
         LoggerConfiguration loggerConfig = new(_config.GetSection("Runner"));
         _logger = loggerConfig.GetLogger();
-
-        _baseURL = _config["App:BaseURL"] ?? "";
-        _logger.Info($"Feature execution started: {TestContext.CurrentContext.Test.ClassName}");
-
-        _vars = new GlobalVariables();
-
+             _logger.Info($"Feature execution started: {TestContext.CurrentContext.Test.ClassName}");
+                _vars = new GlobalVariables();
     }
 
     [SetUp]
@@ -47,9 +42,9 @@ public class BaseTest : IDisposable
         bool isHeadless = bool.Parse(_config["Runner:Headless"] ?? false.ToString());
 
         _driver = DriverFactory.CreateInstance(Browsers.Chrome, isHeadless);
-        _driver.Navigate().GoToUrl(_baseURL);
+        _driver.Navigate().GoToUrl(_config["App:BaseURL"] ?? "");
         _driver.Manage().Window.Maximize();
-        _driver.Manage().Timeouts().ImplicitWait = _vars.ImplicitWaitTimeout;
+        _driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds((long)Waits.Timeout);
 
         _logger.Info("Setup completed");
         _logger.Info($"Initializing test: {TestContext.CurrentContext.Test.Name}");
@@ -79,9 +74,7 @@ public class BaseTest : IDisposable
     public void Dispose()
     {
         if (_driver != null)
-        {
             _driver.Dispose();
-        }
     }
 }
 

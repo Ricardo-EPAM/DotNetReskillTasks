@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium.Interactions;
+﻿using DotnetTaskSeleniumNunit.Enums;
+using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.WaitHelpers;
 
@@ -10,7 +11,7 @@ internal partial class AboutPage
     {
         try
         {
-            new WebDriverWait(_driver, _vars.ExplicitWaitLong).
+            new WebDriverWait(_driver, GetWait(Waits.Long)).
                         Until(ExpectedConditions.PresenceOfAllElementsLocatedBy(_epamGlanceSection));
             new Actions(_driver).ScrollToElement(EPAMGlanceSection).Perform();
         }
@@ -25,7 +26,7 @@ internal partial class AboutPage
     {
         try
         {
-            new WebDriverWait(_driver, _vars.ExplicitWaitLong).
+            new WebDriverWait(_driver, GetWait(Waits.Long)).
             Until(ExpectedConditions.PresenceOfAllElementsLocatedBy(_downloadButtonLink));
             EPAMGlanceDownloadButton.Click();
         }

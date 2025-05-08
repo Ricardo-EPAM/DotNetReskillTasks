@@ -1,4 +1,5 @@
 ﻿using DotnetTaskSeleniumNunit.Constants;
+using DotnetTaskSeleniumNunit.Enums;
 using DotnetTaskSeleniumNunit.Helpers;
 using log4net;
 using OpenQA.Selenium;
@@ -19,5 +20,10 @@ abstract class BasePage
         _driver = pomDependencies.Driver;
         _logger = pomDependencies.Logger;
         _vars = pomDependencies.Variables;
+    }
+
+    private protected TimeSpan GetWait(Waits wait)
+    {
+        return TimeSpan.FromSeconds((long) wait);
     }
 }

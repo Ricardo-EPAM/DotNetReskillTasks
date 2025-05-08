@@ -1,4 +1,4 @@
-﻿using DotnetTaskSeleniumNunit.Constants;
+﻿using DotnetTaskSeleniumNunit.Enums;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.WaitHelpers;
 
@@ -10,7 +10,7 @@ internal partial class JobDetailsPage
     {
 		try
 		{
-            new WebDriverWait(_driver, _vars.ExplicitWaitDefault).
+            new WebDriverWait(_driver, GetWait(Waits.Default)).
             Until(ExpectedConditions.ElementIsVisible(_vacancyDescription));
             return VacancyDescription.Text;
         }

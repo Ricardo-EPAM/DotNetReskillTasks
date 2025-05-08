@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium.Support.UI;
+﻿using DotnetTaskSeleniumNunit.Enums;
+using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.WaitHelpers;
 
 namespace DotnetTaskSeleniumNunit.Pages.GlobalSearch;
@@ -9,7 +10,7 @@ internal partial class GlobalSearchPage
     {
         try
         {
-            new WebDriverWait(_driver, _vars.ExplicitWaitDefault).
+            new WebDriverWait(_driver, GetWait(Waits.Default)).
             Until(ExpectedConditions.ElementToBeClickable(_magnifierIcon));
             MagnifierIcon.Click();
         }
@@ -24,7 +25,7 @@ internal partial class GlobalSearchPage
     {
         try
         {
-            new WebDriverWait(_driver, _vars.ExplicitWaitDefault).
+            new WebDriverWait(_driver, GetWait(Waits.Default)).
             Until(ExpectedConditions.ElementToBeClickable(_searchField));
             SearchField.SendKeys(searchText);
         }
@@ -38,7 +39,7 @@ internal partial class GlobalSearchPage
     {
         try
         {
-            new WebDriverWait(_driver, _vars.ExplicitWaitDefault).
+            new WebDriverWait(_driver, GetWait(Waits.Default)).
             Until(ExpectedConditions.ElementToBeClickable(_findButton));
             Findbutton.Click();
         }
@@ -59,7 +60,7 @@ internal partial class GlobalSearchPage
 
         try
         {
-            new WebDriverWait(_driver, _vars.ExplicitWaitDefault).
+            new WebDriverWait(_driver, GetWait(Waits.Default)).
             Until(ExpectedConditions.PresenceOfAllElementsLocatedBy(_resultsArticlesDivs));
             foreach (var article in ResultsArticles)
             {
