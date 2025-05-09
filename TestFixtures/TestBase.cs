@@ -2,7 +2,6 @@
 using DotnetTaskSeleniumNunit.Enums;
 using DotnetTaskSeleniumNunit.Helpers;
 using log4net;
-using Microsoft.Extensions.Configuration;
 using NUnit.Framework.Interfaces;
 using OpenQA.Selenium;
 
@@ -12,23 +11,18 @@ namespace DotnetTaskSeleniumNunit;
 [TestFixture]
 public class BaseTest : IDisposable
 {
-#pragma warning disable CA1859 // Use concrete types when possible for improved performance
-    private IWebDriver? _driver;
-#pragma warning restore CA1859 // Use concrete types when possible for improved performance
+    private IWebDriver _driver;
     private ILog _logger;
-    private IConfiguration _config;
+    private ConfigsManager _config;
     private GlobalVariables _vars;
     private protected POMDependencies _pomDependencies;
+    private bool _disposed = false;
 
     [OneTimeSetUp]
     public void BaseSetUp()
     {
-        _config = new ConfigurationBuilder()
-            .SetBasePath(AppContext.BaseDirectory)
-            .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-            .Build();
-
-        LoggerConfiguration loggerConfig = new(_config.GetSection("Runner"));
+        _config = new ConfigsManager();
+        LoggerConfiguration loggerConfig = new(_config.RunnerConfiguration);
         _logger = loggerConfig.GetLogger();
         _logger.Info($"Initializing feature: {TestContext.CurrentContext.Test.ClassName}");
         _vars = new GlobalVariables();
@@ -39,10 +33,10 @@ public class BaseTest : IDisposable
     {
         _logger.Info($"Setting up test: {TestContext.CurrentContext.Test.Name}");
 
-        bool isHeadless = bool.Parse(_config["Runner:Headless"] ?? false.ToString());
-        _driver = DriverFactory.CreateInstance(Browsers.Chrome, isHeadless);
+        bool isHeadless = _config.RunnerConfiguration.HeadLess;
+        _driver = DriverFactory.GetDriver(Browsers.Chrome, isHeadless);
 
-        _driver.Navigate().GoToUrl(_config["App:BaseURL"] ?? "");
+        _driver.Navigate().GoToUrl(_config.AppConfiguration.BaseURL ?? "");
         _driver.Manage().Window.Maximize();
         _driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds((long)Waits.Timeout);
 
@@ -57,7 +51,7 @@ public class BaseTest : IDisposable
         {
             var screenshotFileName = ScreenshotHelper.TakesScreenshotIfFailed(
                 _driver,
-                _config.GetSection("Output"),
+                _config.OutputConfiguration,
                 TestContext.CurrentContext.Test.Name);
             _logger.Error($"Failed test screenshot was saved in: {screenshotFileName}");
         }
@@ -75,12 +69,27 @@ public class BaseTest : IDisposable
 
     public void Dispose()
     {
-        if (_driver != null)
-        {
-            _driver.Quit();
-            _driver.Dispose();
-        }
+        Dispose(true);
+        GC.SuppressFinalize(this);
+    }
 
+    protected virtual void Dispose(bool disposing)
+    {
+        if (_disposed)
+            return;
+
+        if (disposing)
+        {
+            _driver?.Quit();
+            _driver?.Dispose();
+            _logger?.Info("WebDriver disposed.");
+        }
+        _disposed = true;
+    }
+
+    ~BaseTest()
+    {
+        Dispose(false);
     }
 }
 

@@ -2,14 +2,12 @@
 using DotnetTaskSeleniumNunit.Interfaces;
 using DotnetTaskSeleniumNunit.Models.Browsers;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Chrome;
-using OpenQA.Selenium.Firefox;
 
 namespace DotnetTaskSeleniumNunit.Helpers;
 
-static class DriverFactory
+public class DriverFactory
 {
-    public static IWebDriver CreateInstance(Browsers browser, bool isHeadless)
+    public static IWebDriver GetDriver(Browsers browser, bool isHeadless)
     {
         IDriverManager driverManager = browser switch
         {
@@ -18,6 +16,5 @@ static class DriverFactory
             _ => throw new ArgumentException("Browser not supported"),
         };
         return driverManager.CreateDriver(isHeadless: isHeadless);
-
     }
 }

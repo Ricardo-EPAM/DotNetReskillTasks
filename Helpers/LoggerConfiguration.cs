@@ -1,6 +1,8 @@
 ﻿using System.Reflection;
-using log4net.Config;
+using DotnetTaskSeleniumNunit.Enums;
+using DotnetTaskSeleniumNunit.Models.Configurations;
 using log4net;
+using log4net.Config;
 using log4net.Repository;
 using Microsoft.Extensions.Configuration;
 
@@ -11,9 +13,9 @@ public class LoggerConfiguration
     private ILoggerRepository? _logRepository;
     private protected ILog? _logger { get; private set; }
 
-    public LoggerConfiguration(IConfiguration configs)
+    public LoggerConfiguration(RunnerConfiguration configs)
     {
-        string? path = configs["LoggerSettingsFile"];
+        string? path = configs.LoggerSettingsFile;
         if (string.IsNullOrEmpty(path))
         {
             throw new ArgumentNullException("Please provide a appsettings.json file path");
@@ -28,34 +30,30 @@ public class LoggerConfiguration
         _logRepository = LogManager.GetRepository(entryAssembly);
         XmlConfigurator.Configure(_logRepository, new FileInfo(path));
 
-        string? level = configs["LoggerLevel"];
-        SetLoggingLevel(level);
+        SetLoggingLevel(configs.LoggerLevel);
     }
-    public void SetLoggingLevel(string? loggerLevel)
+    public void SetLoggingLevel(LogLevels loggerLevel)
     {
         ArgumentNullException.ThrowIfNull(_logRepository);
 
-        if (!string.IsNullOrEmpty(loggerLevel))
+        var level = log4net.Core.Level.Debug;
+        level = loggerLevel switch
         {
-            var level = log4net.Core.Level.Debug;
-            level = loggerLevel.ToUpper() switch
+            LogLevels.Debug => log4net.Core.Level.Debug,
+            LogLevels.Info => log4net.Core.Level.Info,
+            LogLevels.Warn => log4net.Core.Level.Warn,
+            LogLevels.Fatal => log4net.Core.Level.Fatal,
+            LogLevels.Error => log4net.Core.Level.Error,
+            LogLevels.Off => log4net.Core.Level.Off,
+            LogLevels.All => log4net.Core.Level.All,
+            _ => throw new ArgumentException($"Invalid logger level '{loggerLevel}'"),
+        };
+        _logRepository.Threshold = level;
+        foreach (var appender in _logRepository.GetAppenders())
+        {
+            if (appender is log4net.Appender.AppenderSkeleton appenderSkeleton)
             {
-                "DEBUG" => log4net.Core.Level.Debug,
-                "INFO" => log4net.Core.Level.Info,
-                "WARN" => log4net.Core.Level.Warn,
-                "ERROR" => log4net.Core.Level.Error,
-                "FATAL" => log4net.Core.Level.Fatal,
-                "OFF" => log4net.Core.Level.Off,
-                "ALL" => log4net.Core.Level.All,
-                _ => throw new ArgumentException($"Invalid logger level {loggerLevel}"),
-            };
-            _logRepository.Threshold = level;
-            foreach (var appender in _logRepository.GetAppenders())
-            {
-                if (appender is log4net.Appender.AppenderSkeleton appenderSkeleton)
-                {
-                    appenderSkeleton.Threshold = level;
-                }
+                appenderSkeleton.Threshold = level;
             }
         }
     }
