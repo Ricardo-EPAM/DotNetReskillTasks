@@ -1,5 +1,5 @@
-﻿using DotnetTaskSeleniumNunit.Constants;
-using DotnetTaskSeleniumNunit.Models.Careers;
+﻿using DotnetTaskSeleniumNunit.Models.Careers;
+using DotnetTaskSeleniumNunit.Pages.JobDetails;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.WaitHelpers;
@@ -96,9 +96,9 @@ internal partial class CareerSearchPage
     {
         try
         {
-            var results = new WebDriverWait(_driver, _vars.ExplicitWaitDefault).
+            new WebDriverWait(_driver, _vars.ExplicitWaitDefault).
                Until(ExpectedConditions.PresenceOfAllElementsLocatedBy(_vacanciesContainers));
-            return results;
+            return VacanciesContainers;
         }
         catch (Exception ex)
         {

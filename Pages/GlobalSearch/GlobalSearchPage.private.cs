@@ -1,6 +1,4 @@
-﻿using DotnetTaskSeleniumNunit.Constants;
-using OpenQA.Selenium;
-using OpenQA.Selenium.Support.UI;
+﻿using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.WaitHelpers;
 
 namespace DotnetTaskSeleniumNunit.Pages.GlobalSearch;
