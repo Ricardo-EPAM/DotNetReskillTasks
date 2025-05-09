@@ -1,6 +1,6 @@
-﻿using DotnetTaskSeleniumNunit.Constants;
-using DotnetTaskSeleniumNunit.Enums.Configurations;
+﻿using DotnetTaskSeleniumNunit.Enums.Configurations;
 using DotnetTaskSeleniumNunit.Helpers;
+using DotnetTaskSeleniumNunit.Models.Configurations;
 using log4net;
 using OpenQA.Selenium;
 
@@ -10,18 +10,21 @@ abstract class BasePage
 {
     protected readonly IWebDriver _driver;
     protected readonly ILog _logger;
-    protected readonly GlobalVariables _vars;
+    protected readonly ConfigsManager _configs;
+    protected TimeSpan DefaultWait;
+    protected TimeSpan LongWait;
+    protected TimeSpan ShortWait;
 
     public BasePage(POMDependency pomDependencies)
     {
         ArgumentNullException.ThrowIfNull(pomDependencies);
         _driver = pomDependencies.Driver;
         _logger = pomDependencies.Logger;
-        _vars = pomDependencies.Variables;
-    }
+        _configs = pomDependencies.Configurations;
 
-    private protected TimeSpan GetWait(Waits wait)
-    {
-        return TimeSpan.FromSeconds((long) wait);
+
+        DefaultWait = TimeSpan.FromSeconds(_configs.UIWaitsConfiguration.DefaultWait);
+        LongWait = TimeSpan.FromSeconds(_configs.UIWaitsConfiguration.LongWait);
+        ShortWait = TimeSpan.FromSeconds(_configs.UIWaitsConfiguration.ShortWait);
     }
 }

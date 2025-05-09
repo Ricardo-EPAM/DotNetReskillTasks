@@ -1,5 +1,4 @@
-﻿using DotnetTaskSeleniumNunit.Constants;
-using DotnetTaskSeleniumNunit.Enums;
+﻿using DotnetTaskSeleniumNunit.Enums;
 using DotnetTaskSeleniumNunit.Enums.Configurations;
 using DotnetTaskSeleniumNunit.Helpers;
 using log4net;
@@ -15,7 +14,6 @@ public class BaseTest : IDisposable
     private IWebDriver _driver;
     private ILog _logger;
     private ConfigsManager _config;
-    private GlobalVariables _vars;
     private protected POMDependency _pomDependencies;
     private bool _disposed = false;
 
@@ -26,7 +24,6 @@ public class BaseTest : IDisposable
         LoggerConfiguration loggerConfig = new(_config.RunnerConfiguration);
         _logger = loggerConfig.GetLogger();
         _logger.Info($"Initializing feature: {TestContext.CurrentContext.Test.ClassName}");
-        _vars = new GlobalVariables();
     }
 
     [SetUp]
@@ -41,7 +38,7 @@ public class BaseTest : IDisposable
         _driver.Manage().Window.Maximize();
         _driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds((long)Waits.Timeout);
 
-        _pomDependencies = new POMDependency(_driver, _vars, _logger);
+        _pomDependencies = new POMDependency(_driver, _config, _logger);
         _logger.Info($"Initializing test: {TestContext.CurrentContext.Test.Name}");
     }
 

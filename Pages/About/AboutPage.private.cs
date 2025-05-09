@@ -1,5 +1,4 @@
-﻿using DotnetTaskSeleniumNunit.Enums.Configurations;
-using OpenQA.Selenium.Interactions;
+﻿using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.WaitHelpers;
 
@@ -12,7 +11,7 @@ internal partial class AboutPage
         _logger.Debug($"Scrolling to the 'EPAM At A Glance' section");
         try
         {
-            new WebDriverWait(_driver, GetWait(Waits.Long)).
+            new WebDriverWait(_driver, DefaultWait).
                 Until(ExpectedConditions.PresenceOfAllElementsLocatedBy(_epamGlanceSection));
             new Actions(_driver).ScrollToElement(EPAMGlanceSection).Perform();
         }
@@ -28,7 +27,7 @@ internal partial class AboutPage
         _logger.Debug($"Clicking 'Download' button from 'EPAM At A Glance' section");
         try
         {
-            new WebDriverWait(_driver, GetWait(Waits.Long)).
+            new WebDriverWait(_driver, LongWait).
                 Until(ExpectedConditions.PresenceOfAllElementsLocatedBy(_downloadButtonLink));
             EPAMGlanceDownloadButton.Click();
         }

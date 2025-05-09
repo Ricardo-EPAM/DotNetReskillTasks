@@ -1,4 +1,3 @@
-using DotnetTaskSeleniumNunit.Enums.Configurations;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.WaitHelpers;
@@ -17,7 +16,7 @@ internal partial class NavigationBar
         _logger.Debug($"Clicking link from top bar using the text '{linkText}'");
         try
         {
-            var foundLink = new WebDriverWait(_driver, GetWait(Waits.Default)).
+            var foundLink = new WebDriverWait(_driver, DefaultWait).
                 Until(ExpectedConditions.ElementToBeClickable(SelectElementByText(TopPageLinks, linkText)));
             foundLink.Click();
         }
@@ -33,7 +32,7 @@ internal partial class NavigationBar
         _logger.Debug($"Trying to accept cookies from recently opened page");
         try
         {
-            var cookiesButton = new WebDriverWait(_driver, GetWait(Waits.Default)).
+            var cookiesButton = new WebDriverWait(_driver, DefaultWait).
                 Until(ExpectedConditions.ElementToBeClickable(AcceptCookiesButton));
             cookiesButton.Click();
         }

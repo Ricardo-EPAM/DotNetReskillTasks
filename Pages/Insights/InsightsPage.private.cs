@@ -1,5 +1,4 @@
 ﻿using DotnetTaskSeleniumNunit.Enums;
-using DotnetTaskSeleniumNunit.Enums.Configurations;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.WaitHelpers;
 
@@ -27,14 +26,15 @@ internal partial class InsightsPage
         try
         {
             var currentActive = CarouselActiveElement;
-            new WebDriverWait(_driver, GetWait(Waits.Default)).
+            new WebDriverWait(_driver, DefaultWait).
                 Until(ExpectedConditions.ElementIsVisible(_swipeLeft));
             CarouselSwipeRight.Click();
-            new WebDriverWait(_driver, GetWait(Waits.Default))
-            .Until(driver => {
-                string currentClass = currentActive.GetAttribute("class");
-                return !currentClass.Contains("active");
-            });
+            new WebDriverWait(_driver, DefaultWait)
+                .Until(driver =>
+                {
+                    string currentClass = currentActive.GetAttribute("class");
+                    return !currentClass.Contains("active");
+                });
         }
         catch (Exception ex)
         {
@@ -48,11 +48,12 @@ internal partial class InsightsPage
         try
         {
             var currentActive = CarouselActiveElement;
-            new WebDriverWait(_driver, GetWait(Waits.Default)).
+            new WebDriverWait(_driver, DefaultWait).
                 Until(ExpectedConditions.ElementIsVisible(_swipeRight));
             CarouselSwipeRight.Click();
-            new WebDriverWait(_driver, GetWait(Waits.Default))
-            .Until(driver => {
+            new WebDriverWait(_driver, DefaultWait)
+                .Until(driver =>
+            {
                 string currentClass = currentActive.GetAttribute("class");
                 return !currentClass.Contains("active");
             });
@@ -76,7 +77,7 @@ internal partial class InsightsPage
         _logger.Debug($"Getting Carousel title");
         try
         {
-            new WebDriverWait(_driver, GetWait(Waits.Default)).
+            new WebDriverWait(_driver, DefaultWait).
                 Until(ExpectedConditions.ElementIsVisible(_carouselActiveElement));
             return CarouselTitle.Text.Trim();
         }
@@ -92,7 +93,7 @@ internal partial class InsightsPage
         _logger.Debug($"Clicking Carousel button: 'Read More'");
         try
         {
-            new WebDriverWait(_driver, GetWait(Waits.Default)).
+            new WebDriverWait(_driver, DefaultWait).
                 Until(ExpectedConditions.ElementToBeClickable(CarouselReadMoreLink));
             CarouselReadMoreLink.Click();
         }
