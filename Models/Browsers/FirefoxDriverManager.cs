@@ -8,8 +8,12 @@ class FirefoxDriverManager : IDriverManager
 {
     public IWebDriver CreateDriver(bool isHeadless)
     {
+        var options = new FirefoxOptions();
         if (isHeadless)
-            throw new NotImplementedException("Firefox headless mode is not implemented");
-        return new FirefoxDriver();
+        {
+            options.AddArgument("-headless");
+        }
+
+        return new FirefoxDriver(options);
     }
 }

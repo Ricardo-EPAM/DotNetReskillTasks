@@ -9,7 +9,7 @@ public static class DependencyInjectionSetup
     {
         var services = new ServiceCollection();
 
-        services.AddSingleton(provider => new ConfigsManager("appsettings.json"));
+        services.AddSingleton(provider => new ConfigsManager());
 
         services.AddSingleton(provider =>
         {

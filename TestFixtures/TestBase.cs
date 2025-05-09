@@ -16,7 +16,6 @@ public class BaseTest : IDisposable
     private ILog _logger;
     private ConfigsManager _config;
     private protected POMDependency _dependencies;
-    private bool _disposed = false;
     private ServiceProvider _serviceProvider;
 
     [OneTimeSetUp]
