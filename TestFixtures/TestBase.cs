@@ -1,9 +1,10 @@
-﻿using DotnetTaskSeleniumNunit.Enums;
-using DotnetTaskSeleniumNunit.Enums.Configurations;
+﻿using DotnetTaskSeleniumNunit.Enums.Configurations;
+using DotnetTaskSeleniumNunit.Enums;
 using DotnetTaskSeleniumNunit.Helpers;
 using log4net;
 using NUnit.Framework.Interfaces;
 using OpenQA.Selenium;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace DotnetTaskSeleniumNunit;
 
@@ -14,15 +15,18 @@ public class BaseTest : IDisposable
     private IWebDriver _driver;
     private ILog _logger;
     private ConfigsManager _config;
-    private protected POMDependency _pomDependencies;
+    private protected POMDependency _dependencies;
     private bool _disposed = false;
+    private ServiceProvider _serviceProvider;
 
     [OneTimeSetUp]
     public void BaseSetUp()
     {
-        _config = new ConfigsManager();
-        LoggerConfiguration loggerConfig = new(_config.RunnerConfiguration);
-        _logger = loggerConfig.GetLogger();
+        _serviceProvider = DependencyInjectionSetup.ConfigureServices();
+
+        _config = _serviceProvider.GetService<ConfigsManager>();
+        _logger = _serviceProvider.GetService<ILog>();
+
         _logger.Info($"Initializing feature: {TestContext.CurrentContext.Test.ClassName}");
     }
 
@@ -30,15 +34,14 @@ public class BaseTest : IDisposable
     public void SetUp()
     {
         _logger.Info($"Setting up test: {TestContext.CurrentContext.Test.Name}");
-
-        bool isHeadless = _config.RunnerConfiguration.HeadLess;
-        _driver = DriverFactory.GetDriver(Browsers.Chrome, isHeadless);
+        
+        _driver = _serviceProvider.GetService<IWebDriver>();
+        _dependencies = new POMDependency(_driver, _config, _logger);
 
         _driver.Navigate().GoToUrl(_config.AppConfiguration.BaseURL ?? "");
         _driver.Manage().Window.Maximize();
         _driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds((long)Waits.Timeout);
 
-        _pomDependencies = new POMDependency(_driver, _config, _logger);
         _logger.Info($"Initializing test: {TestContext.CurrentContext.Test.Name}");
     }
 
@@ -55,7 +58,7 @@ public class BaseTest : IDisposable
         }
         if (TestContext.CurrentContext.Test.AllCategories().Contains("RequiresDirectoryCleanUp"))
         {
-            var files = new FilesHelper(SpecialFolders.Downloads, _pomDependencies.Logger);
+            var files = new FilesHelper(SpecialFolders.Downloads, _dependencies.Logger);
             ArgumentNullException.ThrowIfNull(TestContext.CurrentContext.Test.Arguments);
             var fileName = TestContext.CurrentContext.Test.Arguments.First().ToString();
             files.DeleteFile(fileName);
@@ -74,27 +77,18 @@ public class BaseTest : IDisposable
 
     public void Dispose()
     {
-        Dispose(true);
-        GC.SuppressFinalize(this);
-    }
-
-    protected virtual void Dispose(bool disposing)
-    {
-        if (_disposed)
-            return;
-
-        if (disposing)
+        if (_driver != null)
         {
-            _driver?.Quit();
-            _driver?.Dispose();
-            _logger?.Info("WebDriver disposed.");
+
+            _driver.Quit();
+            _driver.Dispose();
         }
-        _disposed = true;
+        GC.SuppressFinalize(this);
     }
 
     ~BaseTest()
     {
-        Dispose(false);
+        Dispose();
     }
 }
 

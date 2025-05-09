@@ -1,6 +1,6 @@
 ﻿namespace DotnetTaskSeleniumNunit.Enums.Configurations;
 
-public enum Browsers
+public enum BrowserType
 {
     Chrome,
     Firefox

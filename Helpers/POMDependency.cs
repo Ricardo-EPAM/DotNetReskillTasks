@@ -1,5 +1,4 @@
-﻿using DotnetTaskSeleniumNunit.Models.Configurations;
-using log4net;
+﻿using log4net;
 using OpenQA.Selenium;
 
 namespace DotnetTaskSeleniumNunit.Helpers;

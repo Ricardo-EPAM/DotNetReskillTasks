@@ -22,8 +22,8 @@ public class TestEPAM : BaseTest
     [TestCase("Java", "Buenos Aires", CareerModality.Office)]
     public void TestCareersSearch(string searchText, string locationValue, CareerModality locationModality)
     {
-        CareerSearchPage careersSearchPage = new(_pomDependencies);
-        NavigationBar navigation = new(_pomDependencies);
+        CareerSearchPage careersSearchPage = new(_dependencies);
+        NavigationBar navigation = new(_dependencies);
 
         navigation.AcceptCookies();
         navigation.NavigateToCareersPage();
@@ -32,7 +32,7 @@ public class TestEPAM : BaseTest
         careersSearchPage.MakeACareerSearch(careerSearchForm);
         careersSearchPage.ApplyAndViewFromLastSection();
 
-        JobDetailsPage jobDetails = new(_pomDependencies); 
+        JobDetailsPage jobDetails = new(_dependencies); 
         string jobDescription = jobDetails.GetJobDescription();
         Assert.That(jobDescription, Does.Contain(searchText));
     }
@@ -42,8 +42,8 @@ public class TestEPAM : BaseTest
     [TestCase("Automation")]
     public void TestGlobalSearchKeywords(string searchCriteria)
     {
-        GlobalSearchPage globalSearchPage = new(_pomDependencies);
-        NavigationBar navigation = new(_pomDependencies);
+        GlobalSearchPage globalSearchPage = new(_dependencies);
+        NavigationBar navigation = new(_dependencies);
 
         navigation.AcceptCookies();
         globalSearchPage.ClickMagnifier();
@@ -68,9 +68,9 @@ public class TestEPAM : BaseTest
     [TestCase("EPAM_Corporate_Overview_Q4FY-2024.pdf")]
     public void TestDownloadFile(string filePath)
     {
-        NavigationBar navigation = new(_pomDependencies);
-        AboutPage aboutPage = new(_pomDependencies);
-        var files = new FilesHelper(SpecialFolders.Downloads, _pomDependencies.Logger);
+        NavigationBar navigation = new(_dependencies);
+        AboutPage aboutPage = new(_dependencies);
+        var files = new FilesHelper(SpecialFolders.Downloads, _dependencies.Logger);
 
         Assert.That(files.DoesFileExist(filePath, tries: 1), Is.False, "File should not exist before download it");
 
@@ -88,8 +88,8 @@ public class TestEPAM : BaseTest
     [TestCase(4)]
     public void TestCarrouselArticles(int carouselIndex)
     {
-        NavigationBar navigation = new(_pomDependencies);
-        InsightsPage insightsPage = new(_pomDependencies);
+        NavigationBar navigation = new(_dependencies);
+        InsightsPage insightsPage = new(_dependencies);
 
         navigation.AcceptCookies();
         navigation.NavigateToInsightsPage();
@@ -98,7 +98,7 @@ public class TestEPAM : BaseTest
         var carouselTitle = insightsPage.GetCarouselTitle(); 
         insightsPage.ClickReadMoreFromCarousel();
 
-        ArticlePage articlePage = new(_pomDependencies); 
+        ArticlePage articlePage = new(_dependencies); 
         var acticleTitle = articlePage.GetTitle();
         Assert.That(acticleTitle, Is.EqualTo(carouselTitle), "Article title doesn't match the expected value");
     }
