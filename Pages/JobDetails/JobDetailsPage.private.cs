@@ -8,8 +8,9 @@ internal partial class JobDetailsPage
 {
     private string GetJobDescriptionText()
     {
-		try
-		{
+        _logger.Debug($"Getting from vacancy description");
+        try
+        {
             new WebDriverWait(_driver, GetWait(Waits.Default)).
             Until(ExpectedConditions.ElementIsVisible(_vacancyDescription));
             return VacancyDescription.Text;

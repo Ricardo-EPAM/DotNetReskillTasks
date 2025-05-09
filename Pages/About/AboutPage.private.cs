@@ -9,6 +9,7 @@ internal partial class AboutPage
 {
     private void ScrollToEPAMGlanceSection()
     {
+        _logger.Debug($"Scrolling to the 'EPAM At A Glance' section");
         try
         {
             new WebDriverWait(_driver, GetWait(Waits.Long)).
@@ -24,6 +25,7 @@ internal partial class AboutPage
     }
     private void DownloadEPAMGlance()
     {
+        _logger.Debug($"Clicking 'Download' button from 'EPAM At A Glance' section");
         try
         {
             new WebDriverWait(_driver, GetWait(Waits.Long)).

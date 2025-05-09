@@ -14,6 +14,7 @@ internal partial class NavigationBar
 
     private void ClickTopLlinkByText(string linkText)
     {
+        _logger.Debug($"Clicking link from top bar using the text '{linkText}'");
         try
         {
             var foundLink = new WebDriverWait(_driver, GetWait(Waits.Default)).
@@ -29,6 +30,7 @@ internal partial class NavigationBar
 
     private void ClickAcceptCookies()
     {
+        _logger.Debug($"Trying to accept cookies from recently opened page");
         try
         {
             var cookiesButton = new WebDriverWait(_driver, GetWait(Waits.Default)).

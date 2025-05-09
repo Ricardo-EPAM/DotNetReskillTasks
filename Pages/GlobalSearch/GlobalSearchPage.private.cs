@@ -8,6 +8,7 @@ internal partial class GlobalSearchPage
 {
     private void ClickMagnifierIcon()
     {
+        _logger.Debug($"Clicking magnifier icon from the page header");
         try
         {
             new WebDriverWait(_driver, GetWait(Waits.Default)).
@@ -23,6 +24,7 @@ internal partial class GlobalSearchPage
     }
     private void EnterSearchCriteria(string searchText)
     {
+        _logger.Debug($"Sending '{searchText}' to the search field");
         try
         {
             new WebDriverWait(_driver, GetWait(Waits.Default)).
@@ -37,6 +39,7 @@ internal partial class GlobalSearchPage
     }
     private void ClickFindButton()
     {
+        _logger.Debug($"Clicking 'Find' button");
         try
         {
             new WebDriverWait(_driver, GetWait(Waits.Default)).
@@ -56,6 +59,7 @@ internal partial class GlobalSearchPage
     /// <returns>A list of strings with link+description text</returns>
     private IEnumerable<string?> GetAllArticlesTextFromSearchResults()
     {
+        _logger.Debug($"Gathering all text contents from search results");
         var articleTexts = new List<string>();
 
         try

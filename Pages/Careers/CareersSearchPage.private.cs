@@ -15,6 +15,7 @@ internal partial class CareerSearchPage
     }
     private void EnterSearchCriteria(string searchText)
     {
+        _logger.Debug($"Sending '{searchText}' to the search input field");
         try
         {
             new WebDriverWait(_driver, GetWait(Waits.Default)).
@@ -32,6 +33,7 @@ internal partial class CareerSearchPage
 
     private void IgnoreSearchSuggestions()
     {
+        _logger.Debug($"Trying to close the 'suggestions' prompt");
         try
         {
             new WebDriverWait(_driver, GetWait(Waits.Short)).
@@ -46,6 +48,7 @@ internal partial class CareerSearchPage
 
     private void SelectLocationDropdownByValue(string searchText)
     {
+        _logger.Debug($"Selecting '{searchText}' from Location dropdown");
         try
         {
             new WebDriverWait(_driver, GetWait(Waits.Default)).
@@ -62,6 +65,7 @@ internal partial class CareerSearchPage
 
     private void SelectModalityCheckboxByText(CareerModality modality)
     {
+        _logger.Debug($"Selecting '{modality}' from Modality checkboxes");
         var modalityText = modality.ToString().ToLower();
         try
         {
@@ -79,6 +83,7 @@ internal partial class CareerSearchPage
 
     private void ClickFindButton()
     {
+        _logger.Debug($"Clicking 'Find' button'");
         try
         {
             new WebDriverWait(_driver, GetWait(Waits.Default)).
@@ -94,6 +99,7 @@ internal partial class CareerSearchPage
 
     private IList<IWebElement> GetJobSections()
     {
+        _logger.Debug($"Getting Vacancies sections from results");
         try
         {
             new WebDriverWait(_driver, GetWait(Waits.Default)).
@@ -114,6 +120,7 @@ internal partial class CareerSearchPage
 
     private void ClickApplyAndViewFromSection(IWebElement section)
     {
+        _logger.Debug($"Clicking 'Apply and View' button from the selected section");
         try
         {
             new WebDriverWait(_driver, GetWait(Waits.Default)).
@@ -129,6 +136,7 @@ internal partial class CareerSearchPage
 
     private string GetVacancyContainerText()
     {
+        _logger.Debug($"Getting text from Vacancy description");
         IWebElement jobElements;
         try
         {
