@@ -5,7 +5,7 @@ using OpenQA.Selenium;
 
 namespace DotnetTaskSeleniumNunit.Pages.GlobalSearch;
 
-internal partial class GlobalSearchPage(POMDependencies pomDependencies) : BasePage(pomDependencies)
+internal partial class GlobalSearchPage(POMDependency pomDependencies) : BasePage(pomDependencies)
 {
 
     public void ClickMagnifier()

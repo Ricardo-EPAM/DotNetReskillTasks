@@ -1,4 +1,4 @@
-﻿using DotnetTaskSeleniumNunit.Enums;
+﻿using DotnetTaskSeleniumNunit.Enums.Configurations;
 using DotnetTaskSeleniumNunit.Models.Careers;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;

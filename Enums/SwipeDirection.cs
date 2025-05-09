@@ -1,7 +1,7 @@
 ﻿namespace DotnetTaskSeleniumNunit.Enums;
 
-public enum Browsers
+public enum SwipeDirection
 {
-    Chrome,
-    Firefox
+    Right,
+    Left
 }

@@ -1,4 +1,4 @@
-using DotnetTaskSeleniumNunit.Enums;
+using DotnetTaskSeleniumNunit.Enums.Configurations;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.WaitHelpers;
@@ -18,7 +18,7 @@ internal partial class NavigationBar
         try
         {
             var foundLink = new WebDriverWait(_driver, GetWait(Waits.Default)).
-            Until(ExpectedConditions.ElementToBeClickable(SelectElementByText(TopPageLinks, linkText)));
+                Until(ExpectedConditions.ElementToBeClickable(SelectElementByText(TopPageLinks, linkText)));
             foundLink.Click();
         }
         catch (Exception ex)

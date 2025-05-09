@@ -1,4 +1,4 @@
-﻿namespace DotnetTaskSeleniumNunit.Enums;
+﻿namespace DotnetTaskSeleniumNunit.Enums.Configurations;
 
 public enum LogLevels
 {

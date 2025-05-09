@@ -1,4 +1,4 @@
-﻿using DotnetTaskSeleniumNunit.Enums;
+﻿using DotnetTaskSeleniumNunit.Enums.Configurations;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.WaitHelpers;
 
@@ -12,13 +12,14 @@ internal partial class JobDetailsPage
         try
         {
             new WebDriverWait(_driver, GetWait(Waits.Default)).
-            Until(ExpectedConditions.ElementIsVisible(_vacancyDescription));
+                Until(ExpectedConditions.ElementIsVisible(_vacancyDescription));
             return VacancyDescription.Text;
         }
-		catch (Exception ex)
-		{
+        catch (Exception ex)
+        {
             _logger.Error(_errorGetJobDescription, ex);
-			throw;
-		}
+            throw;
+        }
     }
 }
+

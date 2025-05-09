@@ -5,7 +5,7 @@ using OpenQA.Selenium;
 
 namespace DotnetTaskSeleniumNunit.Pages.Article;
 
-internal partial class ArticlePage(POMDependencies pomDependencies) : BasePage(pomDependencies)
+internal partial class ArticlePage(POMDependency pomDependencies) : BasePage(pomDependencies)
 {
     public string GetTitle()
     {

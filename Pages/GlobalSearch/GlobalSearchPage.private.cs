@@ -1,4 +1,4 @@
-﻿using DotnetTaskSeleniumNunit.Enums;
+﻿using DotnetTaskSeleniumNunit.Enums.Configurations;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.WaitHelpers;
 
@@ -12,7 +12,7 @@ internal partial class GlobalSearchPage
         try
         {
             new WebDriverWait(_driver, GetWait(Waits.Default)).
-            Until(ExpectedConditions.ElementToBeClickable(_magnifierIcon));
+                Until(ExpectedConditions.ElementToBeClickable(_magnifierIcon));
             MagnifierIcon.Click();
         }
         catch (Exception ex)
@@ -28,7 +28,7 @@ internal partial class GlobalSearchPage
         try
         {
             new WebDriverWait(_driver, GetWait(Waits.Default)).
-            Until(ExpectedConditions.ElementToBeClickable(_searchField));
+                Until(ExpectedConditions.ElementToBeClickable(_searchField));
             SearchField.SendKeys(searchText);
         }
         catch (Exception ex)
@@ -43,7 +43,7 @@ internal partial class GlobalSearchPage
         try
         {
             new WebDriverWait(_driver, GetWait(Waits.Default)).
-            Until(ExpectedConditions.ElementToBeClickable(_findButton));
+                Until(ExpectedConditions.ElementToBeClickable(_findButton));
             Findbutton.Click();
         }
         catch (Exception ex)
@@ -65,7 +65,7 @@ internal partial class GlobalSearchPage
         try
         {
             new WebDriverWait(_driver, GetWait(Waits.Default)).
-            Until(ExpectedConditions.PresenceOfAllElementsLocatedBy(_resultsArticlesDivs));
+                Until(ExpectedConditions.PresenceOfAllElementsLocatedBy(_resultsArticlesDivs));
             foreach (var article in ResultsArticles)
             {
                 var linkText = article.FindElement(_links).GetAttribute("href");

@@ -5,7 +5,7 @@ using OpenQA.Selenium;
 
 namespace DotnetTaskSeleniumNunit.Pages.JobDetails;
 
-internal partial class JobDetailsPage(POMDependencies pomDependencies) : BasePage(pomDependencies)
+internal partial class JobDetailsPage(POMDependency pomDependencies) : BasePage(pomDependencies)
 {
     public string GetJobDescription()
     {

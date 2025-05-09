@@ -4,14 +4,18 @@ using OpenQA.Selenium;
 
 namespace DotnetTaskSeleniumNunit.Helpers;
 
-public class POMDependencies
+public class POMDependency
 {
     public IWebDriver Driver { get; }
     public GlobalVariables Variables { get; }
     public ILog Logger { get; }
 
-    public POMDependencies(IWebDriver driver, GlobalVariables variables, ILog logger)
+    public POMDependency(IWebDriver driver, GlobalVariables variables, ILog logger)
     {
+        ArgumentNullException.ThrowIfNull(driver);
+        ArgumentNullException.ThrowIfNull(variables);
+        ArgumentNullException.ThrowIfNull(logger);
+
         Driver = driver;
         Variables = variables;
         Logger = logger;

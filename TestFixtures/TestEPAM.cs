@@ -64,6 +64,7 @@ public class TestEPAM : BaseTest
         });
     }
 
+    [Category("RequiresDirectoryCleanUp")]
     [TestCase("EPAM_Corporate_Overview_Q4FY-2024.pdf")]
     public void TestDownloadFile(string filePath)
     {
@@ -79,7 +80,6 @@ public class TestEPAM : BaseTest
         aboutPage.DownloadEPAMAtAGlanceDocument();
 
         Assert.That(files.DoesFileExist(filePath), Is.True, "File was not downloaded");
-        files.DeleteFile(filePath);
     }
 
     [TestCase(1)]
@@ -93,7 +93,7 @@ public class TestEPAM : BaseTest
 
         navigation.AcceptCookies();
         navigation.NavigateToInsightsPage();
-        insightsPage.SwipeCarousel("Right", carouselIndex);
+        insightsPage.SwipeCarousel(SwipeDirection.Right, carouselIndex);
 
         var carouselTitle = insightsPage.GetCarouselTitle(); 
         insightsPage.ClickReadMoreFromCarousel();

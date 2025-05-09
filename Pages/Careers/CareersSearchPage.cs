@@ -8,7 +8,7 @@ using DotnetTaskSeleniumNunit.Helpers;
 namespace DotnetTaskSeleniumNunit.Pages.Careers;
 
 
-internal partial class CareerSearchPage(POMDependencies pomDependencies) : BasePage(pomDependencies)
+internal partial class CareerSearchPage(POMDependency pomDependencies) : BasePage(pomDependencies)
 {
     public void MakeACareerSearch(CareerSearch searchData)
     {

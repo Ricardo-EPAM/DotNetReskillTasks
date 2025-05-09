@@ -1,4 +1,4 @@
-﻿using DotnetTaskSeleniumNunit.Enums;
+﻿using DotnetTaskSeleniumNunit.Enums.Configurations;
 using DotnetTaskSeleniumNunit.Interfaces;
 using DotnetTaskSeleniumNunit.Models.Browsers;
 using OpenQA.Selenium;

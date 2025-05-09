@@ -1,5 +1,5 @@
 ﻿using System.Reflection;
-using DotnetTaskSeleniumNunit.Enums;
+using DotnetTaskSeleniumNunit.Enums.Configurations;
 using DotnetTaskSeleniumNunit.Models.Configurations;
 using log4net;
 using log4net.Config;

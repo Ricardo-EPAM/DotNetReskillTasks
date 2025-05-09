@@ -1,4 +1,4 @@
-﻿namespace DotnetTaskSeleniumNunit.Enums;
+﻿namespace DotnetTaskSeleniumNunit.Enums.Configurations;
 
 enum Waits
 {

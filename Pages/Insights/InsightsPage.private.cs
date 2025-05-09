@@ -1,4 +1,5 @@
 ﻿using DotnetTaskSeleniumNunit.Enums;
+using DotnetTaskSeleniumNunit.Enums.Configurations;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.WaitHelpers;
 
@@ -6,21 +7,18 @@ namespace DotnetTaskSeleniumNunit.Pages.Insights;
 
 internal partial class InsightsPage
 {
-    private void SwipeCarouselWithDirection(string left_or_right)
+    private void SwipeCarouselWithDirection(SwipeDirection direction)
     {
-        _logger.Debug($"Swapping Carousel to the {left_or_right}");
-        var validOptions = new List<string>() { "left", "right" };
-        if (!validOptions.Contains(left_or_right.ToLower()))
+        _logger.Debug($"Swapping Carousel to the {direction}");
+
+        switch (direction)
         {
-            throw new ArgumentException(_errorValidOptions + validOptions);
-        }
-        if (left_or_right.ToLower() == "right")
-        {
-            SwipeCarouselRight();
-        }
-        else // left
-        {
-            SwipeCarouselLeft();
+            case SwipeDirection.Right:
+                SwipeCarouselRight();
+                break;
+            case SwipeDirection.Left:
+                SwipeCarouselLeft();
+                break;
         }
     }
 
@@ -28,9 +26,15 @@ internal partial class InsightsPage
     {
         try
         {
+            var currentActive = CarouselActiveElement;
             new WebDriverWait(_driver, GetWait(Waits.Default)).
-            Until(ExpectedConditions.ElementIsVisible(_swipeLeft));
-            CarouselSwipeLeft.Click();
+                Until(ExpectedConditions.ElementIsVisible(_swipeLeft));
+            CarouselSwipeRight.Click();
+            new WebDriverWait(_driver, GetWait(Waits.Default))
+            .Until(driver => {
+                string currentClass = currentActive.GetAttribute("class");
+                return !currentClass.Contains("active");
+            });
         }
         catch (Exception ex)
         {
@@ -43,9 +47,15 @@ internal partial class InsightsPage
     {
         try
         {
+            var currentActive = CarouselActiveElement;
             new WebDriverWait(_driver, GetWait(Waits.Default)).
                 Until(ExpectedConditions.ElementIsVisible(_swipeRight));
             CarouselSwipeRight.Click();
+            new WebDriverWait(_driver, GetWait(Waits.Default))
+            .Until(driver => {
+                string currentClass = currentActive.GetAttribute("class");
+                return !currentClass.Contains("active");
+            });
         }
         catch (Exception ex)
         {
@@ -53,13 +63,11 @@ internal partial class InsightsPage
             throw;
         }
     }
-    private void SwipeCarouselMultipleTimes(string left_or_right, int clicks)
+    private void SwipeCarouselMultipleTimes(SwipeDirection direction, int clicks)
     {
         for (var i = 0; i != clicks; i++)
         {
-            SwipeCarouselWithDirection(left_or_right);
-            // Wait for the carousel animation.
-            Thread.Sleep(1000);
+            SwipeCarouselWithDirection(direction);
         }
     }
 
@@ -85,7 +93,7 @@ internal partial class InsightsPage
         try
         {
             new WebDriverWait(_driver, GetWait(Waits.Default)).
-           Until(ExpectedConditions.ElementToBeClickable(CarouselReadMoreLink));
+                Until(ExpectedConditions.ElementToBeClickable(CarouselReadMoreLink));
             CarouselReadMoreLink.Click();
         }
         catch (Exception ex)

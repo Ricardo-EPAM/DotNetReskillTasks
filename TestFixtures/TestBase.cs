@@ -1,5 +1,6 @@
 ﻿using DotnetTaskSeleniumNunit.Constants;
 using DotnetTaskSeleniumNunit.Enums;
+using DotnetTaskSeleniumNunit.Enums.Configurations;
 using DotnetTaskSeleniumNunit.Helpers;
 using log4net;
 using NUnit.Framework.Interfaces;
@@ -15,7 +16,7 @@ public class BaseTest : IDisposable
     private ILog _logger;
     private ConfigsManager _config;
     private GlobalVariables _vars;
-    private protected POMDependencies _pomDependencies;
+    private protected POMDependency _pomDependencies;
     private bool _disposed = false;
 
     [OneTimeSetUp]
@@ -40,7 +41,7 @@ public class BaseTest : IDisposable
         _driver.Manage().Window.Maximize();
         _driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds((long)Waits.Timeout);
 
-        _pomDependencies = new POMDependencies(_driver, _vars, _logger);
+        _pomDependencies = new POMDependency(_driver, _vars, _logger);
         _logger.Info($"Initializing test: {TestContext.CurrentContext.Test.Name}");
     }
 
@@ -54,6 +55,13 @@ public class BaseTest : IDisposable
                 _config.OutputConfiguration,
                 TestContext.CurrentContext.Test.Name);
             _logger.Error($"Failed test screenshot was saved in: {screenshotFileName}");
+        }
+        if (TestContext.CurrentContext.Test.AllCategories().Contains("RequiresDirectoryCleanUp"))
+        {
+            var files = new FilesHelper(SpecialFolders.Downloads, _pomDependencies.Logger);
+            ArgumentNullException.ThrowIfNull(TestContext.CurrentContext.Test.Arguments);
+            var fileName = TestContext.CurrentContext.Test.Arguments.First().ToString();
+            files.DeleteFile(fileName);
         }
 
         Dispose();
