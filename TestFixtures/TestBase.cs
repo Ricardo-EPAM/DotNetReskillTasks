@@ -33,8 +33,8 @@ public class BaseTest : IDisposable
     public void SetUp()
     {
         _logger.Info($"Setting up test: {TestContext.CurrentContext.Test.Name}");
-        
-        _driver = _serviceProvider.GetService<DriverFactory>().GetDriver();
+
+        _driver = _serviceProvider.GetService<IWebDriver>();
         _dependencies = new POMDependency(_driver, _config, _logger);
 
         _driver.Navigate().GoToUrl(_config.AppConfiguration.BaseURL ?? "");

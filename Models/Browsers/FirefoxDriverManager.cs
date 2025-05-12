@@ -9,11 +9,13 @@ class FirefoxDriverManager : IDriverManager
     public IWebDriver CreateDriver(bool isHeadless)
     {
         var options = new FirefoxOptions();
+
         if (isHeadless)
         {
-            options.AddArgument("-headless");
+            options.AddArgument("--headless");
         }
 
-        return new FirefoxDriver(options);
+        var driver = new FirefoxDriver(options);
+        return driver;
     }
 }

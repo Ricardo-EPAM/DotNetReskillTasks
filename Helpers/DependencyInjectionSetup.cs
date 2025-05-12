@@ -1,5 +1,4 @@
 ﻿using DotnetTaskSeleniumNunit.Helpers;
-using DotnetTaskSeleniumNunit.Models.Configurations;
 using Microsoft.Extensions.DependencyInjection;
 using OpenQA.Selenium;
 
@@ -14,11 +13,15 @@ public static class DependencyInjectionSetup
         services.AddSingleton(provider =>
         {
             var configsManager = provider.GetRequiredService<ConfigsManager>();
-            var runnerConfig = configsManager.RunnerConfiguration;
-            return new LoggerConfiguration(runnerConfig);
+            return new LoggerConfiguration(configsManager.RunnerConfiguration);
         });
 
-        services.AddTransient<DriverFactory>();
+        services.AddSingleton<DriverFactory>();
+        services.AddTransient<IWebDriver>(provider =>
+        {
+            var factory = provider.GetRequiredService<DriverFactory>();
+            return factory.GetDriver();
+        });
 
         return services.BuildServiceProvider();
     }
