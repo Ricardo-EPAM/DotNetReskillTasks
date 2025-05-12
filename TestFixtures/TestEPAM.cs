@@ -16,9 +16,9 @@ namespace DotnetTaskSeleniumNunit.TestFixtures;
 [TestFixture]
 public class TestEPAM : BaseTest
 {
-    [TestCase("Perl", "all_locations", CareerModality.Remote)]
-    [TestCase("Python", "all_Mexico", CareerModality.Relocation)]
-    [TestCase(".NET", "all_Mexico", CareerModality.Office)]
+    [TestCase("Golang", "all_locations", CareerModality.Remote)]
+    [TestCase("Python", "all_Poland", CareerModality.Relocation)]
+    [TestCase(".NET", "Warsaw", CareerModality.Office)]
     [TestCase("Java", "Buenos Aires", CareerModality.Office)]
     public void TestCareersSearch(string searchText, string locationValue, CareerModality locationModality)
     {

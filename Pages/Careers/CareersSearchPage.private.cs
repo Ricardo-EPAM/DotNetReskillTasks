@@ -108,7 +108,7 @@ internal partial class CareerSearchPage
         catch (Exception ex)
         {
             _logger.Error(_errorGetJobSections, ex);
-            throw;
+            throw new NotFoundException(_errorGetJobSections);
         }
     }
 

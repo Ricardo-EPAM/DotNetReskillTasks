@@ -24,7 +24,7 @@ public class BaseTest : IDisposable
         _serviceProvider = DependencyInjectionSetup.ConfigureServices();
 
         _config = _serviceProvider.GetService<ConfigsManager>();
-        _logger = _serviceProvider.GetService<ILog>();
+        _logger = _serviceProvider.GetService<LoggerConfiguration>().GetLogger();
 
         _logger.Info($"Initializing feature: {TestContext.CurrentContext.Test.ClassName}");
     }
@@ -34,7 +34,7 @@ public class BaseTest : IDisposable
     {
         _logger.Info($"Setting up test: {TestContext.CurrentContext.Test.Name}");
         
-        _driver = _serviceProvider.GetService<IWebDriver>();
+        _driver = _serviceProvider.GetService<DriverFactory>().GetDriver();
         _dependencies = new POMDependency(_driver, _config, _logger);
 
         _driver.Navigate().GoToUrl(_config.AppConfiguration.BaseURL ?? "");

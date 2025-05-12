@@ -14,28 +14,11 @@ public static class DependencyInjectionSetup
         services.AddSingleton(provider =>
         {
             var configsManager = provider.GetRequiredService<ConfigsManager>();
-            return configsManager.RunnerConfiguration;
+            var runnerConfig = configsManager.RunnerConfiguration;
+            return new LoggerConfiguration(runnerConfig);
         });
 
-        services.AddSingleton(provider =>
-        {
-            var runnerConfigs = provider.GetRequiredService<RunnerConfiguration>();
-            return new LoggerConfiguration(runnerConfigs);
-        });
-
-        services.AddSingleton(provider =>
-        {
-            var loggerConfiguration = provider.GetRequiredService<LoggerConfiguration>();
-            return loggerConfiguration.GetLogger();
-        });
-
-        services.AddSingleton<DriverFactory>();
-
-        services.AddTransient<IWebDriver>(provider =>
-        {
-            var driverFactory = provider.GetRequiredService<DriverFactory>();
-            return driverFactory.GetDriver();
-        });
+        services.AddTransient<DriverFactory>();
 
         return services.BuildServiceProvider();
     }
