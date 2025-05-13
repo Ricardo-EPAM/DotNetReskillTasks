@@ -1,14 +1,16 @@
-using DotnetTaskSeleniumNunit.Pages.GlobalSearch;
-using DotnetTaskSeleniumNunit.Pages.JobDetails;
-using DotnetTaskSeleniumNunit.Pages.Navigation;
+using DotnetTaskSeleniumNunit.Enums;
+using DotnetTaskSeleniumNunit.Helpers;
 using DotnetTaskSeleniumNunit.Models.Careers;
-using DotnetTaskSeleniumNunit.Pages.Insights;
+using DotnetTaskSeleniumNunit.Pages.About;
 using DotnetTaskSeleniumNunit.Pages.Article;
 using DotnetTaskSeleniumNunit.Pages.Careers;
-using DotnetTaskSeleniumNunit.Pages.About;
-using DotnetTaskSeleniumNunit.Helpers;
-using DotnetTaskSeleniumNunit.Enums;
+using DotnetTaskSeleniumNunit.Pages.GlobalSearch;
+using DotnetTaskSeleniumNunit.Pages.Insights;
+using DotnetTaskSeleniumNunit.Pages.JobDetails;
+using DotnetTaskSeleniumNunit.Pages.Navigation;
 using NUnit.Framework.Internal;
+using OpenQA.Selenium;
+using OpenQA.Selenium.Firefox;
 
 namespace DotnetTaskSeleniumNunit.TestFixtures;
 
@@ -16,6 +18,19 @@ namespace DotnetTaskSeleniumNunit.TestFixtures;
 [TestFixture]
 public class TestEPAM : BaseTest
 {
+
+
+    [Test]
+    public void TestFirefoxDriver()
+    {
+        IWebDriver driverr;
+        driverr = new FirefoxDriver();
+        driverr.Navigate().GoToUrl("https://www.epam.com/careers");
+        Thread.Sleep(1000);
+        driverr.Dispose();
+
+    }
+
     [TestCase("Golang", "all_locations", CareerModality.Remote)]
     [TestCase("Python", "all_Poland", CareerModality.Relocation)]
     [TestCase(".NET", "Warsaw", CareerModality.Office)]
@@ -32,7 +47,7 @@ public class TestEPAM : BaseTest
         careersSearchPage.MakeACareerSearch(careerSearchForm);
         careersSearchPage.ApplyAndViewFromLastSection();
 
-        JobDetailsPage jobDetails = new(_dependencies); 
+        JobDetailsPage jobDetails = new(_dependencies);
         string jobDescription = jobDetails.GetJobDescription();
         Assert.That(jobDescription, Does.Contain(searchText));
     }
@@ -95,10 +110,10 @@ public class TestEPAM : BaseTest
         navigation.NavigateToInsightsPage();
         insightsPage.SwipeCarousel(SwipeDirection.Right, carouselIndex);
 
-        var carouselTitle = insightsPage.GetCarouselTitle(); 
+        var carouselTitle = insightsPage.GetCarouselTitle();
         insightsPage.ClickReadMoreFromCarousel();
 
-        ArticlePage articlePage = new(_dependencies); 
+        ArticlePage articlePage = new(_dependencies);
         var acticleTitle = articlePage.GetTitle();
         Assert.That(acticleTitle, Is.EqualTo(carouselTitle), "Article title doesn't match the expected value");
     }
