@@ -47,8 +47,11 @@ jobs:
         pwd
         tree
 
-    - name: Upload screenshots and test report
+    - name: Upload screenshots
       uses: actions/upload-artifact@v4
       with:
         name: failed-tests-screenshots
-        path: /bin/Debug/net9.0/TestScreenshots/**
+        path: ./bin/Debug/net9.0/TestScreenshots/**
+
+      
+
