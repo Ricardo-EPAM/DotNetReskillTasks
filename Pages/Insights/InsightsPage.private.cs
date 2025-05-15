@@ -32,7 +32,7 @@ internal partial class InsightsPage
             new WebDriverWait(_driver, _configs.UIWaitsConfiguration.DefaultWait)
                 .Until(driver =>
                 {
-                    string currentClass = currentActive.GetAttribute("class");
+                    string currentClass = currentActive.GetAttribute("class") ?? "";
                     return !currentClass.Contains("active");
                 });
         }
@@ -54,7 +54,7 @@ internal partial class InsightsPage
             new WebDriverWait(_driver, _configs.UIWaitsConfiguration.DefaultWait)
                 .Until(driver =>
             {
-                string currentClass = currentActive.GetAttribute("class");
+                string currentClass = currentActive.GetAttribute("class") ?? "";
                 return !currentClass.Contains("active");
             });
         }

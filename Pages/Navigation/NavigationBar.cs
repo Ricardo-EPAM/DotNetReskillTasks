@@ -1,8 +1,10 @@
 using DotnetTaskSeleniumNunit.Helpers;
+using log4net;
+using OpenQA.Selenium;
 
 namespace DotnetTaskSeleniumNunit.Pages.Navigation;
 
-internal partial class NavigationBar(POMDependency pomDependencies) : BasePage(pomDependencies)
+internal partial class NavigationBar(IWebDriver driver, ConfigsManager configs, ILog logger) : BasePage(driver, configs, logger)
 {
     public void NavigateToCareersPage()
     {

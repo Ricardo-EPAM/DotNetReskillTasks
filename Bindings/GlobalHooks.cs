@@ -2,104 +2,69 @@
 using DotnetTaskSeleniumNunit.Helpers;
 using log4net;
 using OpenQA.Selenium;
-using Microsoft.Extensions.DependencyInjection;
 using Reqnroll;
 
 namespace DotnetTaskSeleniumNunit.Bindings;
 
 [Binding]
-public class GlobalHooks : IDisposable
+public class GlobalHooks
 {
-    private IWebDriver _driver;
-    private ILog _logger;
-    private ConfigsManager _config;
-    private POMDependency _dependencies;
-    private ServiceProvider _serviceProvider;
-    private readonly ScenarioContext _scenarioContext;
-
-    public GlobalHooks(ScenarioContext scenarioContext)
-    {
-        _scenarioContext = scenarioContext;
-    }
-
     [BeforeFeature]
-    public void BeforeFeature()
+    public static void BeforeFeature(FeatureContext featureContext, ILog logger)
     {
-
-        ServiceProvider serviceProvider = DependencyInjectionSetup.ConfigureServices();
-        _logger = serviceProvider.GetService<LoggerConfiguration>().GetLogger();
-        _logger.Info($"Initializing feature: {_scenarioContext.ScenarioInfo.Title}");
+        logger.Info($"Initializing feature: {featureContext.FeatureInfo.Title}");
     }
 
     [BeforeScenario]
-    public void BeforeScenario()
+    public void BeforeScenario(ScenarioContext scenarioContext, ILog logger, IWebDriver driver, ConfigsManager configs)
     {
-        _serviceProvider = DependencyInjectionSetup.ConfigureServices();
+        logger.Info($"Setting up test scenario: {scenarioContext.ScenarioInfo.Title}");
 
-        _config = _serviceProvider.GetService<ConfigsManager>();
-        _logger = _serviceProvider.GetService<LoggerConfiguration>().GetLogger();
+        driver.Navigate().GoToUrl(configs.AppConfiguration.BaseURL ?? "");
+        driver.Manage().Window.Maximize();
 
-        _logger.Info($"Setting up test scenario: {_scenarioContext.ScenarioInfo.Title}");
-
-        _driver = _serviceProvider.GetService<IWebDriver>();
-        _dependencies = new POMDependency(_driver, _config, _logger);
-
-        // Configuración inicial del navegador
-        _driver.Navigate().GoToUrl(_config.AppConfiguration.BaseURL ?? "");
-        _driver.Manage().Window.Maximize();
-
-        _logger.Info($"Initialized web driver for scenario: {_scenarioContext.ScenarioInfo.Title}");
+        logger.Info($"Initialized web driver for scenario: {scenarioContext.ScenarioInfo.Title}");
     }
 
-    [AfterScenario, Order(1)]
-    public void AfterScenario()
+    [AfterScenario(Order = 1)]
+    public void AfterScenario(ScenarioContext scenarioContext, ILog logger, IWebDriver driver, ConfigsManager configs)
     {
-        if (_scenarioContext.ScenarioExecutionStatus == ScenarioExecutionStatus.TestError)
+        if (scenarioContext.ScenarioExecutionStatus == ScenarioExecutionStatus.TestError)
         {
             var screenshotFileName = ScreenshotHelper.TakesScreenshotIfFailed(
-                _driver,
-                _config.OutputConfiguration,
-                _scenarioContext.ScenarioInfo.Title
+                driver,
+                configs.OutputConfiguration,
+                scenarioContext.ScenarioInfo.Title
             );
 
-            _logger.Error($"Failed scenario screenshot was saved in: {screenshotFileName}");
+            logger.Error($"Failed scenario screenshot was saved in: {screenshotFileName}");
         }
 
-        Dispose();
-
-        _logger.Info($"Scenario finalized: {_scenarioContext.ScenarioInfo.Title}");
+        driver.Dispose();
+        logger.Info($"Scenario finalized: {scenarioContext.ScenarioInfo.Title}");
     }
 
-    [AfterScenario("Files"), Order(0)]
-    public void AfterFilesScenario()
+    [AfterScenario("@Files", Order = 0)]
+    public void AfterFilesScenario(ScenarioContext scenarioContext, ILog logger)
     {
-        if (_scenarioContext.ScenarioInfo.Tags.Contains("RequiresDirectoryCleanUp"))
+        if (scenarioContext.ScenarioInfo.Tags.Contains("RequiresDirectoryCleanUp"))
         {
-            var files = new FilesHelper(SpecialFolders.Downloads, _dependencies.Logger);
-            ArgumentNullException.ThrowIfNull(_scenarioContext.ScenarioInfo.Arguments);
-            var fileName = _scenarioContext.ScenarioInfo.Arguments["filename"].ToString();
+            var files = new FilesHelper(SpecialFolders.Downloads, logger);
+            ArgumentNullException.ThrowIfNull(scenarioContext.ScenarioInfo.Arguments);
+            string fileName = scenarioContext.ScenarioInfo.Arguments["filename"]?.ToString() ?? "";
             files.DeleteFile(fileName);
         }
     }
 
     [AfterFeature]
-    public void AfterFeature()
+    public static void AfterFeature(FeatureContext featureContext, ILog logger, IWebDriver driver)
     {
-        _logger.Info($"Execution of feature finished: {_scenarioContext.ScenarioInfo.Title}");
-    }
-
-    public void Dispose()
-    {
-        if (_driver != null)
+        logger.Info($"Execution of feature finished: {featureContext.FeatureInfo.Title}");
+        if (driver != null)
         {
-            _driver.Quit();
-            _driver.Dispose();
+            driver.Quit();
+            driver.Dispose();
+            logger.Info($"Driver disposed");
         }
-        GC.SuppressFinalize(this);
-    }
-
-    ~GlobalHooks()
-    {
-        Dispose();
     }
 }

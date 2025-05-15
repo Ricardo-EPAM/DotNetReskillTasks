@@ -1,10 +1,13 @@
 ﻿using DotnetTaskSeleniumNunit.Helpers;
+using log4net;
 using Microsoft.Extensions.DependencyInjection;
 using OpenQA.Selenium;
+using Reqnroll.Microsoft.Extensions.DependencyInjection;
 
-public static class DependencyInjectionSetup
+public class DependencyInjectionSetup
 {
-    public static ServiceProvider ConfigureServices()
+    [ScenarioDependencies]
+    public static IServiceCollection ConfigureServices()
     {
         var services = new ServiceCollection();
 
@@ -13,7 +16,7 @@ public static class DependencyInjectionSetup
         services.AddSingleton(provider =>
         {
             var configsManager = provider.GetRequiredService<ConfigsManager>();
-            return new LoggerConfiguration(configsManager.RunnerConfiguration);
+            return new LoggerConfiguration(configsManager.RunnerConfiguration).GetLogger();
         });
 
         services.AddSingleton<DriverFactory>();
@@ -23,6 +26,6 @@ public static class DependencyInjectionSetup
             return factory.GetDriver();
         });
 
-        return services.BuildServiceProvider();
+        return services;
     }
 }

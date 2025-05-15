@@ -1,10 +1,12 @@
 ﻿using DotnetTaskSeleniumNunit.Helpers;
 using DotnetTaskSeleniumNunit.Models.Careers;
+using log4net;
+using OpenQA.Selenium;
 
 namespace DotnetTaskSeleniumNunit.Pages.Careers;
 
 
-internal partial class CareerSearchPage(POMDependency pomDependencies) : BasePage(pomDependencies)
+internal partial class CareerSearchPage(IWebDriver driver, ConfigsManager configs, ILog logger) : BasePage(driver, configs, logger)
 {
     public void MakeACareerSearch(CareerSearch searchData)
     {

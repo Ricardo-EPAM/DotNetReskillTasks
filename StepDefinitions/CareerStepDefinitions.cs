@@ -3,40 +3,39 @@ using DotnetTaskSeleniumNunit.Models.Careers;
 using DotnetTaskSeleniumNunit.Pages.Careers;
 using DotnetTaskSeleniumNunit.Pages.JobDetails;
 using DotnetTaskSeleniumNunit.Pages.Navigation;
+using log4net;
+using OpenQA.Selenium;
 using Reqnroll;
+
+namespace DotnetTaskSeleniumNunit.StepDefinitions;
 
 [Binding]
 public class CareersSearchSteps
 {
-    private readonly POMDependency _dependencies; 
-    private readonly CareerSearchPage _careersSearchPage;
-    private readonly NavigationBar _navigationBar;
-    private readonly JobDetailsPage _jobDetailsPage;
-    private string jobDescription;
+    private CareerSearchPage _careersSearchPage;
+    private NavigationBar _navigationBar;
+    private JobDetailsPage _jobDetailsPage;
     
-    public CareersSearchSteps(POMDependency dependencies)
+    public CareersSearchSteps(IWebDriver driver, ConfigsManager configs, ILog logger)
     {
-        ArgumentNullException.ThrowIfNull(dependencies);
-        _dependencies = dependencies;
-
-        _careersSearchPage = new CareerSearchPage(_dependencies);
-        _navigationBar = new NavigationBar(_dependencies);
-        _jobDetailsPage = new JobDetailsPage(_dependencies);
+        _careersSearchPage = new CareerSearchPage(driver, configs, logger);
+        _navigationBar = new NavigationBar(driver, configs, logger);
+        _jobDetailsPage = new JobDetailsPage(driver, configs, logger);
     }
 
-    [Given(@"the user accepts cookies")]
+    [Given("the user accepts cookies")]
     public void GivenTheUserAcceptsCookies()
     {
         _navigationBar.AcceptCookies();
     }
 
-    [Given(@"the user navigates to the Careers page")]
+    [Given("the user navigates to the Careers page")]
     public void GivenTheUserNavigatesToTheCareersPage()
     {
         _navigationBar.NavigateToCareersPage();
     }
 
-    [When(@"the user searches for a career with ""(.*)"", in ""(.*)"", and with ""(.*)"" modality")]
+    [When("the user searches for a career with {string}, in {string}, and with {string} modality")]
     public void WhenTheUserSearchesForACareer(string searchText, string locationValue, string locationModality)
     {
         CareerModality modality = Enum.Parse<CareerModality>(locationModality);
@@ -44,16 +43,16 @@ public class CareersSearchSteps
         _careersSearchPage.MakeACareerSearch(careerSearchForm);
     }
 
-    [When(@"the user applies and views the job from the last section")]
+    [When("the user applies and views the job from the last section")]
     public void WhenTheUserAppliesAndViewsTheJobFromTheLastSection()
     {
         _careersSearchPage.ApplyAndViewFromLastSection();
     }
 
-    [Then(@"the job details should contain ""(.*)""")]
+    [Then("the job details should contain {string}")]
     public void ThenTheJobDetailsShouldContain(string searchText)
     {
-        jobDescription = _jobDetailsPage.GetJobDescription();
+        var jobDescription = _jobDetailsPage.GetJobDescription();
         Assert.That(jobDescription, Does.Contain(searchText));
     }
 }

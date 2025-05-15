@@ -1,6 +1,4 @@
-﻿using DotnetTaskSeleniumNunit.Enums.Configurations;
-using DotnetTaskSeleniumNunit.Helpers;
-using DotnetTaskSeleniumNunit.Models.Configurations;
+﻿using DotnetTaskSeleniumNunit.Helpers;
 using log4net;
 using OpenQA.Selenium;
 
@@ -12,11 +10,13 @@ abstract class BasePage
     protected readonly ILog _logger;
     protected readonly ConfigsManager _configs;
 
-    public BasePage(POMDependency pomDependencies)
+    public BasePage(IWebDriver driver, ConfigsManager configs, ILog logger)
     {
-        ArgumentNullException.ThrowIfNull(pomDependencies);
-        _driver = pomDependencies.Driver;
-        _logger = pomDependencies.Logger;
-        _configs = pomDependencies.Configurations;
+        ArgumentNullException.ThrowIfNull(driver);
+        ArgumentNullException.ThrowIfNull(configs);
+        ArgumentNullException.ThrowIfNull(logger);
+        _driver = driver;
+        _configs = configs;
+        _logger = logger;
     }
 }
