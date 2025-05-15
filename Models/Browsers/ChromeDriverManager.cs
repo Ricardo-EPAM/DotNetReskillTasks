@@ -1,5 +1,4 @@
-﻿using System.Configuration;
-using DotnetTaskSeleniumNunit.Interfaces;
+﻿using DotnetTaskSeleniumNunit.Interfaces;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 
