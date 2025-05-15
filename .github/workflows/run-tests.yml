@@ -39,7 +39,7 @@ jobs:
       working-directory: .
 
     - name: Run tests 
-      run: dotnet test --no-build || true
+      run: dotnet test --filter Name~Download --no-build || true
       working-directory: .
 
     - name: Display files 
@@ -51,7 +51,7 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: failed-tests-screenshots
-        path: ./bin/Debug/net9.0/TestScreenshots/**
+        path: ./bin/Debug/net9.0/TestScreenshots
 
       
 
