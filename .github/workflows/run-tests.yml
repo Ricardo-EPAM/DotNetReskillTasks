@@ -39,15 +39,10 @@ jobs:
       working-directory: .
 
     - name: Run tests 
-      run: dotnet test --filter Name~Download --no-build || true
+      run: dotnet test --no-build || true
       working-directory: .
 
-
-    - name: s1
-      run: ls bin/Debug/net9.0/TestScreenshots || true
-      working-directory: .
-
-    - name: Display files 
+    - name: Display files tree
       run: | 
         pwd
         tree
