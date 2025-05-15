@@ -37,16 +37,15 @@ jobs:
     - name: Build 
       run: dotnet build --no-restore 
       working-directory: .
-  
+
+    - name: Run tests 
+      run: dotnet test --no-build || true
+      working-directory: .
+
     - name: Display files 
       run: | 
         pwd
         tree
-      working-directory: .
-
-    - name: run tests 
-      run: dotnet test --no-build || true
-      working-directory: .
 
     - name: Upload screenshots and test report
       uses: actions/upload-artifact@v4
