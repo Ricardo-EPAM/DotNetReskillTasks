@@ -11,7 +11,7 @@ class ChromeDriverManager : IDriverManager
     {
         var options = new ChromeOptions
         {
-            PageLoadStrategy = PageLoadStrategy.Default
+            PageLoadStrategy = PageLoadStrategy.Eager
         };
         options.AddArgument("--no-sandbox");
         options.AddArgument("--disable-dev-shm-usage");
