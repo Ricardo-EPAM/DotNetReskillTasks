@@ -10,7 +10,7 @@ internal partial class JobDetailsPage
         _logger.Debug($"Getting from vacancy description");
         try
         {
-            new WebDriverWait(_driver, DefaultWait).
+            new WebDriverWait(_driver, _configs.UIWaitsConfiguration.DefaultWait).
                 Until(ExpectedConditions.ElementIsVisible(_vacancyDescription));
             return VacancyDescription.Text;
         }

@@ -10,12 +10,13 @@ namespace DotnetTaskSeleniumNunit.Helpers;
 
 public class LoggerConfiguration
 {
-    private ILoggerRepository? _logRepository;
-    private protected ILog? _logger { get; private set; }
+    private readonly ILoggerRepository _logRepository;
+    private readonly protected ILog _logger;
 
     public LoggerConfiguration(RunnerConfiguration configs)
     {
-        string? path = configs.LoggerSettingsFile;
+        ArgumentNullException.ThrowIfNull(configs);
+        string path = configs.LoggerSettingsFile;
         if (string.IsNullOrEmpty(path))
         {
             throw new ArgumentNullException("Please provide a appsettings.json file path");
@@ -28,6 +29,7 @@ public class LoggerConfiguration
 
         _logger = LogManager.GetLogger("GlobalLogger");
         _logRepository = LogManager.GetRepository(entryAssembly);
+
         XmlConfigurator.Configure(_logRepository, new FileInfo(path));
 
         SetLoggingLevel(configs.LoggerLevel);

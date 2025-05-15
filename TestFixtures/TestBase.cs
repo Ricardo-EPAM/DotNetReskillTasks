@@ -39,7 +39,6 @@ public class BaseTest : IDisposable
 
         _driver.Navigate().GoToUrl(_config.AppConfiguration.BaseURL ?? "");
         _driver.Manage().Window.Maximize();
-        _driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds((long)Waits.Timeout);
 
         _logger.Info($"Initializing test: {TestContext.CurrentContext.Test.Name}");
     }

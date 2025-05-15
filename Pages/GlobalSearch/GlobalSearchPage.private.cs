@@ -10,7 +10,7 @@ internal partial class GlobalSearchPage
         _logger.Debug($"Clicking magnifier icon from the page header");
         try
         {
-            new WebDriverWait(_driver, DefaultWait).
+            new WebDriverWait(_driver, _configs.UIWaitsConfiguration.DefaultWait).
                 Until(ExpectedConditions.ElementToBeClickable(_magnifierIcon));
             MagnifierIcon.Click();
         }
@@ -26,7 +26,7 @@ internal partial class GlobalSearchPage
         _logger.Debug($"Sending '{searchText}' to the search field");
         try
         {
-            new WebDriverWait(_driver, DefaultWait).
+            new WebDriverWait(_driver, _configs.UIWaitsConfiguration.DefaultWait).
                 Until(ExpectedConditions.ElementToBeClickable(_searchField));
             SearchField.SendKeys(searchText);
         }
@@ -41,7 +41,7 @@ internal partial class GlobalSearchPage
         _logger.Debug($"Clicking 'Find' button");
         try
         {
-            new WebDriverWait(_driver, DefaultWait).
+            new WebDriverWait(_driver, _configs.UIWaitsConfiguration.DefaultWait).
                 Until(ExpectedConditions.ElementToBeClickable(_findButton));
             Findbutton.Click();
         }
@@ -63,7 +63,7 @@ internal partial class GlobalSearchPage
 
         try
         {
-            new WebDriverWait(_driver, DefaultWait).
+            new WebDriverWait(_driver, _configs.UIWaitsConfiguration.DefaultWait).
                 Until(ExpectedConditions.PresenceOfAllElementsLocatedBy(_resultsArticlesDivs));
             foreach (var article in ResultsArticles)
             {

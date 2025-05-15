@@ -10,7 +10,7 @@ internal partial class ArticlePage
         _logger.Debug("Getting Article main header text");
         try
         {
-            new WebDriverWait(_driver, DefaultWait).
+            new WebDriverWait(_driver, _configs.UIWaitsConfiguration.DefaultWait).
                 Until(ExpectedConditions.ElementIsVisible(_artivcleTitle));
             return ArticleTitle.Text;
         }

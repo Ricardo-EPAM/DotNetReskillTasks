@@ -2,9 +2,9 @@
 
 public class UIWaitsConfiguration
 {
-    public int DefaultWait { get; set; }
-    public int LongWait { get; set; }
-    public int ShortWait { get; set; }
-    public int ImplicitWait { get; set; }
+    public TimeSpan DefaultWait { get; set; }
+    public TimeSpan LongWait { get; set; }
+    public TimeSpan ShortWait { get; set; }
+    public TimeSpan ImplicitWait { get; set; }
 
 }

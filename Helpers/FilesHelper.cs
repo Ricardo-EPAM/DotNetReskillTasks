@@ -35,14 +35,12 @@ class FilesHelper
             var triesCount = 0;
             var fileExist = File.Exists(Path.Combine(_filesPath, fileName));
 
-            while (!fileExist)
+            while (!fileExist && triesCount < tries)
             {
                 _logger.Info($"Searching for file {fileName} ...");
                 Thread.Sleep(waitTime ?? TimeSpan.FromSeconds(3));
 
                 fileExist = File.Exists(Path.Combine(_filesPath, fileName));
-                if (triesCount == tries)
-                    break;
                 triesCount++;
             }
 
@@ -78,14 +76,16 @@ class FilesHelper
         {
             var fullFilePath = Path.Combine(_filesPath, fileName);
 
-            if (!File.Exists(fullFilePath))
+            if (File.Exists(fullFilePath))
+            {
+                File.Delete(fullFilePath);
+                _logger.Info($"File '{fileName}' was successfully deleted");
+            }
+            else
             {
                 _logger.Warn($"File '{fileName}' not found in path '{_filesPath}'");
                 return;
             }
-
-            File.Delete(fullFilePath);
-            _logger.Info($"File '{fileName}' was successfully deleted");
         }
         catch (DirectoryNotFoundException ex)
         {

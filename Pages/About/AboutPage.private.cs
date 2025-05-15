@@ -11,7 +11,7 @@ internal partial class AboutPage
         _logger.Debug($"Scrolling to the 'EPAM At A Glance' section");
         try
         {
-            new WebDriverWait(_driver, DefaultWait).
+            new WebDriverWait(_driver, _configs.UIWaitsConfiguration.DefaultWait).
                 Until(ExpectedConditions.PresenceOfAllElementsLocatedBy(_epamGlanceSection));
             new Actions(_driver).ScrollToElement(EPAMGlanceSection).Perform();
         }
@@ -27,7 +27,7 @@ internal partial class AboutPage
         _logger.Debug($"Clicking 'Download' button from 'EPAM At A Glance' section");
         try
         {
-            new WebDriverWait(_driver, LongWait).
+            new WebDriverWait(_driver, _configs.UIWaitsConfiguration.LongWait).
                 Until(ExpectedConditions.PresenceOfAllElementsLocatedBy(_downloadButtonLink));
             EPAMGlanceDownloadButton.Click();
         }

@@ -26,10 +26,10 @@ internal partial class InsightsPage
         try
         {
             var currentActive = CarouselActiveElement;
-            new WebDriverWait(_driver, DefaultWait).
+            new WebDriverWait(_driver, _configs.UIWaitsConfiguration.DefaultWait).
                 Until(ExpectedConditions.ElementIsVisible(_swipeLeft));
             CarouselSwipeRight.Click();
-            new WebDriverWait(_driver, DefaultWait)
+            new WebDriverWait(_driver, _configs.UIWaitsConfiguration.DefaultWait)
                 .Until(driver =>
                 {
                     string currentClass = currentActive.GetAttribute("class");
@@ -48,10 +48,10 @@ internal partial class InsightsPage
         try
         {
             var currentActive = CarouselActiveElement;
-            new WebDriverWait(_driver, DefaultWait).
+            new WebDriverWait(_driver, _configs.UIWaitsConfiguration.DefaultWait).
                 Until(ExpectedConditions.ElementIsVisible(_swipeRight));
             CarouselSwipeRight.Click();
-            new WebDriverWait(_driver, DefaultWait)
+            new WebDriverWait(_driver, _configs.UIWaitsConfiguration.DefaultWait)
                 .Until(driver =>
             {
                 string currentClass = currentActive.GetAttribute("class");
@@ -77,7 +77,7 @@ internal partial class InsightsPage
         _logger.Debug($"Getting Carousel title");
         try
         {
-            new WebDriverWait(_driver, DefaultWait).
+            new WebDriverWait(_driver, _configs.UIWaitsConfiguration.DefaultWait).
                 Until(ExpectedConditions.ElementIsVisible(_carouselActiveElement));
             return CarouselTitle.Text.Trim();
         }
@@ -93,7 +93,7 @@ internal partial class InsightsPage
         _logger.Debug($"Clicking Carousel button: 'Read More'");
         try
         {
-            new WebDriverWait(_driver, DefaultWait).
+            new WebDriverWait(_driver, _configs.UIWaitsConfiguration.DefaultWait).
                 Until(ExpectedConditions.ElementToBeClickable(CarouselReadMoreLink));
             CarouselReadMoreLink.Click();
         }
