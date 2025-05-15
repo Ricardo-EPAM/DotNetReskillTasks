@@ -42,12 +42,25 @@ jobs:
       run: dotnet test --filter Name~Download --no-build || true
       working-directory: .
 
+
+    - name: s1
+      run: ls bin/Debug/net9.0/TestScreenshots || true
+      working-directory: .
+
+    - name: s2
+      run: ls DotnetTaskSeleniumNunit/bin/Debug/net9.0/TestScreenshots || true
+      working-directory: .
+
+    - name: s3
+      run: ls DotnetTaskSeleniumNunit/bin/Debug/net9.0/TestScreenshots || true
+
+    - name: s4
+      run: ls bin/Debug/net9.0/TestScreenshots || true
+
     - name: Display files 
       run: | 
         pwd
         tree
-        ls DotnetTaskSeleniumNunit/bin/Debug/net9.0/TestScreenshots
-        true
 
     - name: Upload screenshots
       uses: actions/upload-artifact@v4
