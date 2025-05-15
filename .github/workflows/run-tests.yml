@@ -39,5 +39,5 @@ jobs:
       working-directory: .
   
     - name: Run tests 
-      run: dotnet test --no-build --configuration Release --verbosity normal
+      run: dotnet test --no-build
       working-directory: .
