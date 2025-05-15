@@ -1,6 +1,7 @@
 Feature: EPAM web page
 
-Background: the user accepts cookies
+Background: User navigate to EPAM and click on accept cookies
+	Given the user accepts cookies
 
 Scenario Outline: User performs a career search and verifies job details
 	Given the user navigates to the Careers page

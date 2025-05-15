@@ -1,5 +1,4 @@
 ﻿using DotnetTaskSeleniumNunit.Helpers;
-using log4net;
 using Microsoft.Extensions.DependencyInjection;
 using OpenQA.Selenium;
 using Reqnroll.Microsoft.Extensions.DependencyInjection;
@@ -7,12 +6,11 @@ using Reqnroll.Microsoft.Extensions.DependencyInjection;
 public class DependencyInjectionSetup
 {
     [ScenarioDependencies]
-    public static IServiceCollection ConfigureServices()
+    public static IServiceCollection ConfigureFeatureServices()
     {
         var services = new ServiceCollection();
 
         services.AddSingleton(provider => new ConfigsManager());
-
         services.AddSingleton(provider =>
         {
             var configsManager = provider.GetRequiredService<ConfigsManager>();
@@ -20,7 +18,7 @@ public class DependencyInjectionSetup
         });
 
         services.AddSingleton<DriverFactory>();
-        services.AddTransient<IWebDriver>(provider =>
+        services.AddScoped<IWebDriver>(provider =>
         {
             var factory = provider.GetRequiredService<DriverFactory>();
             return factory.GetDriver();
