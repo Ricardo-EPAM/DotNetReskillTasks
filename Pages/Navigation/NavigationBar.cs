@@ -23,4 +23,10 @@ internal partial class NavigationBar(IWebDriver driver, ConfigsManager configs, 
     {
         ClickAcceptCookies();
     }
+
+    public void HoverServicesLinkAndClickByText(string link, string subItem)
+    {
+        HoverLink(link);
+        ClickSubItemFromHoveredLink(subItem);
+    }
 }

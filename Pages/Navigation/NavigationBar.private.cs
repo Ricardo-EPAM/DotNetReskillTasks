@@ -1,4 +1,5 @@
 using OpenQA.Selenium;
+using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.WaitHelpers;
 
@@ -39,6 +40,39 @@ internal partial class NavigationBar
         catch (Exception ex)
         {
             _logger.Info(_infoCookiesSkipped, ex);
+        }
+
+    }
+
+    private void HoverLink(string linkText)
+    {
+        _logger.Debug($"Hovering on the '{linkText}' link");
+        try
+        {
+            var linkElement = new WebDriverWait(_driver, _configs.UIWaitsConfiguration.DefaultWait).
+                Until(ExpectedConditions.ElementToBeClickable(SelectElementByText(TopPageLinks, linkText)));
+            new Actions(_driver).MoveToElement(linkElement).Perform();
+            new WebDriverWait(_driver, _configs.UIWaitsConfiguration.DefaultWait).
+                Until(ExpectedConditions.ElementIsVisible(_linkSubItemsContainer));
+        }
+        catch (Exception ex)
+        {
+            _logger.Error(_ErrorHoverLink, ex);
+            throw;
+        }
+    }
+    private void ClickSubItemFromHoveredLink(string itemText)
+    {
+        _logger.Debug($"Clicking on '{itemText}' link from sub items (Hovered link)");
+        try
+        {
+            new WebDriverWait(_driver, _configs.UIWaitsConfiguration.DefaultWait).
+                 Until(ExpectedConditions.ElementIsVisible(_linkSubItemsContainer));
+        }
+        catch (Exception ex)
+        {
+            _logger.Error(_ErrorClickSubItemFromHoveredLink, ex);
+            throw;
         }
     }
 }
