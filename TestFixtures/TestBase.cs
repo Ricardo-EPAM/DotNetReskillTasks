@@ -37,7 +37,7 @@ public class BaseTest : IDisposable
         _driver = _serviceProvider.GetService<IWebDriver>();
         _dependencies = new POMDependency(_driver, _config, _logger);
 
-        _driver.Navigate().GoToUrl(_config.AppConfiguration.BaseURL ?? "");
+        _driver.Navigate().GoToUrl(_config.AppConfiguration.BaseURL);
         _driver.Manage().Window.Maximize();
 
         _logger.Info($"Initializing test: {TestContext.CurrentContext.Test.Name}");
@@ -50,6 +50,7 @@ public class BaseTest : IDisposable
         {
             var screenshotFileName = ScreenshotHelper.TakesScreenshotIfFailed(
                 _driver,
+                _logger,
                 _config.OutputConfiguration,
                 TestContext.CurrentContext.Test.Name);
             _logger.Error($"Failed test screenshot was saved in: {screenshotFileName}");

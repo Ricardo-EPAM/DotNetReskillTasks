@@ -2,7 +2,7 @@
 
 public class OutputConfiguration
 {
-    public string? ScreenshotsFolder { get; set; }
-    public string? ScreenshotSubFolder { get; set; }
-    public string? ScreenshotPrefix { get; set; }
+    public required string ScreenshotsFolder { get; set; }
+    public required string ScreenshotSubFolder { get; set; }
+    public required string ScreenshotPrefix { get; set; }
 }

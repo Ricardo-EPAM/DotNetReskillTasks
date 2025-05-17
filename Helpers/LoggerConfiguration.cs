@@ -4,7 +4,6 @@ using DotnetTaskSeleniumNunit.Models.Configurations;
 using log4net;
 using log4net.Config;
 using log4net.Repository;
-using Microsoft.Extensions.Configuration;
 
 namespace DotnetTaskSeleniumNunit.Helpers;
 
@@ -32,12 +31,17 @@ public class LoggerConfiguration
 
         XmlConfigurator.Configure(_logRepository, new FileInfo(path));
 
-        SetLoggingLevel(configs.LoggerLevel);
+        SetGlobalLoggingLevel(configs.LoggerLevel);
     }
-    public void SetLoggingLevel(LogLevels loggerLevel)
-    {
-        ArgumentNullException.ThrowIfNull(_logRepository);
 
+    public void SetGlobalLoggingLevel(LogLevels loggerLevel)
+    {
+        SetLoggerRepositoryThresholdLevel(loggerLevel);
+        SetLoggerRepositoryAppendersThresholdLevel();
+    }
+
+    private void SetLoggerRepositoryThresholdLevel(LogLevels loggerLevel)
+    {
         var level = log4net.Core.Level.Debug;
         level = loggerLevel switch
         {
@@ -51,17 +55,21 @@ public class LoggerConfiguration
             _ => throw new ArgumentException($"Invalid logger level '{loggerLevel}'"),
         };
         _logRepository.Threshold = level;
+    }
+
+    private void SetLoggerRepositoryAppendersThresholdLevel()
+    {
         foreach (var appender in _logRepository.GetAppenders())
         {
             if (appender is log4net.Appender.AppenderSkeleton appenderSkeleton)
             {
-                appenderSkeleton.Threshold = level;
+                appenderSkeleton.Threshold = _logRepository.Threshold;
             }
         }
     }
+
     public ILog GetLogger()
     {
-        ArgumentNullException.ThrowIfNull(_logger);
         return _logger;
     }
 }
