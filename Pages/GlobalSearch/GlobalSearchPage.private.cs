@@ -7,10 +7,11 @@ internal partial class GlobalSearchPage
 {
     private void ClickMagnifierIcon()
     {
+        _logger.Debug($"Clicking magnifier icon from the page header");
         try
         {
-            new WebDriverWait(_driver, _vars.ExplicitWaitDefault).
-            Until(ExpectedConditions.ElementToBeClickable(_magnifierIcon));
+            new WebDriverWait(_driver, _configs.UIWaitsConfiguration.DefaultWait).
+                Until(ExpectedConditions.ElementToBeClickable(_magnifierIcon));
             MagnifierIcon.Click();
         }
         catch (Exception ex)
@@ -22,10 +23,11 @@ internal partial class GlobalSearchPage
     }
     private void EnterSearchCriteria(string searchText)
     {
+        _logger.Debug($"Sending '{searchText}' to the search field");
         try
         {
-            new WebDriverWait(_driver, _vars.ExplicitWaitDefault).
-            Until(ExpectedConditions.ElementToBeClickable(_searchField));
+            new WebDriverWait(_driver, _configs.UIWaitsConfiguration.DefaultWait).
+                Until(ExpectedConditions.ElementToBeClickable(_searchField));
             SearchField.SendKeys(searchText);
         }
         catch (Exception ex)
@@ -36,10 +38,11 @@ internal partial class GlobalSearchPage
     }
     private void ClickFindButton()
     {
+        _logger.Debug($"Clicking 'Find' button");
         try
         {
-            new WebDriverWait(_driver, _vars.ExplicitWaitDefault).
-            Until(ExpectedConditions.ElementToBeClickable(_findButton));
+            new WebDriverWait(_driver, _configs.UIWaitsConfiguration.DefaultWait).
+                Until(ExpectedConditions.ElementToBeClickable(_findButton));
             Findbutton.Click();
         }
         catch (Exception ex)
@@ -55,12 +58,13 @@ internal partial class GlobalSearchPage
     /// <returns>A list of strings with link+description text</returns>
     private IEnumerable<string?> GetAllArticlesTextFromSearchResults()
     {
+        _logger.Debug($"Gathering all text contents from search results");
         var articleTexts = new List<string>();
 
         try
         {
-            new WebDriverWait(_driver, _vars.ExplicitWaitDefault).
-            Until(ExpectedConditions.PresenceOfAllElementsLocatedBy(_resultsArticlesDivs));
+            new WebDriverWait(_driver, _configs.UIWaitsConfiguration.DefaultWait).
+                Until(ExpectedConditions.PresenceOfAllElementsLocatedBy(_resultsArticlesDivs));
             foreach (var article in ResultsArticles)
             {
                 var linkText = article.FindElement(_links).GetAttribute("href");

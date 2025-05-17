@@ -1,24 +1,23 @@
-﻿using OpenQA.Selenium.Support.UI;
+﻿using DotnetTaskSeleniumNunit.Enums;
+using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.WaitHelpers;
 
 namespace DotnetTaskSeleniumNunit.Pages.Insights;
 
 internal partial class InsightsPage
 {
-    private void SwipeCarouselWithDirection(string left_or_right)
+    private void SwipeCarouselWithDirection(SwipeDirection direction)
     {
-        var validOptions = new List<string>() { "left", "right" };
-        if (!validOptions.Contains(left_or_right.ToLower()))
+        _logger.Debug($"Swapping Carousel to the {direction}");
+
+        switch (direction)
         {
-            throw new ArgumentException(_errorValidOptions + validOptions);
-        }
-        if (left_or_right.ToLower() == "right")
-        {
-            SwipeCarouselRight();
-        }
-        else // left
-        {
-            SwipeCarouselLeft();
+            case SwipeDirection.Right:
+                SwipeCarouselRight();
+                break;
+            case SwipeDirection.Left:
+                SwipeCarouselLeft();
+                break;
         }
     }
 
@@ -26,9 +25,16 @@ internal partial class InsightsPage
     {
         try
         {
-            new WebDriverWait(_driver, _vars.ExplicitWaitDefault).
-            Until(ExpectedConditions.ElementIsVisible(_swipeLeft));
-            CarouselSwipeLeft.Click();
+            var currentActive = CarouselActiveElement;
+            new WebDriverWait(_driver, _configs.UIWaitsConfiguration.DefaultWait).
+                Until(ExpectedConditions.ElementIsVisible(_swipeLeft));
+            CarouselSwipeRight.Click();
+            new WebDriverWait(_driver, _configs.UIWaitsConfiguration.DefaultWait)
+                .Until(driver =>
+                {
+                    string currentClass = currentActive.GetAttribute("class");
+                    return !currentClass.Contains("active");
+                });
         }
         catch (Exception ex)
         {
@@ -41,9 +47,16 @@ internal partial class InsightsPage
     {
         try
         {
-            new WebDriverWait(_driver, _vars.ExplicitWaitDefault).
+            var currentActive = CarouselActiveElement;
+            new WebDriverWait(_driver, _configs.UIWaitsConfiguration.DefaultWait).
                 Until(ExpectedConditions.ElementIsVisible(_swipeRight));
             CarouselSwipeRight.Click();
+            new WebDriverWait(_driver, _configs.UIWaitsConfiguration.DefaultWait)
+                .Until(driver =>
+            {
+                string currentClass = currentActive.GetAttribute("class");
+                return !currentClass.Contains("active");
+            });
         }
         catch (Exception ex)
         {
@@ -51,21 +64,20 @@ internal partial class InsightsPage
             throw;
         }
     }
-    private void SwipeCarouselMultipleTimes(string left_or_right, int clicks)
+    private void SwipeCarouselMultipleTimes(SwipeDirection direction, int clicks)
     {
         for (var i = 0; i != clicks; i++)
         {
-            SwipeCarouselWithDirection(left_or_right);
-            // Wait for the carousel animation.
-            Thread.Sleep(1000);
+            SwipeCarouselWithDirection(direction);
         }
     }
 
     private string GetCarouselElementTitle()
     {
+        _logger.Debug($"Getting Carousel title");
         try
         {
-            new WebDriverWait(_driver, _vars.ExplicitWaitDefault).
+            new WebDriverWait(_driver, _configs.UIWaitsConfiguration.DefaultWait).
                 Until(ExpectedConditions.ElementIsVisible(_carouselActiveElement));
             return CarouselTitle.Text.Trim();
         }
@@ -78,10 +90,11 @@ internal partial class InsightsPage
 
     private void ClickReadMoreFromActiveArticleInCarousel()
     {
+        _logger.Debug($"Clicking Carousel button: 'Read More'");
         try
         {
-            new WebDriverWait(_driver, _vars.ExplicitWaitDefault).
-           Until(ExpectedConditions.ElementToBeClickable(CarouselReadMoreLink));
+            new WebDriverWait(_driver, _configs.UIWaitsConfiguration.DefaultWait).
+                Until(ExpectedConditions.ElementToBeClickable(CarouselReadMoreLink));
             CarouselReadMoreLink.Click();
         }
         catch (Exception ex)

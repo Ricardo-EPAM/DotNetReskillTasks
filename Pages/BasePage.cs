@@ -1,23 +1,22 @@
-﻿using DotnetTaskSeleniumNunit.Constants;
+﻿using DotnetTaskSeleniumNunit.Enums.Configurations;
 using DotnetTaskSeleniumNunit.Helpers;
+using DotnetTaskSeleniumNunit.Models.Configurations;
 using log4net;
 using OpenQA.Selenium;
 
 namespace DotnetTaskSeleniumNunit.Pages;
 
-internal class BasePage
+abstract class BasePage
 {
     protected readonly IWebDriver _driver;
     protected readonly ILog _logger;
-    protected readonly GlobalVariables _vars;
+    protected readonly ConfigsManager _configs;
 
-    public BasePage(POMDependencies pomDependencies)
+    public BasePage(POMDependency pomDependencies)
     {
-        ArgumentNullException.ThrowIfNull(pomDependencies.Driver);
-        ArgumentNullException.ThrowIfNull(pomDependencies.Logger);
-        ArgumentNullException.ThrowIfNull(pomDependencies.Variables);
+        ArgumentNullException.ThrowIfNull(pomDependencies);
         _driver = pomDependencies.Driver;
         _logger = pomDependencies.Logger;
-        _vars = pomDependencies.Variables;
+        _configs = pomDependencies.Configurations;
     }
 }

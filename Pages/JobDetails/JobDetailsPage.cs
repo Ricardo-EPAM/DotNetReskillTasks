@@ -1,11 +1,8 @@
-﻿using DotnetTaskSeleniumNunit.Constants;
-using DotnetTaskSeleniumNunit.Helpers;
-using log4net;
-using OpenQA.Selenium;
+﻿using DotnetTaskSeleniumNunit.Helpers;
 
 namespace DotnetTaskSeleniumNunit.Pages.JobDetails;
 
-internal partial class JobDetailsPage(POMDependencies pomDependencies) : BasePage(pomDependencies)
+internal partial class JobDetailsPage(POMDependency pomDependencies) : BasePage(pomDependencies)
 {
     public string GetJobDescription()
     {

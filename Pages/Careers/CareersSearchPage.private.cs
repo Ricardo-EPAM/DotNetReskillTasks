@@ -1,5 +1,4 @@
 ﻿using DotnetTaskSeleniumNunit.Models.Careers;
-using DotnetTaskSeleniumNunit.Pages.JobDetails;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.WaitHelpers;
@@ -15,9 +14,10 @@ internal partial class CareerSearchPage
     }
     private void EnterSearchCriteria(string searchText)
     {
+        _logger.Debug($"Sending '{searchText}' to the search input field");
         try
         {
-            new WebDriverWait(_driver, _vars.ExplicitWaitDefault).
+            new WebDriverWait(_driver, _configs.UIWaitsConfiguration.DefaultWait).
                 Until(ExpectedConditions.ElementToBeClickable(_keywordInput));
             KeywordInput.Clear();
             KeywordInput.SendKeys(searchText);
@@ -32,9 +32,10 @@ internal partial class CareerSearchPage
 
     private void IgnoreSearchSuggestions()
     {
+        _logger.Debug($"Trying to close the 'suggestions' prompt");
         try
         {
-            new WebDriverWait(_driver, _vars.ExplicitWaitShort).
+            new WebDriverWait(_driver, _configs.UIWaitsConfiguration.ShortWait).
                    Until(ExpectedConditions.ElementIsVisible(_keywordSuggestions));
             KeywordInput.SendKeys(Keys.Tab);
         }
@@ -46,9 +47,10 @@ internal partial class CareerSearchPage
 
     private void SelectLocationDropdownByValue(string searchText)
     {
+        _logger.Debug($"Selecting '{searchText}' from Location dropdown");
         try
         {
-            new WebDriverWait(_driver, _vars.ExplicitWaitDefault).
+            new WebDriverWait(_driver, _configs.UIWaitsConfiguration.DefaultWait).
                 Until(x => x.FindElement(_locationSelect).Enabled);
             IJavaScriptExecutor js = (IJavaScriptExecutor)_driver;
             js.ExecuteScript($"arguments[0].value = '{searchText}'", LocationSelect);
@@ -62,10 +64,11 @@ internal partial class CareerSearchPage
 
     private void SelectModalityCheckboxByText(CareerModality modality)
     {
+        _logger.Debug($"Selecting '{modality}' from Modality checkboxes");
         var modalityText = modality.ToString().ToLower();
         try
         {
-            new WebDriverWait(_driver, _vars.ExplicitWaitLong).
+            new WebDriverWait(_driver, _configs.UIWaitsConfiguration.LongWait).
                 Until(ExpectedConditions.PresenceOfAllElementsLocatedBy(_modalityCheckboxes));
             var selection = ModalityBoxes.First(x => x.GetAttribute("name")?.Contains(modalityText) == true);
             selection.FindElement(_followingLabel).Click();
@@ -79,9 +82,10 @@ internal partial class CareerSearchPage
 
     private void ClickFindButton()
     {
+        _logger.Debug($"Clicking 'Find' button'");
         try
         {
-            new WebDriverWait(_driver, _vars.ExplicitWaitDefault).
+            new WebDriverWait(_driver, _configs.UIWaitsConfiguration.DefaultWait).
                 Until(ExpectedConditions.ElementToBeClickable(_findButton));
             FindVacancyButton.Click();
         }
@@ -94,16 +98,17 @@ internal partial class CareerSearchPage
 
     private IList<IWebElement> GetJobSections()
     {
+        _logger.Debug($"Getting Vacancies sections from results");
         try
         {
-            new WebDriverWait(_driver, _vars.ExplicitWaitDefault).
+            new WebDriverWait(_driver, _configs.UIWaitsConfiguration.DefaultWait).
                Until(ExpectedConditions.PresenceOfAllElementsLocatedBy(_vacanciesContainers));
             return VacanciesContainers;
         }
         catch (Exception ex)
         {
             _logger.Error(_errorGetJobSections, ex);
-            throw;
+            throw new NotFoundException(_errorGetJobSections);
         }
     }
 
@@ -114,9 +119,10 @@ internal partial class CareerSearchPage
 
     private void ClickApplyAndViewFromSection(IWebElement section)
     {
+        _logger.Debug($"Clicking 'Apply and View' button from the selected section");
         try
         {
-            new WebDriverWait(_driver, _vars.ExplicitWaitDefault).
+            new WebDriverWait(_driver, _configs.UIWaitsConfiguration.DefaultWait).
                 Until(ExpectedConditions.VisibilityOfAllElementsLocatedBy(_applyButtonFromVacancy));
             section.FindElement(_applyButtonFromVacancy).Click();
         }
@@ -129,12 +135,13 @@ internal partial class CareerSearchPage
 
     private string GetVacancyContainerText()
     {
+        _logger.Debug($"Getting text from Vacancy description");
         IWebElement jobElements;
         try
         {
-            jobElements = new WebDriverWait(_driver, _vars.ExplicitWaitDefault).
+            jobElements = new WebDriverWait(_driver, _configs.UIWaitsConfiguration.DefaultWait).
                 Until(ExpectedConditions.ElementIsVisible(_vacancyDescription));
-            return  jobElements.Text;
+            return jobElements.Text;
         }
         catch (Exception ex)
         {
