@@ -19,10 +19,7 @@ public class GlobalHooks
     public void BeforeScenario(ScenarioContext scenarioContext, ILog logger, IWebDriver driver, ConfigsManager configs)
     {
         logger.Info($"Setting up test scenario: {scenarioContext.ScenarioInfo.Title}");
-
-        driver.Navigate().GoToUrl(configs.AppConfiguration.BaseURL ?? "");
         driver.Manage().Window.Maximize();
-
         logger.Info($"Initialized web driver for scenario: {scenarioContext.ScenarioInfo.Title}");
     }
 
@@ -53,18 +50,6 @@ public class GlobalHooks
             ArgumentNullException.ThrowIfNull(scenarioContext.ScenarioInfo.Arguments);
             string fileName = scenarioContext.ScenarioInfo.Arguments["filename"]?.ToString() ?? "";
             files.DeleteFile(fileName);
-        }
-    }
-
-    [AfterFeature]
-    public static void AfterFeature(FeatureContext featureContext, ILog logger, IWebDriver driver)
-    {
-        logger.Info($"Execution of feature finished: {featureContext.FeatureInfo.Title}");
-        if (driver != null)
-        {
-            driver.Quit();
-            driver.Dispose();
-            logger.Info($"Driver disposed");
         }
     }
 }

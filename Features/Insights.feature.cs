@@ -107,24 +107,28 @@ namespace DotnetTaskSeleniumNunit.Features
 #line 3
 #line hidden
 #line 4
- await testRunner.GivenAsync("the user accepts cookies", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
+ await testRunner.GivenAsync("the user navigates to EPAM", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
+#line hidden
+#line 5
+ await testRunner.AndAsync("the user accepts cookies", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("User performs a career search and verifies job details")]
-        [NUnit.Framework.TestCaseAttribute("Golang", "all_locations", "Remote", null)]
-        [NUnit.Framework.TestCaseAttribute("Python", "all_Poland", "Relocation", null)]
-        [NUnit.Framework.TestCaseAttribute(".NET", "Warsaw", "Office", null)]
-        [NUnit.Framework.TestCaseAttribute("Java", "Buenos Aires", "Office", null)]
-        public async global::System.Threading.Tasks.Task UserPerformsACareerSearchAndVerifiesJobDetails(string searchText, string locationValue, string locationModality, string[] exampleTags)
+        [NUnit.Framework.DescriptionAttribute("User navigates through carousel and validate titles from carousel and from articl" +
+            "e")]
+        [NUnit.Framework.TestCaseAttribute("1", "Data Literacy in the Age of Generative AI", null)]
+        [NUnit.Framework.TestCaseAttribute("2", "Evolving into Agentic AI: Turning Theory into Action", null)]
+        [NUnit.Framework.TestCaseAttribute("3", "Mastering Cloud Security: Navigating Today’s Threat Landscape", null)]
+        [NUnit.Framework.TestCaseAttribute("4", "The Complex Path of Generative AI Adoption in Software Development", null)]
+        public async global::System.Threading.Tasks.Task UserNavigatesThroughCarouselAndValidateTitlesFromCarouselAndFromArticle(string carouselClicks, string title, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
             global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
-            argumentsOfScenario.Add("searchText", searchText);
-            argumentsOfScenario.Add("locationValue", locationValue);
-            argumentsOfScenario.Add("locationModality", locationModality);
-            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("User performs a career search and verifies job details", null, tagsOfScenario, argumentsOfScenario, featureTags);
+            argumentsOfScenario.Add("carouselClicks", carouselClicks);
+            argumentsOfScenario.Add("title", title);
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("User navigates through carousel and validate titles from carousel and from articl" +
+                    "e", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 7
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -139,16 +143,19 @@ this.ScenarioInitialize(scenarioInfo);
 await this.FeatureBackgroundAsync();
 #line hidden
 #line 8
- await testRunner.GivenAsync("the user navigates to the Careers page", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
+ await testRunner.GivenAsync("the user navigates to the Insights page", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
 #line hidden
 #line 9
- await testRunner.WhenAsync(string.Format("the user searches for a career with \"{0}\", in \"{1}\", and with \"{2}\" modality", searchText, locationValue, locationModality), ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+ await testRunner.AndAsync(string.Format("the user clicks on the right arrow from carousel {0} times", carouselClicks), ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
 #line 10
- await testRunner.AndAsync("the user applies and views the job from the last section", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
+ await testRunner.AndAsync(string.Format("the user validates the carousel title is \"{0}\"", title), ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
 #line 11
- await testRunner.ThenAsync(string.Format("the job details should contain \"{0}\"", searchText), ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+ await testRunner.WhenAsync("the user clicks on \'Read More\' from the carousel active item", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+#line hidden
+#line 12
+ await testRunner.ThenAsync(string.Format("the title from the displayed article is \"{0}\"", title), ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
             }
             await this.ScenarioCleanupAsync();

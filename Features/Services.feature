@@ -1,7 +1,8 @@
 Feature: Services tab
 
 Background: Accept cookies
-	Given the user accepts cookies
+	Given the user navigates to EPAM
+	And the user accepts cookies
 
 Scenario Outline: User navigates to Services AI related link and validates 'Our Related Expertise' section 
 	When the user navigates to the '<subItem>' sub link from 'Services'

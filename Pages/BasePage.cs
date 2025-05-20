@@ -24,4 +24,9 @@ abstract class BasePage
     {
         return _driver.Title;
     }
+
+    public void NavigateToBaseURL() 
+    {
+        _driver.Navigate().GoToUrl(_configs.AppConfiguration.BaseURL ?? "");
+    }
 }

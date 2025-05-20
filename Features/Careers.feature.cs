@@ -107,14 +107,17 @@ namespace DotnetTaskSeleniumNunit.Features
 #line 3
 #line hidden
 #line 4
- await testRunner.GivenAsync("the user accepts cookies", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
+ await testRunner.GivenAsync("the user navigates to EPAM", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
+#line hidden
+#line 5
+ await testRunner.AndAsync("the user accepts cookies", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
         }
         
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("User performs a career search and verifies job details")]
         [NUnit.Framework.TestCaseAttribute("Golang", "all_locations", "Remote", null)]
-        [NUnit.Framework.TestCaseAttribute("Python", "all_Poland", "Relocation", null)]
+        [NUnit.Framework.TestCaseAttribute("Python", "all_Spain", "Relocation", null)]
         [NUnit.Framework.TestCaseAttribute(".NET", "Warsaw", "Office", null)]
         [NUnit.Framework.TestCaseAttribute("Java", "Buenos Aires", "Office", null)]
         public async global::System.Threading.Tasks.Task UserPerformsACareerSearchAndVerifiesJobDetails(string searchText, string locationValue, string locationModality, string[] exampleTags)
@@ -125,7 +128,7 @@ namespace DotnetTaskSeleniumNunit.Features
             argumentsOfScenario.Add("locationValue", locationValue);
             argumentsOfScenario.Add("locationModality", locationModality);
             global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("User performs a career search and verifies job details", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 6
+#line 7
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
@@ -138,16 +141,16 @@ this.ScenarioInitialize(scenarioInfo);
 #line 3
 await this.FeatureBackgroundAsync();
 #line hidden
-#line 7
+#line 8
  await testRunner.GivenAsync("the user navigates to the Careers page", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
 #line hidden
-#line 8
- await testRunner.WhenAsync(string.Format("the user searches for a career with \"{0}\", in \"{1}\", and with \"{2}\" modality", searchText, locationValue, locationModality), ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
-#line hidden
 #line 9
- await testRunner.AndAsync("the user applies and views the job from the last section", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
+ await testRunner.WhenAsync(string.Format("the user searches for a career with \"{0}\", in \"{1}\", and with {2} modality", searchText, locationValue, locationModality), ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
 #line 10
+ await testRunner.AndAsync("the user applies and views the job from the last section", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
+#line hidden
+#line 11
  await testRunner.ThenAsync(string.Format("the job details should contain \"{0}\"", searchText), ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
             }

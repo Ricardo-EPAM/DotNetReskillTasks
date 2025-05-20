@@ -1,17 +1,12 @@
 Feature: About tab
 
 Background: User navigate to EPAM and click on accept cookies
-	Given the user accepts cookies
+	Given the user navigates to EPAM
+	And the user accepts cookies
 
 @Files
-Scenario Outline: Debug tiest
-	Given the user navigates to the Careers page
-	When the user searches for a career with "<searchText>", in "b", and with "c" modality
-	And the user applies and views the job from the last section
-	Then the job details should contain "<searchText>"
-
-Examples:
-	| searchText |
-	| b          |
-	| a          |
-
+Scenario: Navigate to About tab and scroll to EPAM At A Glance Section to download a file
+	Given the user navigates to the About page
+	And the user scrolls to the 'EPAM At A Glance' Section
+	When the user clicks on the download button from 'EPAM At A Glance' Section
+	Then the file "EPAM_Corporate_Overview_Q4FY-2024.pdf" is downloaded

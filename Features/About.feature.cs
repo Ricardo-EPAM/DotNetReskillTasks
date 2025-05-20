@@ -107,28 +107,23 @@ namespace DotnetTaskSeleniumNunit.Features
 #line 3
 #line hidden
 #line 4
- await testRunner.GivenAsync("the user accepts cookies", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
+ await testRunner.GivenAsync("the user navigates to EPAM", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
+#line hidden
+#line 5
+ await testRunner.AndAsync("the user accepts cookies", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Debug tiest")]
+        [NUnit.Framework.DescriptionAttribute("Navigate to About tab and scroll to EPAM At A Glance Section to download a file")]
         [NUnit.Framework.CategoryAttribute("Files")]
-        [NUnit.Framework.TestCaseAttribute("b", null)]
-        [NUnit.Framework.TestCaseAttribute("a", null)]
-        public async global::System.Threading.Tasks.Task DebugTiest(string searchText, string[] exampleTags)
+        public async global::System.Threading.Tasks.Task NavigateToAboutTabAndScrollToEPAMAtAGlanceSectionToDownloadAFile()
         {
-            string[] @__tags = new string[] {
+            string[] tagsOfScenario = new string[] {
                     "Files"};
-            if ((exampleTags != null))
-            {
-                @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
-            }
-            string[] tagsOfScenario = @__tags;
             global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
-            argumentsOfScenario.Add("searchText", searchText);
-            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("Debug tiest", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 7
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("Navigate to About tab and scroll to EPAM At A Glance Section to download a file", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 8
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
@@ -141,17 +136,17 @@ this.ScenarioInitialize(scenarioInfo);
 #line 3
 await this.FeatureBackgroundAsync();
 #line hidden
-#line 8
- await testRunner.GivenAsync("the user navigates to the Careers page", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
-#line hidden
 #line 9
- await testRunner.WhenAsync(string.Format("the user searches for a career with \"{0}\", in \"b\", and with \"c\" modality", searchText), ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+ await testRunner.GivenAsync("the user navigates to the About page", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
 #line hidden
 #line 10
- await testRunner.AndAsync("the user applies and views the job from the last section", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
+ await testRunner.AndAsync("the user scrolls to the \'EPAM At A Glance\' Section", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
 #line 11
- await testRunner.ThenAsync(string.Format("the job details should contain \"{0}\"", searchText), ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+ await testRunner.WhenAsync("the user clicks on the download button from \'EPAM At A Glance\' Section", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+#line hidden
+#line 12
+ await testRunner.ThenAsync("the file \"EPAM_Corporate_Overview_Q4FY-2024.pdf\" is downloaded", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
             }
             await this.ScenarioCleanupAsync();

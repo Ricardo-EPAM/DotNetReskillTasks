@@ -105,9 +105,12 @@ namespace DotnetTaskSeleniumNunit.Features
         public virtual async global::System.Threading.Tasks.Task FeatureBackgroundAsync()
         {
 #line 3
-  #line hidden
+#line hidden
 #line 4
-    await testRunner.GivenAsync("the user accepts cookies", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
+ await testRunner.GivenAsync("the user navigates to EPAM", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
+#line hidden
+#line 5
+ await testRunner.AndAsync("the user accepts cookies", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
         }
         
@@ -122,8 +125,8 @@ namespace DotnetTaskSeleniumNunit.Features
             global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
             argumentsOfScenario.Add("searchCriteria", searchCriteria);
             global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("Search using a keyword", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 6
-  this.ScenarioInitialize(scenarioInfo);
+#line 7
+this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
             {
@@ -133,19 +136,19 @@ namespace DotnetTaskSeleniumNunit.Features
             {
                 await this.ScenarioStartAsync();
 #line 3
-  await this.FeatureBackgroundAsync();
-#line hidden
-#line 7
-    await testRunner.GivenAsync("the user clicks on the magnifier icon", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
+await this.FeatureBackgroundAsync();
 #line hidden
 #line 8
-    await testRunner.AndAsync(string.Format("the user enters the keyword \"{0}\" in the global search", searchCriteria), ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
+ await testRunner.GivenAsync("the user clicks on the magnifier icon", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
 #line hidden
 #line 9
-    await testRunner.WhenAsync("the user initiates the search", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+ await testRunner.AndAsync(string.Format("the user enters the keyword \"{0}\" in the global search", searchCriteria), ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
 #line 10
-    await testRunner.ThenAsync(string.Format("all displayed search result links should contain the keyword \"{0}\"", searchCriteria), ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+ await testRunner.WhenAsync("the user initiates the search", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+#line hidden
+#line 11
+ await testRunner.ThenAsync(string.Format("all displayed search result links should contain the keyword \"{0}\"", searchCriteria), ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
             }
             await this.ScenarioCleanupAsync();

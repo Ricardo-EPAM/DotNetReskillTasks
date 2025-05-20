@@ -1,4 +1,5 @@
-﻿using DotnetTaskSeleniumNunit.Enums;
+﻿using System.Text;
+using DotnetTaskSeleniumNunit.Enums;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.WaitHelpers;
 
@@ -79,7 +80,8 @@ internal partial class InsightsPage
         {
             new WebDriverWait(_driver, _configs.UIWaitsConfiguration.DefaultWait).
                 Until(ExpectedConditions.ElementIsVisible(_carouselActiveElement));
-            return CarouselTitle.Text.Trim();
+            var title = CarouselTitle.Text.Trim();
+            return title.Normalize(NormalizationForm.FormC);
         }
         catch (Exception ex)
         {

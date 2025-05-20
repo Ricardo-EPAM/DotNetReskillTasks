@@ -16,6 +16,11 @@ public class ArticleSteps
         _page = new ArticlePage (driver, configs, logger);
     }
 
-
+    [Then("the title from the displayed article is {string}")]
+    public void ValidateArticleTitleIsEqualsToCarouselTitle(string extepctedTitle)
+    {
+        var acticleTitle = _page.GetTitle();
+        Assert.That(acticleTitle, Is.EqualTo(extepctedTitle), "Article title doesn't match the expected value");
+    }
 
 }
