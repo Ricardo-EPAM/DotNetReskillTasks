@@ -112,15 +112,18 @@ namespace DotnetTaskSeleniumNunit.Features
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("User performs a career search and verifies job details")]
-        [NUnit.Framework.TestCaseAttribute("Generative AI", null)]
-        [NUnit.Framework.TestCaseAttribute("Responsible AI", null)]
-        public async global::System.Threading.Tasks.Task UserPerformsACareerSearchAndVerifiesJobDetails(string subItem, string[] exampleTags)
+        [NUnit.Framework.DescriptionAttribute("User navigates to Services AI related link and validates \'Our Related Expertise\' " +
+            "section")]
+        [NUnit.Framework.TestCaseAttribute("Generative AI", "Generative AI | EPAM", null)]
+        [NUnit.Framework.TestCaseAttribute("Responsible AI", "Responsible AI Assessment & Services | EPAM", null)]
+        public async global::System.Threading.Tasks.Task UserNavigatesToServicesAIRelatedLinkAndValidatesOurRelatedExpertiseSection(string subItem, string pageTitle, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
             global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
-            argumentsOfScenario.Add("SubItem", subItem);
-            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("User performs a career search and verifies job details", null, tagsOfScenario, argumentsOfScenario, featureTags);
+            argumentsOfScenario.Add("subItem", subItem);
+            argumentsOfScenario.Add("pageTitle", pageTitle);
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("User navigates to Services AI related link and validates \'Our Related Expertise\' " +
+                    "section", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 6
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -135,10 +138,13 @@ this.ScenarioInitialize(scenarioInfo);
 await this.FeatureBackgroundAsync();
 #line hidden
 #line 7
- await testRunner.GivenAsync("the user navi", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
+ await testRunner.WhenAsync(string.Format("the user navigates to the \'{0}\' sub link from \'Services\'", subItem), ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
 #line 8
- await testRunner.WhenAsync("", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+ await testRunner.ThenAsync(string.Format("the page title is \'{0}\'", pageTitle), ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+#line hidden
+#line 9
+ await testRunner.AndAsync("the user is able to locate the section \'Our Related Expertise\'", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
             }
             await this.ScenarioCleanupAsync();

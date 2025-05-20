@@ -18,7 +18,7 @@ namespace DotnetTaskSeleniumNunit.Features
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Reqnroll", "2.0.0.0")]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
-    [NUnit.Framework.DescriptionAttribute("Global search")]
+    [NUnit.Framework.DescriptionAttribute("Global Search")]
     [NUnit.Framework.FixtureLifeCycleAttribute(NUnit.Framework.LifeCycle.InstancePerTestCase)]
     public partial class GlobalSearchFeature
     {
@@ -27,7 +27,7 @@ namespace DotnetTaskSeleniumNunit.Features
         
         private static string[] featureTags = ((string[])(null));
         
-        private static global::Reqnroll.FeatureInfo featureInfo = new global::Reqnroll.FeatureInfo(new global::System.Globalization.CultureInfo("en-US"), "Features", "Global search", null, global::Reqnroll.ProgrammingLanguage.CSharp, featureTags);
+        private static global::Reqnroll.FeatureInfo featureInfo = new global::Reqnroll.FeatureInfo(new global::System.Globalization.CultureInfo("en-US"), "Features", "Global Search", null, global::Reqnroll.ProgrammingLanguage.CSharp, featureTags);
         
 #line 1 "GlobalSearch.feature"
 #line hidden
@@ -105,28 +105,25 @@ namespace DotnetTaskSeleniumNunit.Features
         public virtual async global::System.Threading.Tasks.Task FeatureBackgroundAsync()
         {
 #line 3
-#line hidden
+  #line hidden
 #line 4
- await testRunner.GivenAsync("the user accepts cookies", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
+    await testRunner.GivenAsync("the user accepts cookies", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
 #line hidden
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("User performs a career search and verifies job details")]
-        [NUnit.Framework.TestCaseAttribute("Golang", "all_locations", "Remote", null)]
-        [NUnit.Framework.TestCaseAttribute("Python", "all_Poland", "Relocation", null)]
-        [NUnit.Framework.TestCaseAttribute(".NET", "Warsaw", "Office", null)]
-        [NUnit.Framework.TestCaseAttribute("Java", "Buenos Aires", "Office", null)]
-        public async global::System.Threading.Tasks.Task UserPerformsACareerSearchAndVerifiesJobDetails(string searchText, string locationValue, string locationModality, string[] exampleTags)
+        [NUnit.Framework.DescriptionAttribute("Search using a keyword")]
+        [NUnit.Framework.TestCaseAttribute("BLOCKCHAIN", null)]
+        [NUnit.Framework.TestCaseAttribute("Cloud", null)]
+        [NUnit.Framework.TestCaseAttribute("Automation", null)]
+        public async global::System.Threading.Tasks.Task SearchUsingAKeyword(string searchCriteria, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
             global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
-            argumentsOfScenario.Add("searchText", searchText);
-            argumentsOfScenario.Add("locationValue", locationValue);
-            argumentsOfScenario.Add("locationModality", locationModality);
-            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("User performs a career search and verifies job details", null, tagsOfScenario, argumentsOfScenario, featureTags);
+            argumentsOfScenario.Add("searchCriteria", searchCriteria);
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("Search using a keyword", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 6
-this.ScenarioInitialize(scenarioInfo);
+  this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
             {
@@ -136,19 +133,19 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 await this.ScenarioStartAsync();
 #line 3
-await this.FeatureBackgroundAsync();
+  await this.FeatureBackgroundAsync();
 #line hidden
 #line 7
- await testRunner.GivenAsync("the user navigates to the Careers page", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
+    await testRunner.GivenAsync("the user clicks on the magnifier icon", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
 #line hidden
 #line 8
- await testRunner.WhenAsync(string.Format("the user searches for a career with \"{0}\", in \"{1}\", and with \"{2}\" modality", searchText, locationValue, locationModality), ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+    await testRunner.AndAsync(string.Format("the user enters the keyword \"{0}\" in the global search", searchCriteria), ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
 #line 9
- await testRunner.AndAsync("the user applies and views the job from the last section", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
+    await testRunner.WhenAsync("the user initiates the search", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
 #line 10
- await testRunner.ThenAsync(string.Format("the job details should contain \"{0}\"", searchText), ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+    await testRunner.ThenAsync(string.Format("all displayed search result links should contain the keyword \"{0}\"", searchCriteria), ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
             }
             await this.ScenarioCleanupAsync();

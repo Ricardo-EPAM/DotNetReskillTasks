@@ -7,12 +7,7 @@ namespace DotnetTaskSeleniumNunit.Pages.About;
 
 internal partial class ServicesPage
 {
-    private readonly By _downloadButtonLink = By.XPath("//a[@download]");
+    private readonly By _LabelOurRelatedExpertise = By.XPath("//span[@class='museo-sans-light' and contains(text(),'Our Related Expertise')]");
 
-    2.	Locate and click on the "Services" link in the main navigation menu.
-3.	From the dropdown, select a specific service category: “Generative AI” or “Responsible AI” (parameterize the category selection).
-4.	Validate that the page contains the correct title.
-5.	Validate that the section ‘Our Related Expertise’ is displayed on the page
-
-    private IWebElement EPAMGlanceDownloadButton => _driver.FindElement(_downloadButtonLink);
+    private IWebElement OurRelatedExpertiseLabel => _driver.FindElement(_LabelOurRelatedExpertise);
 }

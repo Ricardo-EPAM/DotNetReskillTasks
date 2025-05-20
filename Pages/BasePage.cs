@@ -19,4 +19,9 @@ abstract class BasePage
         _configs = configs;
         _logger = logger;
     }
+
+    public string GetPageTitle()
+    {
+        return _driver.Title;
+    }
 }

@@ -1,13 +1,14 @@
 Feature: Services tab
 
-Background: User navigate to EPAM and click on accept cookies
+Background: Accept cookies
 	Given the user accepts cookies
 
-Scenario Outline: User performs a career search and verifies job details
-	Given the user navi
-	When 
+Scenario Outline: User navigates to Services AI related link and validates 'Our Related Expertise' section 
+	When the user navigates to the '<subItem>' sub link from 'Services'
+	Then the page title is '<pageTitle>'
+	And the user is able to locate the section 'Our Related Expertise'
 
 Examples:
-	| SubItem        |
-	| Generative AI  |
-	| Responsible AI |
+	| subItem        | pageTitle                                    |
+	| Generative AI  | Generative AI \| EPAM                        |
+	| Responsible AI | Responsible AI Assessment & Services \| EPAM |

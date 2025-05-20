@@ -63,11 +63,12 @@ internal partial class NavigationBar
     }
     private void ClickSubItemFromHoveredLink(string itemText)
     {
-        _logger.Debug($"Clicking on '{itemText}' link from sub items (Hovered link)");
+        _logger.Debug($"Clicking on '{itemText}' link from sub items (Hovered top section)");
         try
         {
-            new WebDriverWait(_driver, _configs.UIWaitsConfiguration.DefaultWait).
-                 Until(ExpectedConditions.ElementIsVisible(_linkSubItemsContainer));
+            var linkElement = new WebDriverWait(_driver, _configs.UIWaitsConfiguration.DefaultWait).
+                 Until(ExpectedConditions.ElementToBeClickable(SelectElementByText(SubItemsLinks, itemText)));
+            linkElement.Click();
         }
         catch (Exception ex)
         {
