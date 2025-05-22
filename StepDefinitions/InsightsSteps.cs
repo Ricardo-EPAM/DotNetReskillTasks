@@ -1,7 +1,5 @@
-﻿using System.Text;
-using DotnetTaskSeleniumNunit.Enums;
+﻿using DotnetTaskSeleniumNunit.Enums;
 using DotnetTaskSeleniumNunit.Helpers;
-using DotnetTaskSeleniumNunit.Pages.Article;
 using DotnetTaskSeleniumNunit.Pages.Insights;
 using log4net;
 using OpenQA.Selenium;
@@ -29,7 +27,7 @@ public class InsightsSteps
     public void ValidateCarouselTitle(string expectedTitle)
     {
         var carouselTitle = _page.GetCarouselTitle();
-        Assert.That(carouselTitle, Is.EqualTo(expectedTitle.Normalize(NormalizationForm.FormC)));
+        Assert.That(carouselTitle, Is.EqualTo(expectedTitle));
     }
 
     [When("the user clicks on 'Read More' from the carousel active item")]

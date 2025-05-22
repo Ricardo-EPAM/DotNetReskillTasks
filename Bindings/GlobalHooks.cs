@@ -33,7 +33,6 @@ public class GlobalHooks
                 configs.OutputConfiguration,
                 scenarioContext.ScenarioInfo.Title
             );
-
             logger.Error($"Failed scenario screenshot was saved in: {screenshotFileName}");
         }
 

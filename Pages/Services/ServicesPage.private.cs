@@ -13,7 +13,6 @@ internal partial class ServicesPage
         {
             new WebDriverWait(_driver, _configs.UIWaitsConfiguration.DefaultWait).
                 Until(ExpectedConditions.ElementIsVisible(_LabelOurRelatedExpertise));
-            new Actions(_driver).ScrollToElement(OurRelatedExpertiseLabel).Perform();
             return true;
         }
         catch (Exception ex)

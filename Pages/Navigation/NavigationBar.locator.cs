@@ -7,7 +7,7 @@ internal partial class NavigationBar
     private readonly By _TopPageLinks = By.XPath("//a[contains(@class, 'top-navigation__item-link')]");
     private readonly By _TopPageSubLinks = By.CssSelector("a.top-navigation__sub-link");
     private readonly By _linkSubItemsContainer = By.ClassName("top-navigation__sub-items-container");
-    private readonly By _acceptCookiesButton = By.Id("onetrust-accept-btn-handler");
+    private readonly By _acceptCookiesButton = By.XPath("//*[@id='onetrust-accept-btn-handler']");
 
     private IList<IWebElement> TopPageLinks => _driver.FindElements(_TopPageLinks);
     private IWebElement AcceptCookiesButton => _driver.FindElement(_acceptCookiesButton);

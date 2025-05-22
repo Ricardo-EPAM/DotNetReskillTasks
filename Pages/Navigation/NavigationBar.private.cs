@@ -33,15 +33,16 @@ internal partial class NavigationBar
         _logger.Debug($"Trying to accept cookies from recently opened page");
         try
         {
-            var cookiesButton = new WebDriverWait(_driver, _configs.UIWaitsConfiguration.DefaultWait).
+            var cookiesButton = new WebDriverWait(_driver, _configs.UIWaitsConfiguration.ShortWait).
                 Until(ExpectedConditions.ElementToBeClickable(AcceptCookiesButton));
-            cookiesButton.Click();
+            var js = (IJavaScriptExecutor)driver;
+            js.ExecuteScript("arguments[0].click()", cookiesButton);
         }
         catch (Exception ex)
         {
             _logger.Info(_infoCookiesSkipped, ex);
+            throw;
         }
-
     }
 
     private void HoverLink(string linkText)
