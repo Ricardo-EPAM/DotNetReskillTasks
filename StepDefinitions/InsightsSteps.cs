@@ -17,6 +17,7 @@ public class InsightsSteps
         _page = new InsightsPage(driver, configs, logger);
     }
 
+    [Given("the user clicks on the right arrow from carousel {int} time")]
     [Given("the user clicks on the right arrow from carousel {int} times")]
     public void UserSwipesCarousel(int numberOfClicks)
     {

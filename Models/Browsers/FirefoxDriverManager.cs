@@ -9,9 +9,9 @@ class FirefoxDriverManager : IDriverManager
     public IWebDriver CreateDriver(bool isHeadless)
     {
         var options = new FirefoxOptions();
-        //options.SetPreference("dom.webdriver.enabled", false);
-        //options.SetPreference("useAutomationExtension", false);
-        //options.SetPreference("general.useragent.override", "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:106.0) Gecko/20100101 Firefox/106.0");
+        options.SetPreference("dom.webdriver.enabled", false);
+        options.SetPreference("useAutomationExtension", false);
+        options.SetPreference("general.useragent.override", "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:106.0) Gecko/20100101 Firefox/106.0");
 
         if (isHeadless)
         {
