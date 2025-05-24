@@ -1,8 +1,10 @@
 ﻿using DotnetTaskSeleniumNunit.Helpers;
+using log4net;
+using OpenQA.Selenium;
 
 namespace DotnetTaskSeleniumNunit.Pages.JobDetails;
 
-internal partial class JobDetailsPage(POMDependency pomDependencies) : BasePage(pomDependencies)
+internal partial class JobDetailsPage(IWebDriver driver, ConfigsManager configs, ILog logger) : BasePage(driver, configs, logger)
 {
     public string GetJobDescription()
     {

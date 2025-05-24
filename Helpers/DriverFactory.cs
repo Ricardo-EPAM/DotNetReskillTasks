@@ -23,6 +23,7 @@ public class DriverFactory
         {
             BrowserType.Chrome => new ChromeDriverManager(),
             BrowserType.Firefox => new FirefoxDriverManager(),
+            BrowserType.Edge => new EdgeDriverManager(),
             _ => throw new ArgumentException("Browser not supported"),
         };
 

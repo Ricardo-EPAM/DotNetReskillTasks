@@ -1,8 +1,10 @@
 using DotnetTaskSeleniumNunit.Helpers;
+using log4net;
+using OpenQA.Selenium;
 
 namespace DotnetTaskSeleniumNunit.Pages.Navigation;
 
-internal partial class NavigationBar(POMDependency pomDependencies) : BasePage(pomDependencies)
+internal partial class NavigationBar(IWebDriver driver, ConfigsManager configs, ILog logger) : BasePage(driver, configs, logger)
 {
     public void NavigateToCareersPage()
     {
@@ -20,5 +22,11 @@ internal partial class NavigationBar(POMDependency pomDependencies) : BasePage(p
     public void AcceptCookies()
     {
         ClickAcceptCookies();
+    }
+
+    public void HoverServicesLinkAndClickByText(string link, string subItem)
+    {
+        HoverLink(link);
+        ClickSubItemFromHoveredLink(subItem);
     }
 }
