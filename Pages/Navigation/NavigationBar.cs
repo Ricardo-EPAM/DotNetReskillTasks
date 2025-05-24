@@ -1,11 +1,8 @@
-using DotnetTaskSeleniumNunit.Constants;
 using DotnetTaskSeleniumNunit.Helpers;
-using log4net;
-using OpenQA.Selenium;
 
 namespace DotnetTaskSeleniumNunit.Pages.Navigation;
 
-internal partial class NavigationBar(POMDependencies pomDependencies) : BasePage(pomDependencies)
+internal partial class NavigationBar(POMDependency pomDependencies) : BasePage(pomDependencies)
 {
     public void NavigateToCareersPage()
     {

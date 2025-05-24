@@ -1,5 +1,4 @@
-﻿using DotnetTaskSeleniumNunit.Constants;
-using OpenQA.Selenium.Support.UI;
+﻿using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.WaitHelpers;
 
 namespace DotnetTaskSeleniumNunit.Pages.JobDetails;
@@ -8,16 +7,18 @@ internal partial class JobDetailsPage
 {
     private string GetJobDescriptionText()
     {
-		try
-		{
-            new WebDriverWait(_driver, _vars.ExplicitWaitDefault).
-            Until(ExpectedConditions.ElementIsVisible(_vacancyDescription));
+        _logger.Debug($"Getting from vacancy description");
+        try
+        {
+            new WebDriverWait(_driver, _configs.UIWaitsConfiguration.DefaultWait).
+                Until(ExpectedConditions.ElementIsVisible(_vacancyDescription));
             return VacancyDescription.Text;
         }
-		catch (Exception ex)
-		{
+        catch (Exception ex)
+        {
             _logger.Error(_errorGetJobDescription, ex);
-			throw;
-		}
+            throw;
+        }
     }
 }
+

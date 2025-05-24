@@ -1,11 +1,8 @@
-﻿using DotnetTaskSeleniumNunit.Constants;
-using DotnetTaskSeleniumNunit.Helpers;
-using log4net;
-using OpenQA.Selenium;
+﻿using DotnetTaskSeleniumNunit.Helpers;
 
 namespace DotnetTaskSeleniumNunit.Pages.About;
 
-internal partial class AboutPage(POMDependencies pomDependencies) : BasePage(pomDependencies)
+internal partial class AboutPage(POMDependency pomDependencies) : BasePage(pomDependencies)
 {
     public void ScrollToEPAMAtAGlanceSection()
     {

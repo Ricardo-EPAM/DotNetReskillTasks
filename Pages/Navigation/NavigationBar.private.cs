@@ -13,10 +13,11 @@ internal partial class NavigationBar
 
     private void ClickTopLlinkByText(string linkText)
     {
+        _logger.Debug($"Clicking link from top bar using the text '{linkText}'");
         try
         {
-            var foundLink = new WebDriverWait(_driver, _vars.ExplicitWaitDefault).
-            Until(ExpectedConditions.ElementToBeClickable(SelectElementByText(TopPageLinks, linkText)));
+            var foundLink = new WebDriverWait(_driver, _configs.UIWaitsConfiguration.DefaultWait).
+                Until(ExpectedConditions.ElementToBeClickable(SelectElementByText(TopPageLinks, linkText)));
             foundLink.Click();
         }
         catch (Exception ex)
@@ -28,9 +29,10 @@ internal partial class NavigationBar
 
     private void ClickAcceptCookies()
     {
+        _logger.Debug($"Trying to accept cookies from recently opened page");
         try
         {
-            var cookiesButton = new WebDriverWait(_driver, _vars.ExplicitWaitDefault).
+            var cookiesButton = new WebDriverWait(_driver, _configs.UIWaitsConfiguration.DefaultWait).
                 Until(ExpectedConditions.ElementToBeClickable(AcceptCookiesButton));
             cookiesButton.Click();
         }
