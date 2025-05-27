@@ -58,7 +58,7 @@ internal partial class NavigationBar
         }
         catch (Exception ex)
         {
-            _logger.Error(_ErrorHoverLink, ex);
+            _logger.Error(_errorHoverLink, ex);
             throw;
         }
     }
@@ -73,7 +73,7 @@ internal partial class NavigationBar
         }
         catch (Exception ex)
         {
-            _logger.Error(_ErrorClickSubItemFromHoveredLink, ex);
+            _logger.Error(_errorClickSubItemFromHoveredLink, ex);
             throw;
         }
     }

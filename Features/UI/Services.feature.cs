@@ -11,25 +11,25 @@
 #region Designer generated code
 #pragma warning disable
 using Reqnroll;
-namespace DotnetTaskSeleniumNunit.Features
+namespace DotnetTaskSeleniumNunit.Features.UI
 {
     
     
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Reqnroll", "2.0.0.0")]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
-    [NUnit.Framework.DescriptionAttribute("Insights tab")]
+    [NUnit.Framework.DescriptionAttribute("Services tab")]
     [NUnit.Framework.FixtureLifeCycleAttribute(NUnit.Framework.LifeCycle.InstancePerTestCase)]
-    public partial class InsightsTabFeature
+    public partial class ServicesTabFeature
     {
         
         private global::Reqnroll.ITestRunner testRunner;
         
         private static string[] featureTags = ((string[])(null));
         
-        private static global::Reqnroll.FeatureInfo featureInfo = new global::Reqnroll.FeatureInfo(new global::System.Globalization.CultureInfo("en-US"), "Features", "Insights tab", null, global::Reqnroll.ProgrammingLanguage.CSharp, featureTags);
+        private static global::Reqnroll.FeatureInfo featureInfo = new global::Reqnroll.FeatureInfo(new global::System.Globalization.CultureInfo("en-US"), "Features/UI", "Services tab", null, global::Reqnroll.ProgrammingLanguage.CSharp, featureTags);
         
-#line 1 "Insights.feature"
+#line 1 "Services.feature"
 #line hidden
         
         [NUnit.Framework.OneTimeSetUpAttribute()]
@@ -115,20 +115,18 @@ namespace DotnetTaskSeleniumNunit.Features
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("User navigates through carousel and validate titles from carousel and from articl" +
-            "e")]
-        [NUnit.Framework.TestCaseAttribute("1", "Data Literacy in the Age of Generative AI", null)]
-        [NUnit.Framework.TestCaseAttribute("2", "Evolving into Agentic AI: Turning Theory into Action", null)]
-        [NUnit.Framework.TestCaseAttribute("3", "Mastering Cloud Security: Navigating Today’s Threat Landscape", null)]
-        [NUnit.Framework.TestCaseAttribute("4", "The Complex Path of Generative AI Adoption in Software Development", null)]
-        public async global::System.Threading.Tasks.Task UserNavigatesThroughCarouselAndValidateTitlesFromCarouselAndFromArticle(string carouselClicks, string title, string[] exampleTags)
+        [NUnit.Framework.DescriptionAttribute("User navigates to Services AI related link and validates \'Our Related Expertise\' " +
+            "section")]
+        [NUnit.Framework.TestCaseAttribute("Generative AI", "Generative AI | EPAM", null)]
+        [NUnit.Framework.TestCaseAttribute("Responsible AI", "Responsible AI Assessment & Services | EPAM", null)]
+        public async global::System.Threading.Tasks.Task UserNavigatesToServicesAIRelatedLinkAndValidatesOurRelatedExpertiseSection(string subItem, string pageTitle, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
             global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
-            argumentsOfScenario.Add("carouselClicks", carouselClicks);
-            argumentsOfScenario.Add("title", title);
-            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("User navigates through carousel and validate titles from carousel and from articl" +
-                    "e", null, tagsOfScenario, argumentsOfScenario, featureTags);
+            argumentsOfScenario.Add("subItem", subItem);
+            argumentsOfScenario.Add("pageTitle", pageTitle);
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("User navigates to Services AI related link and validates \'Our Related Expertise\' " +
+                    "section", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 7
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -143,19 +141,13 @@ this.ScenarioInitialize(scenarioInfo);
 await this.FeatureBackgroundAsync();
 #line hidden
 #line 8
- await testRunner.GivenAsync("the user navigates to the Insights page", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
+ await testRunner.WhenAsync(string.Format("the user navigates to the \"{0}\" sub link from \'Services\'", subItem), ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
 #line 9
- await testRunner.AndAsync(string.Format("the user clicks on the right arrow from carousel {0} times", carouselClicks), ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
+ await testRunner.ThenAsync(string.Format("the page title is \"{0}\"", pageTitle), ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
 #line 10
- await testRunner.AndAsync(string.Format("the user validates the carousel title is \"{0}\"", title), ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
-#line hidden
-#line 11
- await testRunner.WhenAsync("the user clicks on \'Read More\' from the carousel active item", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
-#line hidden
-#line 12
- await testRunner.ThenAsync(string.Format("the title from the displayed article is \"{0}\"", title), ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+ await testRunner.AndAsync("the user is able to locate the section \'Our Related Expertise\'", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
             }
             await this.ScenarioCleanupAsync();

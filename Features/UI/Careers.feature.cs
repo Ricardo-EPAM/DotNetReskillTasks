@@ -11,25 +11,25 @@
 #region Designer generated code
 #pragma warning disable
 using Reqnroll;
-namespace DotnetTaskSeleniumNunit.Features
+namespace DotnetTaskSeleniumNunit.Features.UI
 {
     
     
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Reqnroll", "2.0.0.0")]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
-    [NUnit.Framework.DescriptionAttribute("Services tab")]
+    [NUnit.Framework.DescriptionAttribute("Careers tab")]
     [NUnit.Framework.FixtureLifeCycleAttribute(NUnit.Framework.LifeCycle.InstancePerTestCase)]
-    public partial class ServicesTabFeature
+    public partial class CareersTabFeature
     {
         
         private global::Reqnroll.ITestRunner testRunner;
         
         private static string[] featureTags = ((string[])(null));
         
-        private static global::Reqnroll.FeatureInfo featureInfo = new global::Reqnroll.FeatureInfo(new global::System.Globalization.CultureInfo("en-US"), "Features", "Services tab", null, global::Reqnroll.ProgrammingLanguage.CSharp, featureTags);
+        private static global::Reqnroll.FeatureInfo featureInfo = new global::Reqnroll.FeatureInfo(new global::System.Globalization.CultureInfo("en-US"), "Features/UI", "Careers tab", null, global::Reqnroll.ProgrammingLanguage.CSharp, featureTags);
         
-#line 1 "Services.feature"
+#line 1 "Careers.feature"
 #line hidden
         
         [NUnit.Framework.OneTimeSetUpAttribute()]
@@ -115,18 +115,19 @@ namespace DotnetTaskSeleniumNunit.Features
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("User navigates to Services AI related link and validates \'Our Related Expertise\' " +
-            "section")]
-        [NUnit.Framework.TestCaseAttribute("Generative AI", "Generative AI | EPAM", null)]
-        [NUnit.Framework.TestCaseAttribute("Responsible AI", "Responsible AI Assessment & Services | EPAM", null)]
-        public async global::System.Threading.Tasks.Task UserNavigatesToServicesAIRelatedLinkAndValidatesOurRelatedExpertiseSection(string subItem, string pageTitle, string[] exampleTags)
+        [NUnit.Framework.DescriptionAttribute("User performs a career search and verifies job details")]
+        [NUnit.Framework.TestCaseAttribute("Golang", "all_locations", "Remote", null)]
+        [NUnit.Framework.TestCaseAttribute("Python", "all_Spain", "Relocation", null)]
+        [NUnit.Framework.TestCaseAttribute(".NET", "Warsaw", "Office", null)]
+        [NUnit.Framework.TestCaseAttribute("Java", "Buenos Aires", "Office", null)]
+        public async global::System.Threading.Tasks.Task UserPerformsACareerSearchAndVerifiesJobDetails(string searchText, string locationValue, string locationModality, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
             global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
-            argumentsOfScenario.Add("subItem", subItem);
-            argumentsOfScenario.Add("pageTitle", pageTitle);
-            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("User navigates to Services AI related link and validates \'Our Related Expertise\' " +
-                    "section", null, tagsOfScenario, argumentsOfScenario, featureTags);
+            argumentsOfScenario.Add("searchText", searchText);
+            argumentsOfScenario.Add("locationValue", locationValue);
+            argumentsOfScenario.Add("locationModality", locationModality);
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("User performs a career search and verifies job details", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 7
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -141,13 +142,16 @@ this.ScenarioInitialize(scenarioInfo);
 await this.FeatureBackgroundAsync();
 #line hidden
 #line 8
- await testRunner.WhenAsync(string.Format("the user navigates to the \'{0}\' sub link from \'Services\'", subItem), ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+ await testRunner.GivenAsync("the user navigates to the Careers page", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
 #line hidden
 #line 9
- await testRunner.ThenAsync(string.Format("the page title is \'{0}\'", pageTitle), ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+ await testRunner.WhenAsync(string.Format("the user searches for a career with \"{0}\", in \"{1}\", and with \"{2}\" modality", searchText, locationValue, locationModality), ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
 #line 10
- await testRunner.AndAsync("the user is able to locate the section \'Our Related Expertise\'", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
+ await testRunner.AndAsync("the user applies and views the job from the last section", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
+#line hidden
+#line 11
+ await testRunner.ThenAsync(string.Format("the job details should contain \"{0}\"", searchText), ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
             }
             await this.ScenarioCleanupAsync();

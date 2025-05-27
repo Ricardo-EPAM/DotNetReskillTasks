@@ -16,7 +16,7 @@ public class ServicesSteps
         _page = new ServicesPage(driver, configs, logger);
     }
 
-    [Then("the user is able to locate the section 'Our Related Expertise'")]
+    [Then("the user is able to locate the section \"Our Related Expertise\"")]
     public void UserIsAbleToLocateSectionOurRelatedExpertise()
     {
         Assert.That(_page.IsOurRelatedExpertiseVisibleOnPage(), Is.True, "The section 'Our Related Expertise' was not found");

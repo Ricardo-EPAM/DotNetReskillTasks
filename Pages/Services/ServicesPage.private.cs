@@ -12,8 +12,8 @@ internal partial class ServicesPage
         try
         {
             new WebDriverWait(_driver, _configs.UIWaitsConfiguration.DefaultWait).
-                Until(ExpectedConditions.ElementIsVisible(_LabelOurRelatedExpertise));
-            return true;
+                Until(ExpectedConditions.ElementIsVisible(_labelOurRelatedExpertise));
+            return OurRelatedExpertiseLabel.Displayed;
         }
         catch (Exception ex)
         {

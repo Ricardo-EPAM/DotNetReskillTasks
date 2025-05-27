@@ -30,6 +30,7 @@ public class GlobalHooks
         {
             var screenshotFileName = ScreenshotHelper.TakesScreenshotIfFailed(
                 driver,
+                logger,
                 configs.OutputConfiguration,
                 scenarioContext.ScenarioInfo.Title
             );
