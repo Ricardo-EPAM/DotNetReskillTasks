@@ -1,4 +1,5 @@
-Feature: Careers tab
+ @UI
+ Feature: Careers tab
 
 Background: User navigate to EPAM and click on accept cookies
 	Given the user navigates to EPAM

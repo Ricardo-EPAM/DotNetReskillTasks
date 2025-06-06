@@ -20,12 +20,14 @@ namespace DotnetTaskSeleniumNunit.Features
     [NUnit.Framework.TestFixtureAttribute()]
     [NUnit.Framework.DescriptionAttribute("Global Search")]
     [NUnit.Framework.FixtureLifeCycleAttribute(NUnit.Framework.LifeCycle.InstancePerTestCase)]
+    [NUnit.Framework.CategoryAttribute("UI")]
     public partial class GlobalSearchFeature
     {
         
         private global::Reqnroll.ITestRunner testRunner;
         
-        private static string[] featureTags = ((string[])(null));
+        private static string[] featureTags = new string[] {
+                "UI"};
         
         private static global::Reqnroll.FeatureInfo featureInfo = new global::Reqnroll.FeatureInfo(new global::System.Globalization.CultureInfo("en-US"), "Features", "Global Search", null, global::Reqnroll.ProgrammingLanguage.CSharp, featureTags);
         
@@ -104,12 +106,12 @@ namespace DotnetTaskSeleniumNunit.Features
         
         public virtual async global::System.Threading.Tasks.Task FeatureBackgroundAsync()
         {
-#line 3
-#line hidden
 #line 4
- await testRunner.GivenAsync("the user navigates to EPAM", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
 #line hidden
 #line 5
+ await testRunner.GivenAsync("the user navigates to EPAM", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
+#line hidden
+#line 6
  await testRunner.AndAsync("the user accepts cookies", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
         }
@@ -125,7 +127,7 @@ namespace DotnetTaskSeleniumNunit.Features
             global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
             argumentsOfScenario.Add("searchCriteria", searchCriteria);
             global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("Search using a keyword", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 7
+#line 8
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
@@ -135,19 +137,19 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 await this.ScenarioStartAsync();
-#line 3
+#line 4
 await this.FeatureBackgroundAsync();
 #line hidden
-#line 8
+#line 9
  await testRunner.GivenAsync("the user clicks on the magnifier icon", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
 #line hidden
-#line 9
+#line 10
  await testRunner.AndAsync(string.Format("the user enters the keyword \"{0}\" in the global search", searchCriteria), ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
-#line 10
+#line 11
  await testRunner.WhenAsync("the user initiates the search", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
-#line 11
+#line 12
  await testRunner.ThenAsync(string.Format("all displayed search result links should contain the keyword \"{0}\"", searchCriteria), ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
             }

@@ -20,12 +20,14 @@ namespace DotnetTaskSeleniumNunit.Features
     [NUnit.Framework.TestFixtureAttribute()]
     [NUnit.Framework.DescriptionAttribute("Services tab")]
     [NUnit.Framework.FixtureLifeCycleAttribute(NUnit.Framework.LifeCycle.InstancePerTestCase)]
+    [NUnit.Framework.CategoryAttribute("UI")]
     public partial class ServicesTabFeature
     {
         
         private global::Reqnroll.ITestRunner testRunner;
         
-        private static string[] featureTags = ((string[])(null));
+        private static string[] featureTags = new string[] {
+                "UI"};
         
         private static global::Reqnroll.FeatureInfo featureInfo = new global::Reqnroll.FeatureInfo(new global::System.Globalization.CultureInfo("en-US"), "Features", "Services tab", null, global::Reqnroll.ProgrammingLanguage.CSharp, featureTags);
         
@@ -104,12 +106,12 @@ namespace DotnetTaskSeleniumNunit.Features
         
         public virtual async global::System.Threading.Tasks.Task FeatureBackgroundAsync()
         {
-#line 3
-#line hidden
 #line 4
- await testRunner.GivenAsync("the user navigates to EPAM", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
 #line hidden
 #line 5
+ await testRunner.GivenAsync("the user navigates to EPAM", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
+#line hidden
+#line 6
  await testRunner.AndAsync("the user accepts cookies", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
         }
@@ -127,7 +129,7 @@ namespace DotnetTaskSeleniumNunit.Features
             argumentsOfScenario.Add("pageTitle", pageTitle);
             global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("User navigates to Services AI related link and validates \'Our Related Expertise\' " +
                     "section", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 7
+#line 8
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
@@ -137,16 +139,16 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 await this.ScenarioStartAsync();
-#line 3
+#line 4
 await this.FeatureBackgroundAsync();
 #line hidden
-#line 8
+#line 9
  await testRunner.WhenAsync(string.Format("the user navigates to the \'{0}\' sub link from \'Services\'", subItem), ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
-#line 9
+#line 10
  await testRunner.ThenAsync(string.Format("the page title is \'{0}\'", pageTitle), ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
-#line 10
+#line 11
  await testRunner.AndAsync("the user is able to locate the section \'Our Related Expertise\'", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
             }

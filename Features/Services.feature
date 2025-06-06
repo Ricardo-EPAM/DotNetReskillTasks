@@ -1,4 +1,5 @@
-Feature: Services tab
+ @UI
+ Feature: Services tab
 
 Background: Accept cookies
 	Given the user navigates to EPAM
