@@ -11,7 +11,7 @@ internal partial class ArticlePage
         try
         {
             new WebDriverWait(_driver, _configs.UIWaitsConfiguration.DefaultWait).
-                Until(ExpectedConditions.ElementIsVisible(_artivcleTitle));
+                Until(ExpectedConditions.ElementIsVisible(_articleTitle));
             return ArticleTitle.Text;
         }
         catch (Exception ex)

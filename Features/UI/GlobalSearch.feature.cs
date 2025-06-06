@@ -11,7 +11,7 @@
 #region Designer generated code
 #pragma warning disable
 using Reqnroll;
-namespace DotnetTaskSeleniumNunit.Features
+namespace DotnetTaskSeleniumNunit.Features.UI
 {
     
     
@@ -29,7 +29,7 @@ namespace DotnetTaskSeleniumNunit.Features
         private static string[] featureTags = new string[] {
                 "UI"};
         
-        private static global::Reqnroll.FeatureInfo featureInfo = new global::Reqnroll.FeatureInfo(new global::System.Globalization.CultureInfo("en-US"), "Features", "Global Search", null, global::Reqnroll.ProgrammingLanguage.CSharp, featureTags);
+        private static global::Reqnroll.FeatureInfo featureInfo = new global::Reqnroll.FeatureInfo(new global::System.Globalization.CultureInfo("en-US"), "Features/UI", "Global Search", null, global::Reqnroll.ProgrammingLanguage.CSharp, featureTags);
         
 #line 1 "GlobalSearch.feature"
 #line hidden
