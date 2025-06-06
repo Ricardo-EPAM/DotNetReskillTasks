@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium.Interactions;
+﻿using OpenQA.Selenium;
+using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.WaitHelpers;
 
@@ -13,7 +14,8 @@ internal partial class AboutPage
         {
             new WebDriverWait(_driver, _configs.UIWaitsConfiguration.DefaultWait).
                 Until(ExpectedConditions.PresenceOfAllElementsLocatedBy(_epamGlanceSection));
-            new Actions(_driver).ScrollToElement(EPAMGlanceSection).Perform();
+            var js = (IJavaScriptExecutor)_driver;
+            js.ExecuteScript("arguments[0].scrollIntoView(true);", EPAMGlanceSection);
         }
         catch (Exception ex)
         {
