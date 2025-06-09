@@ -15,14 +15,12 @@ Scenario: Validate that the list of users can be received successfully
 		| Phone    |
 		| Website  |
 		| Company  |
-	And wait 3 seconds
 
 Scenario: Validate response Content-type from Users enpoint
 	Given I create a GET request to the "users" endpoint
 	When I send the request
 	Then the response status code is OK
 	And the response header should contain content-type as "application/json; charset=utf-8"
-	And wait 3 seconds
 
 
 Scenario: Validate response body from Users enpoint
@@ -33,7 +31,6 @@ Scenario: Validate response body from Users enpoint
 	And each user should have a unique id
 	And each user should have non-empty name and username
 	And each user should contain a company with a non-empty name
-	And wait 3 seconds
 
 
 Scenario Outline: Validate that a user can be created
@@ -45,7 +42,6 @@ Scenario Outline: Validate that a user can be created
 	When I send the request
 	Then the response status code is Created
 	And the response contains the field "id"
-	And wait 3 seconds
 
 
 Examples:
@@ -57,5 +53,4 @@ Scenario: Validate that error is displayed when an invalid endpoint is called
 	Given I create a GET request to the "invalid" endpoint
 	When I send the request
 	Then the response status code is NotFound
-	And wait 3 seconds
 

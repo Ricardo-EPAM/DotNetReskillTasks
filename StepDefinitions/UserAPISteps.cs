@@ -105,10 +105,4 @@ public class UserAPISteps
         var fieldFound = _helpers.GetFieldFromResponse<User>(_response, fieldName);
         Assert.That(fieldFound, Is.Not.Null.And.Not.WhiteSpace.And.Not.Empty, $"Response did not contain the field {fieldName}: {_response.Content}");
     }
-    
-    [Then("wait {int} seconds")]
-    public void test1(int seconds)
-    {
-        Thread.Sleep(seconds*1000);
-    }
 }
