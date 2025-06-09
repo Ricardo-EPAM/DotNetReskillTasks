@@ -1,4 +1,5 @@
-Feature: Global Search
+ @UI
+ Feature: Global Search
 
 Background:
 	Given the user navigates to EPAM

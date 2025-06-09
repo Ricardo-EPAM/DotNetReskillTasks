@@ -1,4 +1,5 @@
-﻿Feature: Insights tab
+﻿ @UI
+ Feature: Insights tab
 
 Background: User navigate to EPAM and click on accept cookies
 	Given the user navigates to EPAM

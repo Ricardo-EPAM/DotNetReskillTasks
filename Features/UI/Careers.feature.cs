@@ -20,12 +20,14 @@ namespace DotnetTaskSeleniumNunit.Features.UI
     [NUnit.Framework.TestFixtureAttribute()]
     [NUnit.Framework.DescriptionAttribute("Careers tab")]
     [NUnit.Framework.FixtureLifeCycleAttribute(NUnit.Framework.LifeCycle.InstancePerTestCase)]
+    [NUnit.Framework.CategoryAttribute("UI")]
     public partial class CareersTabFeature
     {
         
         private global::Reqnroll.ITestRunner testRunner;
         
-        private static string[] featureTags = ((string[])(null));
+        private static string[] featureTags = new string[] {
+                "UI"};
         
         private static global::Reqnroll.FeatureInfo featureInfo = new global::Reqnroll.FeatureInfo(new global::System.Globalization.CultureInfo("en-US"), "Features/UI", "Careers tab", null, global::Reqnroll.ProgrammingLanguage.CSharp, featureTags);
         
@@ -104,12 +106,12 @@ namespace DotnetTaskSeleniumNunit.Features.UI
         
         public virtual async global::System.Threading.Tasks.Task FeatureBackgroundAsync()
         {
-#line 3
-#line hidden
 #line 4
- await testRunner.GivenAsync("the user navigates to EPAM", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
 #line hidden
 #line 5
+ await testRunner.GivenAsync("the user navigates to EPAM", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
+#line hidden
+#line 6
  await testRunner.AndAsync("the user accepts cookies", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
         }
@@ -128,7 +130,7 @@ namespace DotnetTaskSeleniumNunit.Features.UI
             argumentsOfScenario.Add("locationValue", locationValue);
             argumentsOfScenario.Add("locationModality", locationModality);
             global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("User performs a career search and verifies job details", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 7
+#line 8
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
@@ -138,19 +140,19 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 await this.ScenarioStartAsync();
-#line 3
+#line 4
 await this.FeatureBackgroundAsync();
 #line hidden
-#line 8
+#line 9
  await testRunner.GivenAsync("the user navigates to the Careers page", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
 #line hidden
-#line 9
- await testRunner.WhenAsync(string.Format("the user searches for a career with \"{0}\", in \"{1}\", and with \"{2}\" modality", searchText, locationValue, locationModality), ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
-#line hidden
 #line 10
- await testRunner.AndAsync("the user applies and views the job from the last section", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
+ await testRunner.WhenAsync(string.Format("the user searches for a career with \"{0}\", in \"{1}\", and with {2} modality", searchText, locationValue, locationModality), ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
 #line 11
+ await testRunner.AndAsync("the user applies and views the job from the last section", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
+#line hidden
+#line 12
  await testRunner.ThenAsync(string.Format("the job details should contain \"{0}\"", searchText), ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
             }

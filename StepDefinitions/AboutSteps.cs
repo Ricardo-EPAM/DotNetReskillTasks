@@ -1,7 +1,6 @@
 ﻿using DotnetTaskSeleniumNunit.Enums;
 using DotnetTaskSeleniumNunit.Helpers;
 using DotnetTaskSeleniumNunit.Pages.About;
-using DotnetTaskSeleniumNunit.Pages.Article;
 using log4net;
 using OpenQA.Selenium;
 using Reqnroll;

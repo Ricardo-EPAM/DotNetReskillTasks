@@ -20,12 +20,14 @@ namespace DotnetTaskSeleniumNunit.Features.UI
     [NUnit.Framework.TestFixtureAttribute()]
     [NUnit.Framework.DescriptionAttribute("Insights tab")]
     [NUnit.Framework.FixtureLifeCycleAttribute(NUnit.Framework.LifeCycle.InstancePerTestCase)]
+    [NUnit.Framework.CategoryAttribute("UI")]
     public partial class InsightsTabFeature
     {
         
         private global::Reqnroll.ITestRunner testRunner;
         
-        private static string[] featureTags = ((string[])(null));
+        private static string[] featureTags = new string[] {
+                "UI"};
         
         private static global::Reqnroll.FeatureInfo featureInfo = new global::Reqnroll.FeatureInfo(new global::System.Globalization.CultureInfo("en-US"), "Features/UI", "Insights tab", null, global::Reqnroll.ProgrammingLanguage.CSharp, featureTags);
         
@@ -104,12 +106,12 @@ namespace DotnetTaskSeleniumNunit.Features.UI
         
         public virtual async global::System.Threading.Tasks.Task FeatureBackgroundAsync()
         {
-#line 3
-#line hidden
 #line 4
- await testRunner.GivenAsync("the user navigates to EPAM", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
 #line hidden
 #line 5
+ await testRunner.GivenAsync("the user navigates to EPAM", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
+#line hidden
+#line 6
  await testRunner.AndAsync("the user accepts cookies", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
         }
@@ -129,7 +131,7 @@ namespace DotnetTaskSeleniumNunit.Features.UI
             argumentsOfScenario.Add("title", title);
             global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("User navigates through carousel and validate titles from carousel and from articl" +
                     "e", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 7
+#line 8
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
@@ -139,22 +141,22 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 await this.ScenarioStartAsync();
-#line 3
+#line 4
 await this.FeatureBackgroundAsync();
 #line hidden
-#line 8
+#line 9
  await testRunner.GivenAsync("the user navigates to the Insights page", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
 #line hidden
-#line 9
+#line 10
  await testRunner.AndAsync(string.Format("the user clicks on the right arrow from carousel {0} times", carouselClicks), ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
-#line 10
+#line 11
  await testRunner.AndAsync(string.Format("the user validates the carousel title is \"{0}\"", title), ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
-#line 11
+#line 12
  await testRunner.WhenAsync("the user clicks on \'Read More\' from the carousel active item", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
-#line 12
+#line 13
  await testRunner.ThenAsync(string.Format("the title from the displayed article is \"{0}\"", title), ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
             }

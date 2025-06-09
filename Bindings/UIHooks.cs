@@ -7,15 +7,15 @@ using Reqnroll;
 namespace DotnetTaskSeleniumNunit.Bindings;
 
 [Binding]
-public class GlobalHooks
+public class UIHooks
 {
-    [BeforeFeature]
+    [BeforeFeature("@UI")]
     public static void BeforeFeature(FeatureContext featureContext, ILog logger)
     {
         logger.Info($"Initializing feature: {featureContext.FeatureInfo.Title}");
     }
 
-    [BeforeScenario]
+    [BeforeScenario("@UI")]
     public void BeforeScenario(ScenarioContext scenarioContext, ILog logger, IWebDriver driver, ConfigsManager configs)
     {
         logger.Info($"Setting up test scenario: {scenarioContext.ScenarioInfo.Title}");
@@ -23,7 +23,7 @@ public class GlobalHooks
         logger.Info($"Initialized web driver for scenario: {scenarioContext.ScenarioInfo.Title}");
     }
 
-    [AfterScenario(Order = 1)]
+    [AfterScenario("@UI", Order = 1)]
     public void AfterScenario(ScenarioContext scenarioContext, ILog logger, IWebDriver driver, ConfigsManager configs)
     {
         if (scenarioContext.ScenarioExecutionStatus == ScenarioExecutionStatus.TestError)
@@ -41,7 +41,7 @@ public class GlobalHooks
         logger.Info($"Scenario finalized: {scenarioContext.ScenarioInfo.Title}");
     }
 
-    [AfterScenario("@Files", Order = 0)]
+    [AfterScenario(["@Files", "@UI"], Order = 0)]
     public void AfterFilesScenario(ScenarioContext scenarioContext, ILog logger)
     {
         if (scenarioContext.ScenarioInfo.Tags.Contains("RequiresDirectoryCleanUp"))
