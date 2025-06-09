@@ -1,20 +1,23 @@
-﻿using System.Reflection;
+﻿using System.Net;
 using System.Text.Json;
 using DotnetTaskSeleniumNunit.Helpers;
 using DotnetTaskSeleniumNunit.Models.API;
+using log4net;
 using Reqnroll;
 using RestSharp;
 
 [Binding]
-public class APISteps
+public class UserAPISteps
 {
     private RestResponse _response;
+    private APIHelpers _helpers;
     private List<User> _users;
     private readonly RequestBuilder _requestBuilder;
 
-    public APISteps(ConfigsManager configs)
+    public UserAPISteps(ConfigsManager configs, ILog logger)
     {
         _requestBuilder = new RequestBuilder(configs.AppConfiguration.APIBaseURL);
+        _helpers = new APIHelpers(logger);
     }
 
     [Given("I create a {Method} request to the {string} endpoint")]
@@ -31,19 +34,16 @@ public class APISteps
         _response = await _requestBuilder.SendAsync();
     }
 
-    [Then("the response status code is {string}")]
-    public void ThenTheResponseStatusCodeIs(string statusCode)
+    [Then("the response status code is {HttpStatusCode}")]
+    public void ThenTheResponseStatusCodeIs(HttpStatusCode statusCode)
     {
-        var response_status =_response.StatusCode.ToString();
-        Assert.That(response_status, Is.EqualTo(statusCode));
+        Assert.That(_response.StatusCode, Is.EqualTo(statusCode));
     }
 
     [Then("the response should contain a list of users with the following fields:")]
     public void ThenTheResponseShouldContainAListOfUsersWithTheFollowingFields(Table table)
     {
-        ArgumentNullException.ThrowIfNull(_response);
         _users = JsonSerializer.Deserialize<List<User>>(_response.Content);
-
         Assert.Multiple(() =>
         {
             foreach (var user in _users)
@@ -60,15 +60,15 @@ public class APISteps
     [Then("the response header should contain content-type as {string}")]
     public void ThenTheResponseHeaderShouldContainContentTypeAs(string expectedContentType)
     {
-        string actualContentType = _response.ContentHeaders.FirstOrDefault(h => h.Name.Contains("Content-Type")).Value;
+        string actualContentType = _helpers.GetFullContentType(_response);
         Assert.That(actualContentType, Is.EqualTo(expectedContentType));
     }
 
     [Then("the response should contain an array of {int} users")]
     public void ThenTheResponseShouldContainAnArrayOfUsers(int expectedCount)
     {
-        _users = JsonSerializer.Deserialize<List<User>>(_response.Content);
-        Assert.That(_users.Count, Is.EqualTo(expectedCount));
+        _users = _helpers.DeserializeResponseIntoListOf<User>(_response);
+        Assert.That(_users, Has.Count.EqualTo(expectedCount));
     }
 
     [Then("each user should have a unique id")]
@@ -81,26 +81,15 @@ public class APISteps
     [Then("each user should have non-empty name and username")]
     public void ThenEachUserShouldHaveNonEmptyNameAndUsername()
     {
-        Assert.Multiple(() =>
-        {
-            foreach (var user in _users)
-            {
-                Assert.That(user.Name, Is.Not.Null.And.Not.WhiteSpace);
-                Assert.That(user.Username, Is.Not.Null.And.Not.WhiteSpace);
-            }
-        });
+        _helpers.ValidateFieldIsNotNullFromListOf<User>(_users, "Name");
+        _helpers.ValidateFieldIsNotNullFromListOf<User>(_users, "Username");
+
     }
 
     [Then("each user should contain a company with a non-empty name")]
     public void ThenEachUserShouldContainACompanyWithANonEmptyName()
     {
-        Assert.Multiple(() =>
-        {
-            foreach (var user in _users)
-            {
-                Assert.That(user.Company.Name, Is.Not.Null.And.Not.WhiteSpace);
-            }
-        });
+        _helpers.ValidateFieldIsNotNullFromListOfObjects<User>(_users, "Company", "Name");
     }
 
     [Given("I add the following data to the request body in JSON format:")]
@@ -113,10 +102,13 @@ public class APISteps
     [Then("the response contains the field {string}")]
     public void ThenTheResponseContainTheField(string fieldName)
     {
-        ArgumentNullException.ThrowIfNull(_response.Content);
-        User? requestResponse = JsonSerializer.Deserialize<User>(_response.Content);
-        ArgumentNullException.ThrowIfNull(requestResponse);
-        var deserializedField = requestResponse.GetType().GetProperty(fieldName, BindingFlags.Public | BindingFlags.Instance | BindingFlags.IgnoreCase);
-        Assert.That(deserializedField, Is.Not.Null, $"Actual response: {_response.Content}");
+        var fieldFound = _helpers.GetFieldFromResponse<User>(_response, fieldName);
+        Assert.That(fieldFound, Is.Not.Null.And.Not.WhiteSpace.And.Not.Empty, $"Response did not contain the field {fieldName}: {_response.Content}");
+    }
+    
+    [Then("wait {int} seconds")]
+    public void test1(int seconds)
+    {
+        Thread.Sleep(seconds*1000);
     }
 }

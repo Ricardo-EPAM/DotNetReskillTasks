@@ -3,7 +3,7 @@
 
 public class RequestBuilder(string baseUrl)
 {
-    private readonly RestClient _client = new RestClient(baseUrl);
+    private readonly IRestClient _client = new RestClient(baseUrl);
     private RestRequest _request;
 
     public RequestBuilder WithEndpoint(string endpoint)
@@ -38,6 +38,8 @@ public class RequestBuilder(string baseUrl)
 
     public async Task<RestResponse> SendAsync()
     {
-        return await _client.ExecuteAsync(_request);
+        var response = await _client.ExecuteAsync(_request);
+        ArgumentNullException.ThrowIfNull(response.Content);
+        return response; 
     }
 }
