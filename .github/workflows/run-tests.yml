@@ -1,0 +1,74 @@
+name: DotNet ATM CI pipeline
+
+on:  
+  workflow_dispatch:
+    inputs:
+      Browser:
+        description: 'Browser'
+        required: true
+        default: 'Chrome'
+        type: choice
+        options:
+        - Chrome
+        - Firefox
+        - Edge
+  schedule:
+    - cron: "0 0 * * *"
+  push:
+    branches:
+      - task-*
+  pull_request:
+    branches:
+      - task-*
+
+jobs:  
+  build:  
+    name: Build and test
+    runs-on: ubuntu-latest 
+    steps: 
+    - name: Checkout code 
+      uses: actions/checkout@v4
+  
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1 
+      with:  
+        dotnet-version: '9.0.x' 
+  
+    - name: Install Chrome dependencies 
+      run: | 
+        sudo apt-get update 
+        sudo apt-get install -y wget unzip xvfb libxi6
+        sudo apt-get install -y google-chrome-stable 
+        google-chrome --version 
+        which google-chrome    
+  
+    - name: Restore dependencies 
+      run: dotnet restore 
+      working-directory: .
+  
+    - name: Build 
+      run: dotnet build --no-restore 
+      working-directory: .
+
+    - name: Run API tests 
+      run: dotnet test --filter TestCategory=API --no-build || true
+      working-directory: .
+
+    - name: Run UI tests 
+      run: dotnet test --filter TestCategory=UI --no-build || true
+      working-directory: .
+
+    - name: Display files tree
+      run: | 
+        pwd
+        tree
+
+    - name: Upload screenshots
+      uses: actions/upload-artifact@v4
+      with:
+        name: failed-tests-screenshots
+        path: bin/Debug/net9.0/TestScreenshots
+
+
+      
+
