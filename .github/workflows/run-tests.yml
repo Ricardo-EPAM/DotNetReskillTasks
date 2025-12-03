@@ -1,14 +1,6 @@
 name: DotNet ATM CI pipeline
 
 on:  
-  schedule:
-    - cron: "0 0 * * *"
-  push:
-    branches:
-      - task-*
-  pull_request:
-    branches:
-      - task-*
   workflow_dispatch:
     inputs:
       Browser:
@@ -20,6 +12,15 @@ on:
         - Chrome
         - Firefox
         - Edge
+  schedule:
+    - cron: "0 0 * * *"
+  push:
+    branches:
+      - task-*
+  pull_request:
+    branches:
+      - task-*
+
 jobs:  
   build:  
     name: Build and test
