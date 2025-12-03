@@ -9,8 +9,17 @@ on:
   pull_request:
     branches:
       - task-*
-  workflow_dispatch: 
-
+  workflow_dispatch:
+    inputs:
+      Browser:
+        description: 'Browser'
+        required: true
+        default: 'Chrome'
+        type: choice
+        options:
+        - Chrome
+        - Firefox
+        - Edge
 jobs:  
   build:  
     name: Build and test
