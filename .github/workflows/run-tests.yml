@@ -32,16 +32,42 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v1 
       with:  
-        dotnet-version: '9.0.x' 
+        dotnet-version: '9.0.x'
+        
+    - name: Set Browser environment variable
+      run: echo "BROWSER=${{ github.event.inputs.Browser }}" >> $GITHUB_ENV
   
-    - name: Install Chrome dependencies 
-      run: | 
-        sudo apt-get update 
+    - name: Install Chrome dependencies
+      if: ${{ github.event.inputs.Browser == 'Chrome' }}
+      run: |
+        sudo apt-get update
         sudo apt-get install -y wget unzip xvfb libxi6
-        sudo apt-get install -y google-chrome-stable 
-        google-chrome --version 
-        which google-chrome    
-  
+        sudo apt-get install -y google-chrome-stable
+        google-chrome --version
+        which google-chrome
+    
+    - name: Install Firefox dependencies
+      if: ${{ github.event.inputs.Browser == 'Firefox' }}
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y wget unzip xvfb libxi6
+        sudo apt-get install -y firefox
+        firefox --version
+        which firefox
+    
+    - name: Install Edge dependencies
+      if: ${{ github.event.inputs.Browser == 'Edge' }}
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y wget unzip xvfb libxi6
+        # Instalar Edge en Ubuntu requiere agregar el repositorio de Microsoft
+        wget https://packages.microsoft.com/keys/microsoft.asc -O- | sudo apt-key add -
+        sudo add-apt-repository "deb [arch=amd64] https://packages.microsoft.com/repos/edge stable main"
+        sudo apt-get update
+        sudo apt-get install -y microsoft-edge-stable
+        microsoft-edge --version
+        which microsoft-edge
+      
     - name: Restore dependencies 
       run: dotnet restore 
       working-directory: .
